@@ -1,0 +1,1 @@
+{ "v": 1, "issue": 2, "outcome": "escalated", "reasons": ["fix gates failed: diff 260 lines > cap 200"] }

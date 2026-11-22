@@ -1,0 +1,5 @@
+{ "v": 1, "summary": { "pass": 3, "fail": 1, "pending": 0, "untested": 0 },
+  "edges": [{ "contract": "TickResponse", "producer": "brain", "consumer": "world", "status": "fail", "topFailure": "handler tick returned an invalid TickResponse", "repro": "npx lanes check --lane brain --seed 42" },
+            { "contract": "Haunt", "producer": "crowd", "consumer": "world", "status": "pass" }],
+  "change": { "classification": "minor", "reasons": ["Haunt: fixture added: fixtures/Haunt/valid/chill.json"] },
+  "overrides": [{ "file": "apps/world/x.ts", "reason": "pairing with world" }], "queue": { "state": "waiting" } }

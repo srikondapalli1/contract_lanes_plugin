@@ -1,0 +1,3 @@
+{ "v": 1, "event": "guard", "setup": { "lane": "brain" },
+  "stdin": { "hook_event_name": "PreToolUse", "cwd": "${ROOT}", "tool_name": "Edit", "tool_input": { "file_path": "${ROOT}/apps/world/src/apply.ts" } },
+  "expect": { "exit": 2, "stderrIncludes": ["Blocked: apps/world/src/apply.ts belongs to lane \"world\"; you are in \"brain\".", "msg world --type request \"<what you need>\"", "override apps/world/src/apply.ts --reason \"<why>\""], "maxMs": 1000 } }

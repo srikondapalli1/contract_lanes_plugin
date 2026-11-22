@@ -1,0 +1,13 @@
+{
+  "name": "contract-lanes",
+  "owner": { "name": "srikondapalli1" },
+  "metadata": { "description": "Lanes: contract-first parallel development for coding agents" },
+  "plugins": [
+    {
+      "name": "lanes",
+      "source": "./plugin",
+      "description": "Lanes own folders and talk through zod contracts; deterministic checks, enforcement hooks, GitHub-issue messaging and a merge queue.",
+      "version": "0.1.0"
+    }
+  ]
+}

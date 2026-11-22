@@ -1,0 +1,1 @@
+{ "lanes_version": "^0.1.0", "approvers": [], "lanes": { "World": { "owner": "@you", "paths": ["apps/world/**"] } }, "contracts": {} }

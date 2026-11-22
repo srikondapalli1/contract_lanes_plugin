@@ -1,0 +1,1 @@
+{ "v": 1, "lane": "brain", "items": [{ "issue": 2, "type": "blocker", "contract": "TickResponse", "reason": "new", "autopilot": true }], "next": "npx lanes watch --lane brain" }

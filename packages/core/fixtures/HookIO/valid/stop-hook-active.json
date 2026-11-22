@@ -1,0 +1,1 @@
+{ "v": 1, "event": "stop", "setup": { "lane": "brain", "stop_gate": true, "planted_bug": true }, "stdin": { "cwd": "${ROOT}", "stop_hook_active": true }, "expect": { "exit": 0, "stdout": "" } }

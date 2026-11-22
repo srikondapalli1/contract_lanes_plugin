@@ -1,0 +1,32 @@
+# Lanes builds Lanes (BUILD.md): three lanes, contracts C1–C10 in packages/core/src/contracts.
+lanes_version: "^0.1.0"
+approvers: ["@srikondapalli1"]
+capacity: { laptops: 1, sessions_per_laptop: 3 }
+settings:
+  autopilot: true
+  stop_gate: false
+  fix_size_cap: 200
+  fix_attempts: 2
+  lease_minutes: 30
+  property_runs: 100
+  watch_interval_sec: 20
+  contracts_dir: "packages/core/src/contracts"
+  fixtures_dir: "packages/core/fixtures"
+lanes:
+  core:    { owner: "@srikondapalli1", paths: ["packages/core/src/{config,check,lock,guard,generate,graph-data,cli,util,test}/**", "packages/core/test/**", "scripts/**", "examples/**"] }
+  github:  { owner: "@srikondapalli1", paths: ["packages/core/src/{github,queue,watch,fix,status}/**", ".github/**"] }
+  surface: { owner: "@srikondapalli1", paths: ["plugin/**", "packages/core/src/{hooks,graph}/**", "packages/core/web/**", ".claude-plugin/**"] }
+contracts:
+  LanesConfig:  { producer: core,    consumers: [github, surface] }
+  LocalBinding: { producer: core,    consumers: [surface] }
+  CheckReport:  { producer: core,    consumers: [github, surface] }
+  LockFile:     { producer: core,    consumers: [github] }
+  GraphData:    { producer: core,    consumers: [surface] }
+  IssueMeta:    { producer: github,  consumers: [core] }
+  WatchResult:  { producer: github,  consumers: [surface] }
+  FixPlan:      { producer: github,  consumers: [surface] }
+  FixResult:    { producer: github,  consumers: [surface] }
+  PrComment:    { producer: github,  consumers: [] }
+  HookIO:       { producer: surface, consumers: [core] }
+handlers:
+  graphData: { lane: core, module: "packages/core/src/graph-data/index.ts#graphFromReport", input: CheckReport, output: GraphData }

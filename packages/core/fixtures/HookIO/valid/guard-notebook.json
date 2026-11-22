@@ -1,0 +1,3 @@
+{ "v": 1, "event": "guard", "setup": { "lane": "crowd" },
+  "stdin": { "cwd": "${ROOT}", "tool_name": "NotebookEdit", "tool_input": { "notebook_path": "${ROOT}/apps/brain/notes.ipynb" } },
+  "expect": { "exit": 2, "stderrIncludes": ["belongs to lane \"brain\""] } }

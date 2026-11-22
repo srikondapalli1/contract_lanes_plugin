@@ -1,0 +1,2 @@
+{ "v": 1, "event": "stop", "setup": { "lane": "brain", "stop_gate": true, "planted_bug": true }, "stdin": { "cwd": "${ROOT}", "stop_hook_active": false },
+  "expect": { "exit": 0, "stdoutIncludes": ["\"decision\":\"block\"", "brain is red: handler tick", "check --lane brain --seed"], "maxMs": 20000 } }

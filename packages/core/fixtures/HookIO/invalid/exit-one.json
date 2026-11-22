@@ -1,0 +1,1 @@
+{ "v": 1, "event": "guard", "stdin": {}, "expect": { "exit": 1 } }

@@ -1,0 +1,2 @@
+{ "v": 1, "event": "session-start", "stdin": { "cwd": "${ROOT}" },
+  "expect": { "exit": 0, "stdoutIncludes": ["not bound to a lane", "world, brain, crowd", "/lanes:join"] } }

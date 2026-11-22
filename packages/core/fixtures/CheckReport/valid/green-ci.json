@@ -1,0 +1,4 @@
+{ "v": 1, "startedAt": 1763830000000, "durationMs": 9000, "mode": "ci", "seed": 7, "commit": "0f3c2a1", "branch": "contract/Haunt-rename",
+  "edges": [{ "contract": "Haunt", "producer": "crowd", "consumer": "world", "status": "pass", "version": "1.1.0", "fixtures": { "valid": 2, "invalid": 1 }, "consumerTests": 3, "failures": [], "pendingIssues": [] }],
+  "failures": [], "lock": { "ok": true, "changed": ["Haunt"], "classification": "minor", "reasons": ["Haunt.note: optional property added"] },
+  "ownership": { "violations": [], "overrides": [] }, "warnings": [], "summary": { "pass": 1, "fail": 0, "pending": 0, "untested": 0 } }

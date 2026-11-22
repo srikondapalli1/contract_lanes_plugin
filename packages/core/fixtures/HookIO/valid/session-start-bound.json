@@ -1,0 +1,3 @@
+{ "v": 1, "event": "session-start", "setup": { "lane": "brain" },
+  "stdin": { "hook_event_name": "SessionStart", "cwd": "${ROOT}" },
+  "expect": { "exit": 0, "stdoutIncludes": ["you are in lane \"brain\"", "Produces: TickResponse · Consumes: TickRequest, Haunt", "Done means green"] } }

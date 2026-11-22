@@ -1,0 +1,3 @@
+{ "v": 1, "event": "guard", "setup": { "lane": "brain", "locked": true },
+  "stdin": { "cwd": "${ROOT}", "tool_name": "Edit", "tool_input": { "file_path": "${ROOT}/contracts/TickResponse.ts" } },
+  "expect": { "exit": 2, "stderrIncludes": ["contracts/TickResponse.ts is locked by contracts.lock", "git switch -c contract/TickResponse-<slug>"] } }

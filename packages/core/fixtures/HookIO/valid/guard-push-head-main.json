@@ -1,0 +1,3 @@
+{ "v": 1, "event": "guard", "setup": { "lane": "brain", "locked": true, "branch": "feature/x" },
+  "stdin": { "cwd": "${ROOT}", "tool_name": "Bash", "tool_input": { "command": "git push origin HEAD:main" } },
+  "expect": { "exit": 2, "stderrIncludes": ["main is queue-only"] } }

@@ -1,0 +1,62 @@
+# Lanes on its own repo (BUILD.md: M2/M3 are built with Lanes). Same jobs `lanes init` generates, using the in-repo CLI.
+name: lanes
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, labeled]
+  schedule:
+    - cron: "*/10 * * * *"   # queue tick
+    - cron: "23 4 * * *"     # nightly fuzz with fresh seeds
+  workflow_dispatch:
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+  statuses: write
+jobs:
+  check:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: pnpm }
+      - run: pnpm install --frozen-lockfile
+      - run: node plugin/bin/lanes.mjs check --ci --pr ${{ github.event.pull_request.number }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+  queue:
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event_name == 'schedule' && github.event.schedule == '*/10 * * * *') ||
+      (github.event_name == 'pull_request' && github.event.action == 'labeled' && github.event.label.name == 'queue' &&
+       github.event.pull_request.head.repo.full_name == github.repository)
+    concurrency: { group: lanes-queue, cancel-in-progress: false }
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0, ref: main }
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: pnpm }
+      - run: pnpm install --frozen-lockfile
+      - run: git config user.name "lanes-queue[bot]" && git config user.email "lanes-queue@users.noreply.github.com"
+      - run: node plugin/bin/lanes.mjs queue
+        env:
+          GH_TOKEN: ${{ github.token }}
+          LANES_CLI: node plugin/bin/lanes.mjs
+  nightly:
+    if: github.event_name == 'schedule' && github.event.schedule == '23 4 * * *'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: pnpm }
+      - run: pnpm install --frozen-lockfile
+      - run: node plugin/bin/lanes.mjs check --ci --seed random --file-blockers
+        env:
+          GH_TOKEN: ${{ github.token }}
+          LANES_CLI: node plugin/bin/lanes.mjs

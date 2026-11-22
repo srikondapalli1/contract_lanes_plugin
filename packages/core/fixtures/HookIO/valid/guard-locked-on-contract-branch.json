@@ -1,0 +1,3 @@
+{ "v": 1, "event": "guard", "setup": { "lane": "brain", "locked": true, "branch": "contract/TickResponse-longer-hold" },
+  "stdin": { "cwd": "${ROOT}", "tool_name": "Edit", "tool_input": { "file_path": "${ROOT}/contracts/TickResponse.ts" } },
+  "expect": { "exit": 0, "stderrEmpty": true } }

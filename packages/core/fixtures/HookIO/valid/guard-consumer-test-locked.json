@@ -1,0 +1,3 @@
+{ "v": 1, "event": "guard", "setup": { "lane": "world", "locked": true },
+  "stdin": { "cwd": "${ROOT}", "tool_name": "Edit", "tool_input": { "file_path": "${ROOT}/apps/world/src/__contracts__/Haunt.test.ts" } },
+  "expect": { "exit": 2, "stderrIncludes": ["is locked by contracts.lock", "contract/Haunt-<slug>"] } }

@@ -1,0 +1,3 @@
+{ "v": 1, "type": "blocker", "to": "brain", "from": "ci", "contract": "TickResponse", "key": "blocker:TickResponse:handler-property:9f3c1a2b", "attempts": 1,
+  "lease": { "by": "agent", "until": 1763831800000 },
+  "failure": { "check": "handler-property", "contract": "TickResponse", "message": "handler tick returned an invalid TickResponse", "seed": 42, "repro": "npx lanes check --lane brain --seed 42", "owner": "brain" } }

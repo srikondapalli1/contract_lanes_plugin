@@ -1,0 +1,3 @@
+{ "v": 1, "event": "guard", "setup": { "lane": "world" },
+  "stdin": { "cwd": "${ROOT}", "tool_name": "MultiEdit", "tool_input": { "edits": [{ "file_path": "${ROOT}/apps/world/src/apply.ts" }, { "file_path": "${ROOT}/apps/crowd/src/spawn.ts" }] } },
+  "expect": { "exit": 2, "stderrIncludes": ["apps/crowd/src/spawn.ts belongs to lane \"crowd\"; you are in \"world\""] } }

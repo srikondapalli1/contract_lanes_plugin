@@ -1,0 +1,1 @@
+{ "v": 1, "event": "prompt", "setup": { "lane": "brain" }, "stdin": { "hook_event_name": "UserPromptSubmit", "cwd": "${ROOT}" }, "expect": { "exit": 0, "stdout": "" } }

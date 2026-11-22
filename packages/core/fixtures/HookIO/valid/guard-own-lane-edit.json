@@ -1,0 +1,3 @@
+{ "v": 1, "event": "guard", "setup": { "lane": "brain" },
+  "stdin": { "hook_event_name": "PreToolUse", "cwd": "${ROOT}", "tool_name": "Write", "tool_input": { "file_path": "${ROOT}/apps/brain/src/new.ts" } },
+  "expect": { "exit": 0, "stderrEmpty": true } }

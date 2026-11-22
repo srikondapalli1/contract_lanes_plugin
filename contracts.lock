@@ -1,0 +1,1621 @@
+{
+  "v": 1,
+  "lockedAt": 1795381457672,
+  "lanes_version": "^0.1.0",
+  "contracts": {
+    "CheckReport": {
+      "version": "1.0.0",
+      "schemaHash": "383efca6174d76fc89f50e4f8e50917f944f831b4b64077d9bed701b53aaf244",
+      "fixturesHash": "13c26c85a09ed7e1fd8cb3b26b501d1995cc27b2b68e4cc990544b49e28c7168",
+      "consumerTestsHash": {
+        "github": "402c42e571579e434222c927d2e15de0eb725d049015c9f9bfcc467ab3f35ce3",
+        "surface": "ba24aa3c753999ad5d314b3c6dce3224f80e0abea483ae434c9a06bbba7e5240"
+      },
+      "jsonSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "v": {
+            "type": "number",
+            "const": 1
+          },
+          "startedAt": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "durationMs": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "local",
+              "fast",
+              "ci"
+            ]
+          },
+          "lane": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]{0,31}$"
+          },
+          "seed": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          },
+          "commit": {
+            "type": "string"
+          },
+          "branch": {
+            "type": "string"
+          },
+          "edges": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "contract": {
+                  "type": "string",
+                  "pattern": "^[A-Z][A-Za-z0-9]{0,63}$"
+                },
+                "producer": {
+                  "type": "string",
+                  "pattern": "^[a-z][a-z0-9-]{0,31}$"
+                },
+                "consumer": {
+                  "type": "string",
+                  "pattern": "^[a-z][a-z0-9-]{0,31}$"
+                },
+                "status": {
+                  "type": "string",
+                  "enum": [
+                    "pass",
+                    "fail",
+                    "pending",
+                    "untested"
+                  ]
+                },
+                "version": {
+                  "type": "string"
+                },
+                "fixtures": {
+                  "type": "object",
+                  "properties": {
+                    "valid": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 9007199254740991
+                    },
+                    "invalid": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 9007199254740991
+                    }
+                  },
+                  "required": [
+                    "valid",
+                    "invalid"
+                  ]
+                },
+                "consumerTests": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 9007199254740991
+                },
+                "failures": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "check": {
+                        "type": "string",
+                        "enum": [
+                          "schema",
+                          "fixture-valid",
+                          "fixture-invalid",
+                          "generated",
+                          "mutation",
+                          "handler-property",
+                          "consumer-test",
+                          "lock",
+                          "ownership",
+                          "config"
+                        ]
+                      },
+                      "contract": {
+                        "type": "string",
+                        "pattern": "^[A-Z][A-Za-z0-9]{0,63}$"
+                      },
+                      "message": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "detail": {
+                        "type": "string"
+                      },
+                      "file": {
+                        "type": "string"
+                      },
+                      "seed": {
+                        "type": "integer",
+                        "minimum": -9007199254740991,
+                        "maximum": 9007199254740991
+                      },
+                      "counterexample": {},
+                      "repro": {
+                        "type": "string"
+                      },
+                      "owner": {
+                        "type": "string",
+                        "pattern": "^[a-z][a-z0-9-]{0,31}$"
+                      }
+                    },
+                    "required": [
+                      "check",
+                      "message",
+                      "owner"
+                    ]
+                  }
+                },
+                "pendingIssues": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 9007199254740991
+                  }
+                }
+              },
+              "required": [
+                "contract",
+                "producer",
+                "consumer",
+                "status",
+                "version",
+                "fixtures",
+                "consumerTests",
+                "failures",
+                "pendingIssues"
+              ]
+            }
+          },
+          "failures": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "check": {
+                  "type": "string",
+                  "enum": [
+                    "schema",
+                    "fixture-valid",
+                    "fixture-invalid",
+                    "generated",
+                    "mutation",
+                    "handler-property",
+                    "consumer-test",
+                    "lock",
+                    "ownership",
+                    "config"
+                  ]
+                },
+                "contract": {
+                  "type": "string",
+                  "pattern": "^[A-Z][A-Za-z0-9]{0,63}$"
+                },
+                "message": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "detail": {
+                  "type": "string"
+                },
+                "file": {
+                  "type": "string"
+                },
+                "seed": {
+                  "type": "integer",
+                  "minimum": -9007199254740991,
+                  "maximum": 9007199254740991
+                },
+                "counterexample": {},
+                "repro": {
+                  "type": "string"
+                },
+                "owner": {
+                  "type": "string",
+                  "pattern": "^[a-z][a-z0-9-]{0,31}$"
+                }
+              },
+              "required": [
+                "check",
+                "message",
+                "owner"
+              ]
+            }
+          },
+          "lock": {
+            "type": "object",
+            "properties": {
+              "ok": {
+                "type": "boolean"
+              },
+              "changed": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "pattern": "^[A-Z][A-Za-z0-9]{0,63}$"
+                }
+              },
+              "classification": {
+                "type": "string",
+                "enum": [
+                  "minor",
+                  "major"
+                ]
+              },
+              "reasons": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": [
+              "ok",
+              "changed"
+            ]
+          },
+          "ownership": {
+            "type": "object",
+            "properties": {
+              "lane": {
+                "type": "string",
+                "pattern": "^[a-z][a-z0-9-]{0,31}$"
+              },
+              "violations": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "file": {
+                      "type": "string"
+                    },
+                    "owner": {
+                      "type": "string",
+                      "pattern": "^[a-z][a-z0-9-]{0,31}$"
+                    }
+                  },
+                  "required": [
+                    "file",
+                    "owner"
+                  ]
+                }
+              },
+              "overrides": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "file": {
+                      "type": "string"
+                    },
+                    "reason": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "file",
+                    "reason"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "violations",
+              "overrides"
+            ]
+          },
+          "warnings": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "summary": {
+            "type": "object",
+            "properties": {
+              "pass": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991
+              },
+              "fail": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991
+              },
+              "pending": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991
+              },
+              "untested": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991
+              }
+            },
+            "required": [
+              "pass",
+              "fail",
+              "pending",
+              "untested"
+            ]
+          }
+        },
+        "required": [
+          "v",
+          "startedAt",
+          "durationMs",
+          "mode",
+          "seed",
+          "edges",
+          "failures",
+          "lock",
+          "ownership",
+          "warnings",
+          "summary"
+        ]
+      },
+      "fixtureFiles": {
+        "packages/core/fixtures/CheckReport/invalid/bad-status.json": "9351d79b2591e79d2ce8df79049b61d3a7f2aaeecdd2338031fc8f39da7af59e",
+        "packages/core/fixtures/CheckReport/valid/green-ci.json": "7732fbcc332e85a04d571b232ea788a8101ea4ba40ba99ee66d103c6e2d031d3",
+        "packages/core/fixtures/CheckReport/valid/planted-bug.json": "db7e8013387a042a3f2e94c375e948c5972cc1de495b0f5be903bcba4525252d"
+      }
+    },
+    "FixPlan": {
+      "version": "1.0.0",
+      "schemaHash": "cda2acf079759513739a2728f318ca8a358d725d722cf62ad274e83ba5be04bf",
+      "fixturesHash": "23fcad5a01879bd139757c0ab715cb1e955d60fcd558e9596f3ea34421423b2e",
+      "consumerTestsHash": {
+        "surface": "9fdcf1bab5d045eb66c33bdbe098cf23670772c8357a0d8541df12f7015dd993"
+      },
+      "jsonSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "v": {
+            "type": "number",
+            "const": 1
+          },
+          "issue": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 9007199254740991
+          },
+          "lane": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]{0,31}$"
+          },
+          "worktree": {
+            "type": "string",
+            "minLength": 1
+          },
+          "branch": {
+            "type": "string",
+            "pattern": "^fix\\/\\d+$"
+          },
+          "repro": {
+            "type": "string",
+            "minLength": 1
+          },
+          "leaseUntil": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "attempt": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 9007199254740991
+          }
+        },
+        "required": [
+          "v",
+          "issue",
+          "lane",
+          "worktree",
+          "branch",
+          "repro",
+          "leaseUntil",
+          "attempt"
+        ]
+      },
+      "fixtureFiles": {
+        "packages/core/fixtures/FixPlan/invalid/bad-branch.json": "b81203852701ef53f86e54b6a14014a15eb8277ce9c5fce89caaf32748ad4dae",
+        "packages/core/fixtures/FixPlan/valid/claim.json": "488f343d9578e5247ab44981044f4e9f602b40630b992256a934c9d39c7b0ecd"
+      }
+    },
+    "FixResult": {
+      "version": "1.0.0",
+      "schemaHash": "893bc11fa877bb8e75f95fb862d9df02ae95c4fdc1d512a3e67e28d039ef9205",
+      "fixturesHash": "1b899ded72c138428bc385f7a2a8888932db4c3bdff1a083fa02b3743638999e",
+      "consumerTestsHash": {
+        "surface": "bfb03319a3fe27b882e5d9e44e1f02c14ff4f04dcd0ac9d550a534c61c76bdbb"
+      },
+      "jsonSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "v": {
+            "type": "number",
+            "const": 1
+          },
+          "issue": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 9007199254740991
+          },
+          "outcome": {
+            "type": "string",
+            "enum": [
+              "queued",
+              "escalated",
+              "rejected"
+            ]
+          },
+          "pr": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 9007199254740991
+          },
+          "reasons": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "v",
+          "issue",
+          "outcome"
+        ]
+      },
+      "fixtureFiles": {
+        "packages/core/fixtures/FixResult/invalid/unknown-outcome.json": "90982dff3a522bcfed2f337096b52a37d855c801af99e49a21fab7a0fb65c8ae",
+        "packages/core/fixtures/FixResult/valid/escalated.json": "511ca39f896e8c6ca55bb1c3219c934dd56901334a2e2f74545df9834ac407b5",
+        "packages/core/fixtures/FixResult/valid/queued.json": "d42d9811c3ce62e35e8f5e59b6b64805825524d9b30c664d90b557843a7e482c"
+      }
+    },
+    "GraphData": {
+      "version": "1.0.0",
+      "schemaHash": "f7736eaa6fb92044ea461e9db66e4dc415d280c289cb1b536457b712a5f29354",
+      "fixturesHash": "a290dd4f6416bd733b9f601cfb2d92081702b689107c0a2782060e249e16eeab",
+      "consumerTestsHash": {
+        "surface": "7be2bfe94fff28bb033084f1ffd491bc5ce8d90dd1a30ce1b4c4fb6f756002ce"
+      },
+      "jsonSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "v": {
+            "type": "number",
+            "const": 1
+          },
+          "generatedAt": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "fromReport": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "repo": {
+            "type": "string"
+          },
+          "nodes": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "lane": {
+                  "type": "string",
+                  "pattern": "^[a-z][a-z0-9-]{0,31}$"
+                },
+                "owner": {
+                  "type": "string"
+                },
+                "openBlockers": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 9007199254740991
+                },
+                "openRequests": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 9007199254740991
+                },
+                "claimedFixes": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 9007199254740991
+                  }
+                }
+              },
+              "required": [
+                "lane",
+                "owner",
+                "openBlockers",
+                "openRequests",
+                "claimedFixes"
+              ]
+            }
+          },
+          "edges": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "contract": {
+                  "type": "string",
+                  "pattern": "^[A-Z][A-Za-z0-9]{0,63}$"
+                },
+                "producer": {
+                  "type": "string",
+                  "pattern": "^[a-z][a-z0-9-]{0,31}$"
+                },
+                "consumer": {
+                  "type": "string",
+                  "pattern": "^[a-z][a-z0-9-]{0,31}$"
+                },
+                "status": {
+                  "type": "string",
+                  "enum": [
+                    "pass",
+                    "fail",
+                    "pending",
+                    "untested"
+                  ]
+                },
+                "version": {
+                  "type": "string"
+                },
+                "fixtures": {
+                  "type": "object",
+                  "properties": {
+                    "valid": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 9007199254740991
+                    },
+                    "invalid": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 9007199254740991
+                    }
+                  },
+                  "required": [
+                    "valid",
+                    "invalid"
+                  ]
+                },
+                "consumerTests": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 9007199254740991
+                },
+                "pendingIssues": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 9007199254740991
+                  }
+                },
+                "topFailure": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "seed": {
+                      "type": "integer",
+                      "minimum": -9007199254740991,
+                      "maximum": 9007199254740991
+                    },
+                    "repro": {
+                      "type": "string"
+                    },
+                    "owner": {
+                      "type": "string",
+                      "pattern": "^[a-z][a-z0-9-]{0,31}$"
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "owner"
+                  ]
+                }
+              },
+              "required": [
+                "contract",
+                "producer",
+                "consumer",
+                "status",
+                "version",
+                "fixtures",
+                "consumerTests",
+                "pendingIssues"
+              ]
+            }
+          },
+          "needsOwner": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "issue": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 9007199254740991
+                },
+                "title": {
+                  "type": "string"
+                },
+                "to": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "pattern": "^[a-z][a-z0-9-]{0,31}$"
+                    },
+                    {
+                      "type": "string",
+                      "const": "approvers"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "issue",
+                "title",
+                "to"
+              ]
+            }
+          }
+        },
+        "required": [
+          "v",
+          "generatedAt",
+          "fromReport",
+          "nodes",
+          "edges",
+          "needsOwner"
+        ]
+      },
+      "fixtureFiles": {
+        "packages/core/fixtures/GraphData/invalid/node-without-lane.json": "70f21e9020c1fcdaeba2443bdd9aa1a3b44d992e8aaa009530fd25229ea660d5",
+        "packages/core/fixtures/GraphData/valid/three-lanes.json": "79d82a320fb0fca339b0a901ea53412ef22511ade1e7fec0bc0923f85563e350"
+      }
+    },
+    "HookIO": {
+      "version": "1.0.0",
+      "schemaHash": "6241f2588be094ad720aa63c3b2c76c5814e7977721db3845f277b197aae6f29",
+      "fixturesHash": "3d552db630e79f8e0da06ace2630b3ad6410c63bb204b2f8dfaf8a5c03e3370d",
+      "consumerTestsHash": {
+        "core": "ca7d83ad6534acf7f405bf664f89b7fa02ec8f855ea6ac5b7b2cd256f1da7860"
+      },
+      "jsonSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "v": {
+            "type": "number",
+            "const": 1
+          },
+          "event": {
+            "type": "string",
+            "enum": [
+              "session-start",
+              "prompt",
+              "guard",
+              "stop"
+            ]
+          },
+          "setup": {
+            "type": "object",
+            "properties": {
+              "lane": {
+                "type": "string"
+              },
+              "branch": {
+                "type": "string"
+              },
+              "locked": {
+                "type": "boolean"
+              },
+              "stop_gate": {
+                "type": "boolean"
+              },
+              "override": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "planted_bug": {
+                "type": "boolean"
+              }
+            }
+          },
+          "stdin": {
+            "type": "object",
+            "properties": {
+              "hook_event_name": {
+                "type": "string"
+              },
+              "cwd": {
+                "type": "string"
+              },
+              "session_id": {
+                "type": "string"
+              },
+              "tool_name": {
+                "type": "string"
+              },
+              "tool_input": {
+                "type": "object",
+                "properties": {
+                  "file_path": {
+                    "type": "string"
+                  },
+                  "notebook_path": {
+                    "type": "string"
+                  },
+                  "command": {
+                    "type": "string"
+                  },
+                  "edits": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "file_path": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "stop_hook_active": {
+                "type": "boolean"
+              }
+            }
+          },
+          "expect": {
+            "type": "object",
+            "properties": {
+              "exit": {
+                "anyOf": [
+                  {
+                    "type": "number",
+                    "const": 0
+                  },
+                  {
+                    "type": "number",
+                    "const": 2
+                  }
+                ]
+              },
+              "stdout": {
+                "type": "string"
+              },
+              "stdoutIncludes": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "stderrIncludes": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "stderrEmpty": {
+                "type": "boolean"
+              },
+              "maxMs": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 9007199254740991
+              }
+            },
+            "required": [
+              "exit"
+            ]
+          }
+        },
+        "required": [
+          "v",
+          "event",
+          "stdin",
+          "expect"
+        ]
+      },
+      "fixtureFiles": {
+        "packages/core/fixtures/HookIO/invalid/exit-one.json": "aedfd7522273ea105a3f99b56c18dc9d5e5eac2b2ed3b3660bf5d7e43623fae9",
+        "packages/core/fixtures/HookIO/invalid/unknown-event.json": "f8291f50ce542cae32d2a49f95119b9cee0254984060c2fca574391224a731b4",
+        "packages/core/fixtures/HookIO/valid/guard-consumer-test-locked.json": "d4499bb9271aafdbc552135816f51937d3d66002cfa8d95e218d7d91b275df81",
+        "packages/core/fixtures/HookIO/valid/guard-cross-lane-edit.json": "1dde737a29afec346b462efd46d34421c294f10ab96e714273a0249cf4c1ccc6",
+        "packages/core/fixtures/HookIO/valid/guard-force-push.json": "005f24a3e9e0bbe4b314531df20c8cb192a0ab75e9bd0a9a2eddf8d9750cba88",
+        "packages/core/fixtures/HookIO/valid/guard-locked-on-contract-branch.json": "5f42e7547bf6f281f05ffa5a7bdb60a99fd84a9e8c49a81b3ce9729c3ded7349",
+        "packages/core/fixtures/HookIO/valid/guard-locked-on-main.json": "f86aaa329bb21cfd54a1ddcf116e90cc1e09a2ba76df2b6748142d4ddcc997a2",
+        "packages/core/fixtures/HookIO/valid/guard-missing-fields.json": "d8e620195b0bffa8d0b4ea5f1840f0ec982a8474cb43e6c9ba5afb5d168e46b6",
+        "packages/core/fixtures/HookIO/valid/guard-multiedit-edits.json": "3c508bfa54118122bb9a5349f08a1af2c7b9eb52c15a0da50b3ba854577f429a",
+        "packages/core/fixtures/HookIO/valid/guard-notebook.json": "c147f5055542eec91b8068081fbfa94971a55ff9d7cadd97477ad9bc63e88dd1",
+        "packages/core/fixtures/HookIO/valid/guard-outside-repo.json": "d2adf51733d6b0522221d3ee8fa46c35157d01173c650ec1635241e58a7db42e",
+        "packages/core/fixtures/HookIO/valid/guard-override.json": "4f0604398b4da78bc128ecd661494d0933cc0243d125380a39cab75a59c8dd79",
+        "packages/core/fixtures/HookIO/valid/guard-own-lane-edit.json": "26cab59983a98a50e290d3fe62cead2da60d397cc3a26aa7780b567c05eb2fd6",
+        "packages/core/fixtures/HookIO/valid/guard-producer-owns-fixtures.json": "5031a5ca1cbd8b7c37b504de4f680f8cb956038ce557f66aac74d74cb7e2b96d",
+        "packages/core/fixtures/HookIO/valid/guard-push-branch-ok.json": "7c693a9bb56c64d46d0ecc0f10ef92e4f88f76102470a1913fbabe4fa90515ab",
+        "packages/core/fixtures/HookIO/valid/guard-push-head-main.json": "10855513f44f858accd7cc0db37a91265fddf8db98a1865821ba598e9591c43e",
+        "packages/core/fixtures/HookIO/valid/guard-push-main-locked.json": "a8797fcbf81d2512c1f68f47d811b8febd3dc37f099ce035d42d1f4db2813ab5",
+        "packages/core/fixtures/HookIO/valid/guard-push-main-setup-phase.json": "c5e4ad37dd9ded5d4fcfb6b504fc0755db797666e316588da94102e22fa63cba",
+        "packages/core/fixtures/HookIO/valid/guard-unbound.json": "aef56510de57ff1cba92b0a963824d32db9d9a6097f0cd9af1101d9a03ea36c9",
+        "packages/core/fixtures/HookIO/valid/prompt-nothing-new.json": "d253d6bd7f0afea2bb22df80384f8e3babb0d2898c29e79b87ab772aaf25889d",
+        "packages/core/fixtures/HookIO/valid/session-start-bound.json": "4c3d96622b3b5e9396d04195d96458427f26f3e3dcf05c3983caf58a9541b3d1",
+        "packages/core/fixtures/HookIO/valid/session-start-unbound.json": "c75551df4918ca3c5970fe71321d280992dce88b57c57352583a455e80610dea",
+        "packages/core/fixtures/HookIO/valid/stop-gate-green.json": "028abc31a6597a9173d4a9b38e4f1d0d93a6fa519d993965282694fa58cb1a0c",
+        "packages/core/fixtures/HookIO/valid/stop-gate-off.json": "d36bbc5e4ee291475221a37c6b3dd6895be1ca2d46bd26b381c9058884b65dc8",
+        "packages/core/fixtures/HookIO/valid/stop-gate-red.json": "051bf9004dcca4191f746363597c6cb30b834c56b9b3820f6dd8a202f56143ac",
+        "packages/core/fixtures/HookIO/valid/stop-hook-active.json": "875d9fa802179c26bacf01db2205743bcd14a0b5f4c7bef23c9d425e581761d3"
+      }
+    },
+    "IssueMeta": {
+      "version": "1.0.0",
+      "schemaHash": "163993493336082800799853027f30fda5cf542a8a9151b5210c21f6873f6a7c",
+      "fixturesHash": "aefdf1380f706e453e1dc12b35b05c908fda2b4149091481e6ab9d13ddc0e242",
+      "consumerTestsHash": {
+        "core": "3ca218660ba2f6572c5bd60bf62dc4e993814c117782912f0d1d6ae4daa69ff2"
+      },
+      "jsonSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "v": {
+            "type": "number",
+            "const": 1
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "blocker",
+              "request",
+              "notice",
+              "control",
+              "handoff"
+            ]
+          },
+          "to": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[a-z][a-z0-9-]{0,31}$"
+              },
+              {
+                "type": "string",
+                "const": "approvers"
+              }
+            ]
+          },
+          "from": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[a-z][a-z0-9-]{0,31}$"
+              },
+              {
+                "type": "string",
+                "const": "ci"
+              },
+              {
+                "type": "string",
+                "const": "human"
+              }
+            ]
+          },
+          "contract": {
+            "type": "string",
+            "pattern": "^[A-Z][A-Za-z0-9]{0,63}$"
+          },
+          "key": {
+            "type": "string",
+            "minLength": 1
+          },
+          "attempts": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "lease": {
+            "type": "object",
+            "properties": {
+              "by": {
+                "type": "string",
+                "minLength": 1
+              },
+              "until": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991
+              }
+            },
+            "required": [
+              "by",
+              "until"
+            ]
+          },
+          "failure": {
+            "type": "object",
+            "properties": {
+              "check": {
+                "type": "string",
+                "enum": [
+                  "schema",
+                  "fixture-valid",
+                  "fixture-invalid",
+                  "generated",
+                  "mutation",
+                  "handler-property",
+                  "consumer-test",
+                  "lock",
+                  "ownership",
+                  "config"
+                ]
+              },
+              "contract": {
+                "type": "string",
+                "pattern": "^[A-Z][A-Za-z0-9]{0,63}$"
+              },
+              "message": {
+                "type": "string",
+                "minLength": 1
+              },
+              "detail": {
+                "type": "string"
+              },
+              "file": {
+                "type": "string"
+              },
+              "seed": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              "counterexample": {},
+              "repro": {
+                "type": "string"
+              },
+              "owner": {
+                "type": "string",
+                "pattern": "^[a-z][a-z0-9-]{0,31}$"
+              }
+            },
+            "required": [
+              "check",
+              "message",
+              "owner"
+            ]
+          }
+        },
+        "required": [
+          "v",
+          "type",
+          "to",
+          "from",
+          "key"
+        ]
+      },
+      "fixtureFiles": {
+        "packages/core/fixtures/IssueMeta/invalid/unknown-type.json": "0d23a39b60cb82dca4e07e429e3de5ef3998fbeeb80a139114eeffa0ee08862e",
+        "packages/core/fixtures/IssueMeta/valid/blocker.json": "412f30304fee07af4daa42a708439d9e0d5882da0f884970fe6df9f281ba145c",
+        "packages/core/fixtures/IssueMeta/valid/request.json": "a521255242de3d7d8d0b77377aef552e231005153ac69c60b6134568cb943121"
+      }
+    },
+    "LanesConfig": {
+      "version": "1.1.0",
+      "schemaHash": "78a637f160cbd80dc4e743ff9145b034db116ceae39350e71ff8eb7eed0fb8ef",
+      "fixturesHash": "725c136fffccdf83ab023eb9530fa4c75957ce9c896fd0528d0f6dcecb2aa432",
+      "consumerTestsHash": {
+        "github": "18106183ca9dd64805b1c7fab6b28679d3f83d3d1916c24a282fc7cf9c8a0034",
+        "surface": "69047bbafb8b8e99df9034b5b0dfa162064369548c1ff61fa2a87ae068251130"
+      },
+      "jsonSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "lanes_version": {
+            "type": "string",
+            "minLength": 1
+          },
+          "approvers": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^@[A-Za-z0-9-]+(\\/[A-Za-z0-9._-]+)?$"
+            }
+          },
+          "capacity": {
+            "type": "object",
+            "properties": {
+              "laptops": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 100
+              },
+              "sessions_per_laptop": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 100
+              },
+              "hours": {
+                "type": "number",
+                "minimum": 0
+              }
+            },
+            "required": [
+              "laptops",
+              "sessions_per_laptop"
+            ]
+          },
+          "settings": {
+            "default": {
+              "autopilot": true,
+              "stop_gate": false,
+              "fix_size_cap": 200,
+              "fix_attempts": 2,
+              "lease_minutes": 30,
+              "property_runs": 200,
+              "watch_interval_sec": 20,
+              "contracts_dir": "contracts",
+              "fixtures_dir": "fixtures"
+            },
+            "type": "object",
+            "properties": {
+              "autopilot": {
+                "default": true,
+                "type": "boolean"
+              },
+              "stop_gate": {
+                "default": false,
+                "type": "boolean"
+              },
+              "fix_size_cap": {
+                "default": 200,
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 9007199254740991
+              },
+              "fix_attempts": {
+                "default": 2,
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 9007199254740991
+              },
+              "lease_minutes": {
+                "default": 30,
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 9007199254740991
+              },
+              "property_runs": {
+                "default": 200,
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 100000
+              },
+              "watch_interval_sec": {
+                "default": 20,
+                "type": "integer",
+                "minimum": 10,
+                "maximum": 9007199254740991
+              },
+              "contracts_dir": {
+                "default": "contracts",
+                "type": "string",
+                "minLength": 1
+              },
+              "fixtures_dir": {
+                "default": "fixtures",
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          },
+          "lanes": {
+            "type": "object",
+            "propertyNames": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9-]{0,31}$"
+            },
+            "additionalProperties": {
+              "type": "object",
+              "properties": {
+                "owner": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "paths": {
+                  "minItems": 1,
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              },
+              "required": [
+                "owner",
+                "paths"
+              ]
+            }
+          },
+          "contracts": {
+            "type": "object",
+            "propertyNames": {
+              "type": "string",
+              "pattern": "^[A-Z][A-Za-z0-9]{0,63}$"
+            },
+            "additionalProperties": {
+              "type": "object",
+              "properties": {
+                "producer": {
+                  "type": "string",
+                  "pattern": "^[a-z][a-z0-9-]{0,31}$"
+                },
+                "consumers": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^[a-z][a-z0-9-]{0,31}$"
+                  }
+                }
+              },
+              "required": [
+                "producer",
+                "consumers"
+              ]
+            }
+          },
+          "handlers": {
+            "type": "object",
+            "propertyNames": {
+              "type": "string",
+              "pattern": "^[A-Za-z][A-Za-z0-9_-]*$"
+            },
+            "additionalProperties": {
+              "type": "object",
+              "properties": {
+                "lane": {
+                  "type": "string",
+                  "pattern": "^[a-z][a-z0-9-]{0,31}$"
+                },
+                "module": {
+                  "type": "string",
+                  "pattern": "^[^#]+#[A-Za-z_$][A-Za-z0-9_$]*$"
+                },
+                "input": {
+                  "type": "string",
+                  "pattern": "^[A-Z][A-Za-z0-9]{0,63}$"
+                },
+                "output": {
+                  "type": "string",
+                  "pattern": "^[A-Z][A-Za-z0-9]{0,63}$"
+                }
+              },
+              "required": [
+                "lane",
+                "module",
+                "input",
+                "output"
+              ]
+            }
+          }
+        },
+        "required": [
+          "lanes_version",
+          "approvers",
+          "lanes",
+          "contracts"
+        ]
+      },
+      "fixtureFiles": {
+        "packages/core/fixtures/LanesConfig/invalid/bad-lane-name.json": "36572d8e03e7e6f5ff6f11c015eda7cb4c96c0a74fc678ed7c51fb92325ebc06",
+        "packages/core/fixtures/LanesConfig/invalid/watch-too-fast.json": "07038aa3128e0395d802a1da85de1bfcb242b2ae83d15921baec85cef180f4f3",
+        "packages/core/fixtures/LanesConfig/valid/minimal-defaults.json": "6e429c150f7cecc416ffe20a08c0d28c07a90e28ba4bf7097185546f84d6b28a",
+        "packages/core/fixtures/LanesConfig/valid/three-lanes.json": "6e0dd97d57c11b9191af2d6b27bff30c6e725f5f15cb53f65dbe8984a9e6aff1"
+      }
+    },
+    "LocalBinding": {
+      "version": "1.0.0",
+      "schemaHash": "978a810e4de3143db2b59871d6f151b584a817222dbf145203017c8511577851",
+      "fixturesHash": "9cf1b66aa582785236322a087082ad1b651b18640e4ecde0630b693f38f40c10",
+      "consumerTestsHash": {
+        "surface": "d00d9c3a84a8c98e7a8a8a3c3ed16a35f67ed05c9de6c625e047869da34a2410"
+      },
+      "jsonSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "v": {
+            "type": "number",
+            "const": 1
+          },
+          "lane": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]{0,31}$"
+          },
+          "boundAt": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "lastShownInbox": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          }
+        },
+        "required": [
+          "v",
+          "lane",
+          "boundAt"
+        ]
+      },
+      "fixtureFiles": {
+        "packages/core/fixtures/LocalBinding/invalid/wrong-version.json": "70437835359d0fad9532db29970380d07468d1134937f90c6e2f132eb920e330",
+        "packages/core/fixtures/LocalBinding/valid/brain.json": "88a79a0dce0bb35e745417635a2ba17c85ad4e943d34855b18d21029fdefde60"
+      }
+    },
+    "LockFile": {
+      "version": "1.1.0",
+      "schemaHash": "985ff4678984e4b7d160ffd801f8fb0085d932f511a9961b7e8c184fd77815bc",
+      "fixturesHash": "dd3689e1520348941b25110001893483b142b1d6ed0dd0a5683b3c0263fef399",
+      "consumerTestsHash": {
+        "github": "62b8b4bb5ff2b6c4c65fd185c663046e3b291ba6ccec77feaf063fc07e8e1078"
+      },
+      "jsonSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "v": {
+            "type": "number",
+            "const": 1
+          },
+          "lockedAt": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "lanes_version": {
+            "type": "string"
+          },
+          "contracts": {
+            "type": "object",
+            "propertyNames": {
+              "type": "string",
+              "pattern": "^[A-Z][A-Za-z0-9]{0,63}$"
+            },
+            "additionalProperties": {
+              "type": "object",
+              "properties": {
+                "version": {
+                  "type": "string"
+                },
+                "schemaHash": {
+                  "type": "string",
+                  "pattern": "^[0-9a-f]{64}$"
+                },
+                "fixturesHash": {
+                  "type": "string",
+                  "pattern": "^[0-9a-f]{64}$"
+                },
+                "consumerTestsHash": {
+                  "type": "object",
+                  "propertyNames": {
+                    "type": "string",
+                    "pattern": "^[a-z][a-z0-9-]{0,31}$"
+                  },
+                  "additionalProperties": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  }
+                },
+                "jsonSchema": {},
+                "fixtureFiles": {
+                  "type": "object",
+                  "propertyNames": {
+                    "type": "string"
+                  },
+                  "additionalProperties": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  }
+                }
+              },
+              "required": [
+                "version",
+                "schemaHash",
+                "fixturesHash",
+                "consumerTestsHash"
+              ]
+            }
+          }
+        },
+        "required": [
+          "v",
+          "lockedAt",
+          "lanes_version",
+          "contracts"
+        ]
+      },
+      "fixtureFiles": {
+        "packages/core/fixtures/LockFile/invalid/short-hash.json": "00e929e4c94dddaf354af16b2c2a22b062be5ee0c78eadee8df20a5390989263",
+        "packages/core/fixtures/LockFile/valid/three.json": "6efdc4e81719dd713f2f5d0cee25ceddd26aa534a70b8cc6e66c3c41810d594b"
+      }
+    },
+    "PrComment": {
+      "version": "1.0.0",
+      "schemaHash": "fec0def4932c1ee68c052f1ee83545c66eaa5aee1b0e22640b3e5a694843a177",
+      "fixturesHash": "f723354b42a05dedf850bb4d4b56830eb842fca47627c2a13b4e9e9768fa1814",
+      "consumerTestsHash": {},
+      "jsonSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "v": {
+            "type": "number",
+            "const": 1
+          },
+          "summary": {
+            "type": "object",
+            "properties": {
+              "pass": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991
+              },
+              "fail": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991
+              },
+              "pending": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991
+              },
+              "untested": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991
+              }
+            },
+            "required": [
+              "pass",
+              "fail",
+              "pending",
+              "untested"
+            ]
+          },
+          "edges": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "contract": {
+                  "type": "string",
+                  "pattern": "^[A-Z][A-Za-z0-9]{0,63}$"
+                },
+                "producer": {
+                  "type": "string",
+                  "pattern": "^[a-z][a-z0-9-]{0,31}$"
+                },
+                "consumer": {
+                  "type": "string",
+                  "pattern": "^[a-z][a-z0-9-]{0,31}$"
+                },
+                "status": {
+                  "type": "string",
+                  "enum": [
+                    "pass",
+                    "fail",
+                    "pending",
+                    "untested"
+                  ]
+                },
+                "topFailure": {
+                  "type": "string"
+                },
+                "repro": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "contract",
+                "producer",
+                "consumer",
+                "status"
+              ]
+            }
+          },
+          "change": {
+            "type": "object",
+            "properties": {
+              "classification": {
+                "type": "string",
+                "enum": [
+                  "none",
+                  "minor",
+                  "major"
+                ]
+              },
+              "reasons": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": [
+              "classification",
+              "reasons"
+            ]
+          },
+          "overrides": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "file": {
+                  "type": "string"
+                },
+                "reason": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "file",
+                "reason"
+              ]
+            }
+          },
+          "queue": {
+            "type": "object",
+            "properties": {
+              "state": {
+                "type": "string",
+                "enum": [
+                  "waiting",
+                  "rebasing",
+                  "checking",
+                  "merged",
+                  "blocked",
+                  "failed",
+                  "not-queued"
+                ]
+              },
+              "reason": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "state"
+            ]
+          }
+        },
+        "required": [
+          "v",
+          "summary",
+          "edges",
+          "change",
+          "overrides",
+          "queue"
+        ]
+      },
+      "fixtureFiles": {
+        "packages/core/fixtures/PrComment/invalid/queue-state.json": "f946ac6a84454efdf2f899554006284d24e45daf6d8cb6f8493d055ec8abd37a",
+        "packages/core/fixtures/PrComment/valid/minor-change.json": "2bf79b2ab095551289d68c824254ce33766e09a7ab1700bd36221c564521b60a"
+      }
+    },
+    "WatchResult": {
+      "version": "1.0.0",
+      "schemaHash": "ec29225102a9aadfdd303d45dff90e434afa84c712191be79d324d9031d29213",
+      "fixturesHash": "f3c1d6cca14f69240b3f93d6fcaec1e26f06c42b9f26b51ea8dfe2feb7d2b748",
+      "consumerTestsHash": {
+        "surface": "5d209056ca9aa5d456b8bc315807da98cc2f86dd242429d29c77271363700195"
+      },
+      "jsonSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "v": {
+            "type": "number",
+            "const": 1
+          },
+          "lane": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]{0,31}$"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "issue": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 9007199254740991
+                },
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "blocker",
+                    "request"
+                  ]
+                },
+                "contract": {
+                  "type": "string",
+                  "pattern": "^[A-Z][A-Za-z0-9]{0,63}$"
+                },
+                "reason": {
+                  "type": "string",
+                  "enum": [
+                    "new",
+                    "updated",
+                    "human-comment"
+                  ]
+                },
+                "autopilot": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "issue",
+                "type",
+                "reason",
+                "autopilot"
+              ]
+            }
+          },
+          "next": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "v",
+          "lane",
+          "items",
+          "next"
+        ]
+      },
+      "fixtureFiles": {
+        "packages/core/fixtures/WatchResult/invalid/notice-item.json": "5fe3a2bed72ec768ac31f31c61b945359b110dac91c57a002f693aeb86c5ba52",
+        "packages/core/fixtures/WatchResult/valid/blocker.json": "b80cc69609ade2b5031a5985d8cc7ee2c333adf0a8cd792dee3c463d25156fff",
+        "packages/core/fixtures/WatchResult/valid/timeout-empty.json": "fa9d7ab0b854fefb4ee4aade83fd17b91d114b2c481d63da6d15f36fab2e4bb3"
+      }
+    }
+  }
+}

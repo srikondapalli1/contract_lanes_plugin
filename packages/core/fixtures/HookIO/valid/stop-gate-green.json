@@ -1,0 +1,1 @@
+{ "v": 1, "event": "stop", "setup": { "lane": "brain", "stop_gate": true }, "stdin": { "cwd": "${ROOT}" }, "expect": { "exit": 0, "stdout": "", "maxMs": 20000 } }

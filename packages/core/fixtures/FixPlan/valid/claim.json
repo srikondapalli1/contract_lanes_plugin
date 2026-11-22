@@ -1,0 +1,1 @@
+{ "v": 1, "issue": 2, "lane": "brain", "worktree": "/work/manor-brain-fix-2", "branch": "fix/2", "repro": "cd /work/manor-brain-fix-2 && npx lanes check --lane brain --seed 42", "leaseUntil": 1763831800000, "attempt": 1 }

@@ -1,0 +1,12 @@
+{ "v": 1, "generatedAt": 1763830001000, "fromReport": 1763830000000, "repo": "acme/manor",
+  "nodes": [
+    { "lane": "brain", "owner": "@friend", "openBlockers": 1, "openRequests": 0, "claimedFixes": [12] },
+    { "lane": "crowd", "owner": "@you", "openBlockers": 0, "openRequests": 1, "claimedFixes": [] },
+    { "lane": "world", "owner": "@you", "openBlockers": 0, "openRequests": 0, "claimedFixes": [] } ],
+  "edges": [
+    { "contract": "TickRequest", "producer": "world", "consumer": "brain", "status": "pass", "version": "1.0.0", "fixtures": { "valid": 2, "invalid": 2 }, "consumerTests": 2, "pendingIssues": [] },
+    { "contract": "TickResponse", "producer": "brain", "consumer": "world", "status": "fail", "version": "1.0.0", "fixtures": { "valid": 1, "invalid": 1 }, "consumerTests": 1, "pendingIssues": [],
+      "topFailure": { "message": "handler tick returned an invalid TickResponse: actions[0].holdMs: Too big: expected number to be <=1500", "seed": 42, "repro": "npx lanes check --lane brain --seed 42", "owner": "brain" } },
+    { "contract": "Haunt", "producer": "crowd", "consumer": "world", "status": "pending", "version": "1.0.0", "fixtures": { "valid": 1, "invalid": 1 }, "consumerTests": 2, "pendingIssues": [7] },
+    { "contract": "Haunt", "producer": "crowd", "consumer": "brain", "status": "untested", "version": "1.0.0", "fixtures": { "valid": 1, "invalid": 1 }, "consumerTests": 0, "pendingIssues": [] } ],
+  "needsOwner": [{ "issue": 9, "title": "❌ TickResponse: handler-property failing (brain)", "to": "brain" }] }

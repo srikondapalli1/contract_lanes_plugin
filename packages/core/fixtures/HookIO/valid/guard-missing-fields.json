@@ -1,0 +1,1 @@
+{ "v": 1, "event": "guard", "setup": { "lane": "brain" }, "stdin": { "cwd": "${ROOT}" }, "expect": { "exit": 0, "stderrEmpty": true } }

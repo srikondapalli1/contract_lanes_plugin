@@ -1,0 +1,14 @@
+{ "v": 1, "startedAt": 1763830000000, "durationMs": 1534, "mode": "local", "seed": 42, "branch": "main",
+  "edges": [
+    { "contract": "TickRequest", "producer": "world", "consumer": "brain", "status": "pass", "version": "1.0.0", "fixtures": { "valid": 2, "invalid": 2 }, "consumerTests": 2, "failures": [], "pendingIssues": [] },
+    { "contract": "TickResponse", "producer": "brain", "consumer": "world", "status": "fail", "version": "1.0.0", "fixtures": { "valid": 1, "invalid": 1 }, "consumerTests": 1,
+      "failures": [{ "check": "handler-property", "contract": "TickResponse", "message": "handler tick (apps/brain/src/tick.ts#tick) returned an invalid TickResponse: actions[0].holdMs: Too big: expected number to be <=1500", "file": "apps/brain/src/tick.ts", "seed": 42, "counterexample": { "tick": 0, "worldId": " ", "agents": [{ "id": "a-0", "at": { "x": 0, "y": 0 }, "mood": "spooked" }] }, "repro": "npx lanes check --lane brain --seed 42", "owner": "brain" }],
+      "pendingIssues": [] },
+    { "contract": "Haunt", "producer": "crowd", "consumer": "world", "status": "pending", "version": "1.0.0", "fixtures": { "valid": 1, "invalid": 1 }, "consumerTests": 2, "failures": [], "pendingIssues": [7] },
+    { "contract": "Haunt", "producer": "crowd", "consumer": "brain", "status": "untested", "version": "1.0.0", "fixtures": { "valid": 1, "invalid": 1 }, "consumerTests": 0, "failures": [], "pendingIssues": [] }
+  ],
+  "failures": [{ "check": "handler-property", "contract": "TickResponse", "message": "handler tick (apps/brain/src/tick.ts#tick) returned an invalid TickResponse: actions[0].holdMs: Too big: expected number to be <=1500", "seed": 42, "repro": "npx lanes check --lane brain --seed 42", "owner": "brain" }],
+  "lock": { "ok": true, "changed": [] },
+  "ownership": { "lane": "brain", "violations": [], "overrides": [] },
+  "warnings": ["setup phase: no contracts.lock yet; run `npx lanes lock` once everything is green"],
+  "summary": { "pass": 1, "fail": 1, "pending": 1, "untested": 1 } }
