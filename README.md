@@ -40,8 +40,11 @@ git add -A && git commit -m "lanes init"
 npx lanes join app                                             # one lane per session/worktree
 npx lanes lock                                                 # when interfaces settle: main becomes queue-only
 ```
-> `contract-lanes` isn't on npm yet. Until it's published, `init` takes `--pkg github:srikondapalli1/contract_lanes_plugin`
-> (or set `LANES_PKG`) so `npm install` fetches it from GitHub. The package is the repo root, and its built `plugin/bin` is committed.
+> `contract-lanes` isn't on npm yet, so `init` points the devDependency at this GitHub repo (the package is the repo
+> root, and its built `plugin/bin` is committed). Override with `--pkg <spec>` or `LANES_PKG`. Until this work is merged
+> to `main`, append `#claude/great-dirac-zmefii` to the `github:` specs and the marketplace (`/plugin marketplace add
+> srikondapalli1/contract_lanes_plugin#claude/great-dirac-zmefii`). Verified: `npx github:…#claude/great-dirac-zmefii init`
+> → `npm install` → `lanes check` green in 11 s, over the network.
 
 For a GitHub repo, `lanes init --labels` (rerunnable) creates the labels and the pinned "Lanes control" issue.
 Then protect `main`: require a PR plus the `lanes/check` status. Don't require code-owner review: the queue

@@ -68,7 +68,8 @@ export async function init(cwd: string, o: { laptops?: number; sessions?: number
   const pkgFile = join(root, "package.json");
   const pkg = readJson(pkgFile) ?? { name: basename(root).toLowerCase().replace(/[^a-z0-9-]/g, "-"), private: true, type: "module" };
   pkg.scripts = { check: "lanes check", ...pkg.scripts };
-  const spec = o.pkg ?? process.env.LANES_PKG ?? `^${VERSION_STR}`;
+  // not on npm yet: default to the GitHub repo (the package root ships the built bundle); switch to `^${VERSION_STR}` once published
+  const spec = o.pkg ?? process.env.LANES_PKG ?? "github:srikondapalli1/contract_lanes_plugin";
   pkg.devDependencies = { "contract-lanes": spec, vitest: "^5.1.0", zod: "^4.1.0", ...pkg.devDependencies };
   writeJson(pkgFile, pkg);
   created.push("package.json");
