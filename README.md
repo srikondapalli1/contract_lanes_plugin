@@ -126,12 +126,29 @@ Everything below runs in `pnpm test` (114 tests) or was run by hand in this envi
 | **M2 autonomy loop** (fake GitHub: fake `gh` + local bare remote): bug lands → nightly files blocker → watcher wakes → `fix` claims + worktree → fixer reproduces and fixes → `fix --submit` gates → `queue` rebases, re-checks, merges → issue closed, main green | pass, **no human action** |
 | Two PRs that pass alone but conflict together | first merges, second gets `queue-failed` |
 | Two compatible PRs | both merge in order; the second is rebased, re-checked, force-pushed with lease and gets `lanes/check` first |
+| **Real GitHub** ([sandbox repo](https://github.com/srikondapalli1/srikondapalli1-lanes-sandbox)): labels + control issue → lock → bug lands → nightly-style check files blocker #2 → watcher → `fix 2` → reproduce, fix → `fix --submit` opens PR #3 → the **Actions queue job** re-checks and merges it (`github-actions[bot]`) → issue closed, PR comment says merged, `main` green | pass, no human action. It also surfaced 3 bugs, now fixed |
 | vitest 3.2.7 / 4.1.12 / 5.1.1 | same results |
 | `claude plugin validate` (plugin + marketplace) | passed |
 | Lanes checks itself (C1–C10 contracts + a `graphFromReport` handler property test) | 12/12 edges green |
 | Budgets | core 2,426 lines of logic + 265 lines of zod contracts (~2,500); plugin markdown 232 (≤600) |
 
-Benchmarks against alternatives (Pact, prompt-only rules, plain tests) live in [`bench/`](bench/).
+## Benchmarks
+
+[`bench/REPORT.md`](bench/REPORT.md) compares Lanes with prompt-only `CLAUDE.md` rules, Pact, hand-written zod + vitest
+tests and TypeScript alone on the three-lane example. Every number is reproducible with `bench/run-all.mjs`.
+
+| | Lanes | Pact | zod + vitest | tsc |
+|---|---|---|---|---|
+| Seeded producer bugs caught (19) | **19/19 on every one of 10 seeds** | 6 | 8 | 3 |
+| Always-loaded agent context | ~500 tokens (plugin listing + SessionStart); enforced | needs prompt rules (~600 tokens, not enforced) | same | same |
+| Failure output for the same bug | 321 tokens | 1,909 tokens | 493 | 402 |
+| Idle cost of waiting for messages | 0 tokens/h (`lanes watch` is a script) | `/loop` polling: 150K–3M tokens/h at 50K context | | |
+| Added install on top of vitest | +9 MB, 4 packages | +33 MB, 133 packages, native lib | 0 | 0 |
+
+![Seeded bugs caught by approach](bench/results/bug-catch.svg)
+
+Token counts are approximate (offline tokenizer). The example is small and the bugs were seeded by hand, so read the
+rates as which *kinds* of bugs each approach can see. See the report's caveats.
 
 ## Repo layout
 
@@ -169,6 +186,7 @@ Once the package exists, `lanes init` writes `contract-lanes@^version` instead o
   (`fixturesOf`, `schemaOf`, `arbitraryOf`, `fc`).
 - **npm 10.9 + vitest 4.1** crashes npm's installer (an upstream arborist bug), so `init` pins `vitest ^5.1.0`.
   Any vitest ≥ 3.2 works.
-- The autonomy e2e runs against a faithful fake of the GitHub REST endpoints Lanes uses, not a live throwaway repo.
+- The automated autonomy e2e uses a fake of the GitHub REST endpoints Lanes calls. The same loop was also run once
+  against real GitHub and real Actions (see the table above).
 - Claude Cowork / claude.ai don't install plugins with a top-level `bin/`. Claude Code does, and puts `lanes` on the Bash PATH.
 - Deferred by design (SPEC §3): MCP server, hosted graph, `adopt`, non-TypeScript languages.
