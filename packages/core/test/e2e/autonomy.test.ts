@@ -112,4 +112,34 @@ describe("autonomy loop (M2 acceptance)", () => {
     expect(st.issues[b].labels).not.toContain("queue");
     expect(st.comments[b].map((c: any) => c.body).join("\n")).toMatch(/holdMs: Too big/);
   });
+
+  it("two compatible PRs both merge in order; the second is rebased, re-checked and pushed first", () => {
+    const work = exampleRepo("compat", { fixBug: true });
+    const gh = fakeGitHub(work);
+    lanes(work, ["init", "--labels"], gh.env);
+    expect(lanes(work, ["lock"], gh.env).code).toBe(0);
+    git(work, "add", "-A"); git(work, "commit", "-qm", "lock"); git(work, "push", "-q", "origin", "main");
+    const open = (branch: string, file: string, text: string) => {
+      git(work, "switch", "-q", "-c", branch, "main");
+      writeFileSync(join(work, file), text);
+      git(work, "add", "-A"); git(work, "commit", "-qm", branch); git(work, "push", "-q", "origin", branch);
+      git(work, "switch", "-q", "main");
+      const s = gh.read(); const n = s.next++;
+      s.issues[n] = { number: n, title: branch, body: "", state: "open", labels: ["queue"], user: "agent", created_at: new Date(Date.now() + n).toISOString(), updated_at: new Date().toISOString(), pr: { head: branch } };
+      writeFileSync(gh.state, JSON.stringify(s));
+      return n;
+    };
+    const a = open("world-notes", "apps/world/src/notes.ts", "export const note = 'a';\n");
+    const b = open("crowd-notes", "apps/crowd/src/notes.ts", "export const note = 'b';\n");
+    const before = git(work, "ls-remote", gh.remote, "refs/heads/crowd-notes").split("\t")[0];
+    const q = lanes(ciClone(gh.remote), ["queue"], gh.env);
+    const st = gh.read();
+    expect(st.issues[a].merged_at, q.stdout).toBeTruthy();
+    expect(st.issues[b].merged_at, q.stdout).toBeTruthy();
+    const after = git(work, "ls-remote", gh.remote, "refs/heads/crowd-notes").split("\t")[0];
+    expect(after).not.toBe(before); // rebased onto the new main and force-pushed with lease
+    expect(st.statuses.some((x: any) => x.sha === after && x.state === "success" && x.context === "lanes/check")).toBe(true);
+    const main = ciClone(gh.remote);
+    expect(existsSync(join(main, "apps/world/src/notes.ts")) && existsSync(join(main, "apps/crowd/src/notes.ts"))).toBe(true);
+  });
 });

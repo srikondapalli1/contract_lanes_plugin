@@ -114,7 +114,7 @@ Blocked: apps/world/src/apply.ts belongs to lane "world"; you are in "brain". As
 
 ## Verified here
 
-Everything below runs in `pnpm test` (113 tests) or was run by hand in this environment:
+Everything below runs in `pnpm test` (114 tests) or was run by hand in this environment:
 
 | What (BUILD.md / SPEC §21) | Result |
 |---|---|
@@ -125,6 +125,7 @@ Everything below runs in `pnpm test` (113 tests) or was run by hand in this envi
 | Lock: fixture edit on `main` → failure; on `contract/Haunt-rename` → **major**; optional field / enum value → **minor** | pass |
 | **M2 autonomy loop** (fake GitHub: fake `gh` + local bare remote): bug lands → nightly files blocker → watcher wakes → `fix` claims + worktree → fixer reproduces and fixes → `fix --submit` gates → `queue` rebases, re-checks, merges → issue closed, main green | pass, **no human action** |
 | Two PRs that pass alone but conflict together | first merges, second gets `queue-failed` |
+| Two compatible PRs | both merge in order; the second is rebased, re-checked, force-pushed with lease and gets `lanes/check` first |
 | vitest 3.2.7 / 4.1.12 / 5.1.1 | same results |
 | `claude plugin validate` (plugin + marketplace) | passed |
 | Lanes checks itself (C1–C10 contracts + a `graphFromReport` handler property test) | 12/12 edges green |
