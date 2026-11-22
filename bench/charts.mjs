@@ -30,7 +30,7 @@ const hbar = (x0, y, len, h, fill, tip) => {
 
 /** Horizontal bar panel. rows: {label, value, hi (highlight), note}. */
 function barPanel({ x, y, w, title, unit, rows, max, labelW = 230, rowH = 30, ticks }) {
-  const plotX = x + labelW, plotW = w - labelW - 70;
+  const plotX = x + labelW, plotW = w - labelW - 120;
   max ??= Math.max(...rows.map((r) => r.value)) * 1.05;
   const sx = (v) => (v / max) * plotW;
   let s = `<text class="ph" x="${x}" y="${y}">${esc(title)}</text><text class="ax" x="${plotX + plotW}" y="${y}" text-anchor="end">${esc(unit)}</text>`;
