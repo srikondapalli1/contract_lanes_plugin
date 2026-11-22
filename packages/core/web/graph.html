@@ -288,7 +288,7 @@ function render() {
   const svg = $("g"), canvas = $("canvas");
   const focusKey = document.activeElement?.dataset?.k;
   const n = data.nodes.length;
-  if (narrow.matches) canvas.style.height = (n <= 2 ? 280 : n === 3 ? 400 : n === 4 ? 500 : 620) + "px"; else canvas.style.height = "";
+  if (narrow.matches) canvas.style.height = (n <= 2 ? 280 : n === 3 ? 400 : n === 4 ? 500 : 700) + "px"; else canvas.style.height = "";
   const W = canvas.clientWidth, H = canvas.clientHeight, PAD = 18, compact = W < 560;
   svg.innerHTML = ""; svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
   svg.setAttribute("aria-label", `${plural(n, "lane")} and ${plural(data.edges.length, "contract")} between them`);
@@ -363,6 +363,8 @@ function render() {
         let cost = Math.abs(t - 0.5) * 8 + (full ? 0 : 60);
         if (r.x < 4 || r.y < 4 || r.x + w > W - 4 || r.y + 22 > H - 4) cost += 1000;
         for (const b of rects) if (hitRect(r, b, 6)) cost += 1000;
+        const p0 = G.p[0], p1 = G.p[G.p.length - 1]; // keep the line's start and its arrowhead visible
+        if (hitRect(r, { x: p0.x, y: p0.y, w: 0, h: 0 }, 8) || hitRect(r, { x: p1.x, y: p1.y, w: 0, h: 0 }, 16)) cost += 1000;
         for (const q of placed) if (hitRect(r, q, 4)) cost += 1000; else if (hitRect(r, q, 12)) cost += 12;
         for (const o of geo) if (o !== G && o.samples.some((s) => s.x > r.x - 3 && s.x < r.x + w + 3 && s.y > r.y - 3 && s.y < r.y + 25)) cost += 25;
         if (!best || cost < best.cost) best = { cost, r, full, cw, stW };
