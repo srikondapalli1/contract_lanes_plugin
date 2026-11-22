@@ -18,7 +18,7 @@ jobs:
         with: { node-version: "${{ matrix.node }}", cache: pnpm }
       - run: pnpm install --frozen-lockfile
       - name: bundle is up to date (plugin/bin is committed; plugins install from git)
-        run: pnpm build && git diff --exit-code -- plugin/bin
+        run: pnpm bundle && git diff --exit-code -- plugin/bin
       - run: pnpm typecheck
       - run: pnpm test
       - name: budgets (SPEC §18)

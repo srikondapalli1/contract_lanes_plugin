@@ -44,7 +44,7 @@
     "merge-queue"
   ],
   "scripts": {
-    "build": "node scripts/build.mjs",
+    "bundle": "node scripts/build.mjs",
     "typecheck": "tsc -p .",
     "test": "vitest run",
     "test:e2e": "vitest run packages/core/test/e2e",
@@ -58,5 +58,13 @@
   "packageManager": "pnpm@10.28.0",
   "dependencies": {
     "fast-check": "^4.11.0"
+  },
+  "peerDependenciesMeta": {
+    "vitest": {
+      "optional": true
+    },
+    "zod": {
+      "optional": true
+    }
   }
 }

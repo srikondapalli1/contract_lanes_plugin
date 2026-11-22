@@ -143,7 +143,7 @@ examples/three-lanes/   world/brain/crowd sample with the planted bug
 docs/                   the original SPEC/CONTRACTS/BUILD
 ```
 
-Develop: `pnpm install && pnpm build && pnpm test`. CI checks that the committed bundle matches the source.
+Develop: `pnpm install && pnpm bundle && pnpm test`. CI checks that the committed bundle matches the source.
 Lanes runs on its own repo (`lanes.yaml`, `contracts.lock`, `.github/workflows/lanes.yml`), so changes to
 C1–C10 need a `contract/*` branch.
 
