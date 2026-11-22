@@ -10,8 +10,6 @@ await build({
   bundle: true, platform: "node", format: "esm", target: "node20",
   splitting: true, outdir: out, outExtension: { ".js": ".mjs" }, chunkNames: "chunks/[name]-[hash]",
   loader: { ".html": "text" },
-  // LANES_GRAPH_HTML=<file> bundles a different graph.html (e.g. while the page is being edited)
-  plugins: process.env.LANES_GRAPH_HTML ? [{ name: "graph-html", setup: (b) => b.onResolve({ filter: /web\/graph\.html$/ }, () => ({ path: process.env.LANES_GRAPH_HTML })) }] : [],
   banner: { js: 'import { createRequire as __lanesRequire } from "node:module"; const require = __lanesRequire(import.meta.url);' }, minifySyntax: true, minifyWhitespace: true, legalComments: "none", logLevel: "warning",
 });
 writeFileSync(join(out, "test.d.ts"), `// Types for \`contract-lanes/test\` (consumer-test helpers).
