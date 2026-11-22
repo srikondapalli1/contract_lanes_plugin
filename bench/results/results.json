@@ -192,10 +192,10 @@
   "install": {
     "method": "fresh directory + fresh npm cache per run (--prefer-online), npm 10.9.9, 2 run(s) each; wall time includes network downloads",
     "lanes_pack": {
-      "tarball": "/tmp/claude-0/-home-user-contract-lanes-plugin/724b362f-2aea-5e73-9d01-dff1cebaa7c4/scratchpad/bt/lanes-bench-pack-out-lDFb0r/contract-lanes-0.1.0.tgz",
-      "size": 271096,
-      "unpackedSize": 1176640,
-      "entryCount": 34
+      "tarball": "/tmp/claude-0/-home-user/724b362f-2aea-5e73-9d01-dff1cebaa7c4/scratchpad/bench-tmp/lanes-bench-pack-out-ri6XwH/contract-lanes-0.1.0.tgz",
+      "size": 281050,
+      "unpackedSize": 1206264,
+      "entryCount": 35
     },
     "lanes": {
       "packages_requested": [
@@ -206,9 +206,9 @@
       "runs": [
         {
           "ok": true,
-          "seconds": 8.33,
-          "node_modules_bytes": 48945200,
-          "node_modules_files": 1542,
+          "seconds": 8.04,
+          "node_modules_bytes": 48974824,
+          "node_modules_files": 1543,
           "packages": 39,
           "natives": [
             {
@@ -220,13 +220,13 @@
               "bytes": 10032264
             }
           ],
-          "dir": "/tmp/claude-0/-home-user-contract-lanes-plugin/724b362f-2aea-5e73-9d01-dff1cebaa7c4/scratchpad/bt/lanes-bench-install-lanes-ST7cm5"
+          "dir": "/tmp/claude-0/-home-user/724b362f-2aea-5e73-9d01-dff1cebaa7c4/scratchpad/bench-tmp/lanes-bench-install-lanes-65617C"
         },
         {
           "ok": true,
-          "seconds": 8.22,
-          "node_modules_bytes": 48945200,
-          "node_modules_files": 1542,
+          "seconds": 8.81,
+          "node_modules_bytes": 48974824,
+          "node_modules_files": 1543,
           "packages": 39,
           "natives": [
             {
@@ -238,7 +238,7 @@
               "bytes": 10032264
             }
           ],
-          "dir": "/tmp/claude-0/-home-user-contract-lanes-plugin/724b362f-2aea-5e73-9d01-dff1cebaa7c4/scratchpad/bt/lanes-bench-install-lanes-Y6k4Uq"
+          "dir": "/tmp/claude-0/-home-user/724b362f-2aea-5e73-9d01-dff1cebaa7c4/scratchpad/bench-tmp/lanes-bench-install-lanes-0rPKzS"
         }
       ]
     },
@@ -250,7 +250,7 @@
       "runs": [
         {
           "ok": true,
-          "seconds": 11.35,
+          "seconds": 11.8,
           "node_modules_bytes": 73075484,
           "node_modules_files": 5305,
           "packages": 168,
@@ -272,11 +272,11 @@
               "bytes": 10032264
             }
           ],
-          "dir": "/tmp/claude-0/-home-user-contract-lanes-plugin/724b362f-2aea-5e73-9d01-dff1cebaa7c4/scratchpad/bt/lanes-bench-install-pact-3oFgAJ"
+          "dir": "/tmp/claude-0/-home-user/724b362f-2aea-5e73-9d01-dff1cebaa7c4/scratchpad/bench-tmp/lanes-bench-install-pact-c16aCz"
         },
         {
           "ok": true,
-          "seconds": 12.15,
+          "seconds": 11.31,
           "node_modules_bytes": 73075484,
           "node_modules_files": 5305,
           "packages": 168,
@@ -298,7 +298,7 @@
               "bytes": 10032264
             }
           ],
-          "dir": "/tmp/claude-0/-home-user-contract-lanes-plugin/724b362f-2aea-5e73-9d01-dff1cebaa7c4/scratchpad/bt/lanes-bench-install-pact-3IaKH6"
+          "dir": "/tmp/claude-0/-home-user/724b362f-2aea-5e73-9d01-dff1cebaa7c4/scratchpad/bench-tmp/lanes-bench-install-pact-rTRCzH"
         }
       ],
       "version": "17.1.4",
@@ -311,7 +311,7 @@
       "runs": [
         {
           "ok": true,
-          "seconds": 7.29,
+          "seconds": 7.94,
           "node_modules_bytes": 40012432,
           "node_modules_files": 599,
           "packages": 35,
@@ -325,11 +325,11 @@
               "bytes": 10032264
             }
           ],
-          "dir": "/tmp/claude-0/-home-user-contract-lanes-plugin/724b362f-2aea-5e73-9d01-dff1cebaa7c4/scratchpad/bt/lanes-bench-install-vitest-y1NowE"
+          "dir": "/tmp/claude-0/-home-user/724b362f-2aea-5e73-9d01-dff1cebaa7c4/scratchpad/bench-tmp/lanes-bench-install-vitest-QyCSIu"
         },
         {
           "ok": true,
-          "seconds": 7.96,
+          "seconds": 7.93,
           "node_modules_bytes": 40012432,
           "node_modules_files": 599,
           "packages": 35,
@@ -343,7 +343,7 @@
               "bytes": 10032264
             }
           ],
-          "dir": "/tmp/claude-0/-home-user-contract-lanes-plugin/724b362f-2aea-5e73-9d01-dff1cebaa7c4/scratchpad/bt/lanes-bench-install-vitest-ub3en9"
+          "dir": "/tmp/claude-0/-home-user/724b362f-2aea-5e73-9d01-dff1cebaa7c4/scratchpad/bench-tmp/lanes-bench-install-vitest-bHZRHG"
         }
       ]
     },
@@ -399,8 +399,8 @@
         }
       }
     },
-    "pact_install_dir": "/tmp/claude-0/-home-user-contract-lanes-plugin/724b362f-2aea-5e73-9d01-dff1cebaa7c4/scratchpad/bt/lanes-bench-install-pact-3oFgAJ",
-    "measured_at": "2026-11-22T21:20:42.557Z",
+    "pact_install_dir": "/tmp/claude-0/-home-user/724b362f-2aea-5e73-9d01-dff1cebaa7c4/scratchpad/bench-tmp/lanes-bench-install-pact-c16aCz",
+    "measured_at": "2026-11-22T22:03:04.045Z",
     "node": "v22.23.5",
     "platform": "linux-x64"
   },
@@ -420,52 +420,52 @@
           {
             "seed": 1,
             "caught": false,
-            "ms": 2230
+            "ms": 2761.9
           },
           {
             "seed": 2,
             "caught": false,
-            "ms": 2310.7
+            "ms": 2636.7
           },
           {
             "seed": 3,
             "caught": false,
-            "ms": 2265.2
+            "ms": 2660.8
           },
           {
             "seed": 4,
             "caught": false,
-            "ms": 2203.1
+            "ms": 2714.4
           },
           {
             "seed": 5,
             "caught": false,
-            "ms": 2243.6
+            "ms": 2866.7
           },
           {
             "seed": 6,
             "caught": false,
-            "ms": 2160.9
+            "ms": 2890
           },
           {
             "seed": 7,
             "caught": false,
-            "ms": 2202.9
+            "ms": 2895.6
           },
           {
             "seed": 8,
             "caught": false,
-            "ms": 2159.5
+            "ms": 2772.4
           },
           {
             "seed": 9,
             "caught": false,
-            "ms": 1370.1
+            "ms": 1520.1
           },
           {
             "seed": 10,
             "caught": false,
-            "ms": 1349
+            "ms": 1589.8
           }
         ],
         "errors": [],
@@ -477,60 +477,60 @@
           {
             "seed": 1,
             "caught": false,
-            "ms": 1263.6
+            "ms": 1467.4
           },
           {
             "seed": 2,
             "caught": false,
-            "ms": 1182
+            "ms": 1523.4
           },
           {
             "seed": 3,
             "caught": false,
-            "ms": 1203.1
+            "ms": 1469.2
           },
           {
             "seed": 4,
             "caught": false,
-            "ms": 1255.9
+            "ms": 1439.9
           },
           {
             "seed": 5,
             "caught": false,
-            "ms": 1284.9
+            "ms": 1598.5
           },
           {
             "seed": 6,
             "caught": false,
-            "ms": 1299
+            "ms": 1496.8
           },
           {
             "seed": 7,
             "caught": false,
-            "ms": 1192.1
+            "ms": 1477
           },
           {
             "seed": 8,
             "caught": false,
-            "ms": 1267.2
+            "ms": 1491.1
           },
           {
             "seed": 9,
             "caught": false,
-            "ms": 994
+            "ms": 1249.8
           },
           {
             "seed": 10,
             "caught": false,
-            "ms": 1027.7
+            "ms": 1154.1
           }
         ]
       },
       "pact": {
         "caught": false,
         "stage": null,
-        "consumer_ms": 1012.2,
-        "provider_ms": 859.8
+        "consumer_ms": 825.8,
+        "provider_ms": 805.4
       },
       "examples": {
         "caught": false
@@ -542,35 +542,35 @@
     "baseline_false_positive": false,
     "totals": {
       "lanes": {
-        "caught_any_seed": 18,
-        "caught_every_seed": 18,
+        "caught_any_seed": 19,
+        "caught_every_seed": 19,
         "per_seed_catch_counts": [
-          18,
-          18,
-          18,
-          18,
-          18,
-          18,
-          18,
-          18,
-          18,
-          18
+          19,
+          19,
+          19,
+          19,
+          19,
+          19,
+          19,
+          19,
+          19,
+          19
         ]
       },
       "lanesFast": {
-        "caught_any_seed": 18,
-        "caught_every_seed": 17,
+        "caught_any_seed": 19,
+        "caught_every_seed": 15,
         "per_seed_catch_counts": [
+          19,
+          19,
+          19,
+          19,
+          19,
+          19,
           18,
           18,
-          18,
-          18,
-          18,
-          18,
-          18,
-          17,
-          18,
-          18
+          15,
+          17
         ]
       },
       "pact": {
@@ -614,52 +614,52 @@
             {
               "seed": 1,
               "caught": true,
-              "ms": 2225.5
+              "ms": 2322
             },
             {
               "seed": 2,
               "caught": true,
-              "ms": 2219.8
+              "ms": 2435
             },
             {
               "seed": 3,
               "caught": true,
-              "ms": 2053.9
+              "ms": 2592.5
             },
             {
               "seed": 4,
               "caught": true,
-              "ms": 2152.6
+              "ms": 2678.5
             },
             {
               "seed": 5,
               "caught": true,
-              "ms": 2173.7
+              "ms": 2252.9
             },
             {
               "seed": 6,
               "caught": true,
-              "ms": 2010.8
+              "ms": 2307.7
             },
             {
               "seed": 7,
               "caught": true,
-              "ms": 2188.1
+              "ms": 2478.2
             },
             {
               "seed": 8,
               "caught": true,
-              "ms": 2138.2
+              "ms": 2384.5
             },
             {
               "seed": 9,
               "caught": true,
-              "ms": 1295.8
+              "ms": 1748
             },
             {
               "seed": 10,
               "caught": true,
-              "ms": 1350.2
+              "ms": 1619.9
             }
           ],
           "errors": [],
@@ -671,60 +671,60 @@
             {
               "seed": 1,
               "caught": true,
-              "ms": 1240.4
+              "ms": 1442.5
             },
             {
               "seed": 2,
               "caught": true,
-              "ms": 1299.3
+              "ms": 1321.7
             },
             {
               "seed": 3,
               "caught": true,
-              "ms": 1241.2
+              "ms": 1389.6
             },
             {
               "seed": 4,
               "caught": true,
-              "ms": 1214.6
+              "ms": 1434.6
             },
             {
               "seed": 5,
               "caught": true,
-              "ms": 1306
+              "ms": 1571.4
             },
             {
               "seed": 6,
               "caught": true,
-              "ms": 1247.6
+              "ms": 1413.9
             },
             {
               "seed": 7,
               "caught": true,
-              "ms": 1236.6
+              "ms": 1558.5
             },
             {
               "seed": 8,
               "caught": true,
-              "ms": 1175.9
+              "ms": 1525.6
             },
             {
               "seed": 9,
               "caught": true,
-              "ms": 1140.3
+              "ms": 1186.9
             },
             {
               "seed": 10,
               "caught": true,
-              "ms": 1038.9
+              "ms": 1251.9
             }
           ]
         },
         "pact": {
           "caught": false,
           "stage": null,
-          "consumer_ms": 1133.1,
-          "provider_ms": 790.5
+          "consumer_ms": 1096.1,
+          "provider_ms": 815.9
         },
         "examples": {
           "caught": false
@@ -762,117 +762,117 @@
             {
               "seed": 1,
               "caught": true,
-              "ms": 2545.1
+              "ms": 2240.4
             },
             {
               "seed": 2,
               "caught": true,
-              "ms": 2405.1
+              "ms": 2392
             },
             {
               "seed": 3,
               "caught": true,
-              "ms": 2504.2
+              "ms": 2448.4
             },
             {
               "seed": 4,
               "caught": true,
-              "ms": 2342.8
+              "ms": 2481.9
             },
             {
               "seed": 5,
               "caught": true,
-              "ms": 2169.9
+              "ms": 2773.9
             },
             {
               "seed": 6,
               "caught": true,
-              "ms": 2065.7
+              "ms": 2596
             },
             {
               "seed": 7,
               "caught": true,
-              "ms": 2246.2
+              "ms": 2599.3
             },
             {
               "seed": 8,
               "caught": true,
-              "ms": 2224
+              "ms": 2500.5
             },
             {
               "seed": 9,
               "caught": true,
-              "ms": 1525.8
+              "ms": 1509.9
             },
             {
               "seed": 10,
               "caught": true,
-              "ms": 1361.9
+              "ms": 1493.2
             }
           ],
           "errors": [],
           "config_failures": []
         },
         "lanesFast": {
-          "rate": 1,
+          "rate": 0.9,
           "runs": [
             {
               "seed": 1,
               "caught": true,
-              "ms": 1209.9
+              "ms": 1518.7
             },
             {
               "seed": 2,
               "caught": true,
-              "ms": 1315.4
+              "ms": 1704.1
             },
             {
               "seed": 3,
               "caught": true,
-              "ms": 1226
+              "ms": 1437.7
             },
             {
               "seed": 4,
               "caught": true,
-              "ms": 1289.7
+              "ms": 1617.1
             },
             {
               "seed": 5,
               "caught": true,
-              "ms": 1325.7
+              "ms": 1265.6
             },
             {
               "seed": 6,
               "caught": true,
-              "ms": 1277.3
+              "ms": 1392.8
             },
             {
               "seed": 7,
               "caught": true,
-              "ms": 1281.2
+              "ms": 1322.9
             },
             {
               "seed": 8,
               "caught": true,
-              "ms": 1264.7
+              "ms": 1398.1
             },
             {
               "seed": 9,
-              "caught": true,
-              "ms": 1034.8
+              "caught": false,
+              "ms": 762.1
             },
             {
               "seed": 10,
               "caught": true,
-              "ms": 1018
+              "ms": 1130.4
             }
           ]
         },
         "pact": {
           "caught": false,
           "stage": null,
-          "consumer_ms": 1019,
-          "provider_ms": 820.3
+          "consumer_ms": 1029.2,
+          "provider_ms": 804.3
         },
         "examples": {
           "caught": false
@@ -910,52 +910,52 @@
             {
               "seed": 1,
               "caught": true,
-              "ms": 2138.3
+              "ms": 2318.1
             },
             {
               "seed": 2,
               "caught": true,
-              "ms": 2077
+              "ms": 2516.9
             },
             {
               "seed": 3,
               "caught": true,
-              "ms": 2210.8
+              "ms": 2506.7
             },
             {
               "seed": 4,
               "caught": true,
-              "ms": 2243.9
+              "ms": 2330.4
             },
             {
               "seed": 5,
               "caught": true,
-              "ms": 2222.3
+              "ms": 2429.8
             },
             {
               "seed": 6,
               "caught": true,
-              "ms": 2170.6
+              "ms": 2439.9
             },
             {
               "seed": 7,
               "caught": true,
-              "ms": 2233.7
+              "ms": 2315.9
             },
             {
               "seed": 8,
               "caught": true,
-              "ms": 2173.2
+              "ms": 2527.2
             },
             {
               "seed": 9,
               "caught": true,
-              "ms": 1334.7
+              "ms": 1451
             },
             {
               "seed": 10,
               "caught": true,
-              "ms": 1416.5
+              "ms": 1448.9
             }
           ],
           "errors": [],
@@ -967,60 +967,60 @@
             {
               "seed": 1,
               "caught": true,
-              "ms": 1260
+              "ms": 1282.3
             },
             {
               "seed": 2,
               "caught": true,
-              "ms": 1400.2
+              "ms": 1421.4
             },
             {
               "seed": 3,
               "caught": true,
-              "ms": 1372.1
+              "ms": 1220.1
             },
             {
               "seed": 4,
               "caught": true,
-              "ms": 1361.2
+              "ms": 1378.7
             },
             {
               "seed": 5,
               "caught": true,
-              "ms": 1267.5
+              "ms": 1456.8
             },
             {
               "seed": 6,
               "caught": true,
-              "ms": 1422.8
+              "ms": 1358
             },
             {
               "seed": 7,
               "caught": true,
-              "ms": 1348.7
+              "ms": 1404.7
             },
             {
               "seed": 8,
               "caught": true,
-              "ms": 1265.9
+              "ms": 1406.9
             },
             {
               "seed": 9,
               "caught": true,
-              "ms": 1094
+              "ms": 1106.6
             },
             {
               "seed": 10,
               "caught": true,
-              "ms": 1045.7
+              "ms": 1068.8
             }
           ]
         },
         "pact": {
           "caught": false,
           "stage": null,
-          "consumer_ms": 1355.6,
-          "provider_ms": 836.7
+          "consumer_ms": 1085.2,
+          "provider_ms": 802.4
         },
         "examples": {
           "caught": false
@@ -1037,7 +1037,8 @@
         "lanes": {
           "rate": 1,
           "kinds": [
-            "handler-property"
+            "handler-property",
+            "consumer-test"
           ],
           "first": "handler tick (apps/brain/src/tick.ts#tick) returned an invalid TickResponse: actions[0].holdMs: Invalid input: expected int, received number",
           "shrunk": {
@@ -1047,7 +1048,7 @@
               {
                 "id": "a-0",
                 "at": {
-                  "x": 31,
+                  "x": 13,
                   "y": 0
                 },
                 "mood": "curious"
@@ -1058,52 +1059,52 @@
             {
               "seed": 1,
               "caught": true,
-              "ms": 3685.2
+              "ms": 2321.8
             },
             {
               "seed": 2,
               "caught": true,
-              "ms": 3357.4
+              "ms": 2248.2
             },
             {
               "seed": 3,
               "caught": true,
-              "ms": 3473.1
+              "ms": 2149
             },
             {
               "seed": 4,
               "caught": true,
-              "ms": 3472.7
+              "ms": 2234.6
             },
             {
               "seed": 5,
               "caught": true,
-              "ms": 3130
+              "ms": 2083.3
             },
             {
               "seed": 6,
               "caught": true,
-              "ms": 3183
+              "ms": 2208.4
             },
             {
               "seed": 7,
               "caught": true,
-              "ms": 3053.6
+              "ms": 2187.4
             },
             {
               "seed": 8,
               "caught": true,
-              "ms": 3085.9
+              "ms": 2133.5
             },
             {
               "seed": 9,
               "caught": true,
-              "ms": 1995.8
+              "ms": 1477
             },
             {
               "seed": 10,
               "caught": true,
-              "ms": 2032.4
+              "ms": 1579.3
             }
           ],
           "errors": [],
@@ -1115,60 +1116,60 @@
             {
               "seed": 1,
               "caught": true,
-              "ms": 2064.6
+              "ms": 1345.7
             },
             {
               "seed": 2,
               "caught": true,
-              "ms": 2060.8
+              "ms": 1333.3
             },
             {
               "seed": 3,
               "caught": true,
-              "ms": 2123.3
+              "ms": 1399
             },
             {
               "seed": 4,
               "caught": true,
-              "ms": 2108
+              "ms": 1363.7
             },
             {
               "seed": 5,
               "caught": true,
-              "ms": 1564.9
+              "ms": 1420.6
             },
             {
               "seed": 6,
               "caught": true,
-              "ms": 1790.9
+              "ms": 1400.8
             },
             {
               "seed": 7,
               "caught": true,
-              "ms": 1550.5
+              "ms": 1529.3
             },
             {
               "seed": 8,
               "caught": true,
-              "ms": 1566.9
+              "ms": 1431.1
             },
             {
               "seed": 9,
               "caught": true,
-              "ms": 1207.7
+              "ms": 1172
             },
             {
               "seed": 10,
               "caught": true,
-              "ms": 1125.5
+              "ms": 1075.1
             }
           ]
         },
         "pact": {
           "caught": false,
           "stage": null,
-          "consumer_ms": 1065.1,
-          "provider_ms": 862.4
+          "consumer_ms": 1080.9,
+          "provider_ms": 864.6
         },
         "examples": {
           "caught": false
@@ -1183,123 +1184,220 @@
         "desc": "calm holdMs = 140 · agents.length (> 1500 with 11-12 agents)",
         "trigger": "calm agent in a world of 11-12 agents",
         "lanes": {
-          "rate": 0,
-          "kinds": [],
+          "rate": 1,
+          "kinds": [
+            "handler-property"
+          ],
+          "first": "handler tick (apps/brain/src/tick.ts#tick) returned an invalid TickResponse: actions[0].holdMs: Too big: expected number to be <=1500; actions[1].holdMs: Too bi",
+          "shrunk": {
+            "tick": 0,
+            "worldId": " ",
+            "agents": [
+              {
+                "id": "a-0",
+                "at": {
+                  "x": 0,
+                  "y": 0
+                },
+                "mood": "calm"
+              },
+              {
+                "id": "a-0",
+                "at": {
+                  "x": 0,
+                  "y": 0
+                },
+                "mood": "calm"
+              },
+              {
+                "id": "a-0",
+                "at": {
+                  "x": 0,
+                  "y": 0
+                },
+                "mood": "calm"
+              },
+              {
+                "id": "a-0",
+                "at": {
+                  "x": 0,
+                  "y": 0
+                },
+                "mood": "calm"
+              },
+              {
+                "id": "a-0",
+                "at": {
+                  "x": 0,
+                  "y": 0
+                },
+                "mood": "calm"
+              },
+              {
+                "id": "a-0",
+                "at": {
+                  "x": 0,
+                  "y": 0
+                },
+                "mood": "calm"
+              },
+              {
+                "id": "a-0",
+                "at": {
+                  "x": 0,
+                  "y": 0
+                },
+                "mood": "calm"
+              },
+              {
+                "id": "a-0",
+                "at": {
+                  "x": 0,
+                  "y": 0
+                },
+                "mood": "calm"
+              },
+              {
+                "id": "a-0",
+                "at": {
+                  "x": 0,
+                  "y": 0
+                },
+                "mood": "calm"
+              },
+              {
+                "id": "a-0",
+                "at": {
+                  "x": 0,
+                  "y": 0
+                },
+                "mood": "calm"
+              },
+              {
+                "id": "a-0",
+                "at": {
+                  "x": 0,
+                  "y": 0
+                },
+                "mood": "calm"
+              }
+            ]
+          },
           "runs": [
             {
               "seed": 1,
-              "caught": false,
-              "ms": 2370.2
+              "caught": true,
+              "ms": 2568.4
             },
             {
               "seed": 2,
-              "caught": false,
-              "ms": 2218.9
+              "caught": true,
+              "ms": 2541.4
             },
             {
               "seed": 3,
-              "caught": false,
-              "ms": 2271.5
+              "caught": true,
+              "ms": 2563
             },
             {
               "seed": 4,
-              "caught": false,
-              "ms": 2346.6
+              "caught": true,
+              "ms": 2463.7
             },
             {
               "seed": 5,
-              "caught": false,
-              "ms": 2308.6
+              "caught": true,
+              "ms": 2385.2
             },
             {
               "seed": 6,
-              "caught": false,
-              "ms": 2338.5
+              "caught": true,
+              "ms": 2433.5
             },
             {
               "seed": 7,
-              "caught": false,
-              "ms": 2275.9
+              "caught": true,
+              "ms": 2423.9
             },
             {
               "seed": 8,
-              "caught": false,
-              "ms": 2302.9
+              "caught": true,
+              "ms": 2373.3
             },
             {
               "seed": 9,
-              "caught": false,
-              "ms": 1412.4
+              "caught": true,
+              "ms": 1577.6
             },
             {
               "seed": 10,
-              "caught": false,
-              "ms": 1363.3
+              "caught": true,
+              "ms": 1433.6
             }
           ],
           "errors": [],
           "config_failures": []
         },
         "lanesFast": {
-          "rate": 0,
+          "rate": 1,
           "runs": [
             {
               "seed": 1,
-              "caught": false,
-              "ms": 1281.2
+              "caught": true,
+              "ms": 1349.2
             },
             {
               "seed": 2,
-              "caught": false,
-              "ms": 1228
+              "caught": true,
+              "ms": 1549
             },
             {
               "seed": 3,
-              "caught": false,
-              "ms": 1295.6
+              "caught": true,
+              "ms": 1414.3
             },
             {
               "seed": 4,
-              "caught": false,
-              "ms": 1320
+              "caught": true,
+              "ms": 1381
             },
             {
               "seed": 5,
-              "caught": false,
-              "ms": 1436.2
+              "caught": true,
+              "ms": 1483.8
             },
             {
               "seed": 6,
-              "caught": false,
-              "ms": 1311
+              "caught": true,
+              "ms": 1441.7
             },
             {
               "seed": 7,
-              "caught": false,
-              "ms": 1418
+              "caught": true,
+              "ms": 1486.5
             },
             {
               "seed": 8,
-              "caught": false,
-              "ms": 1443.2
+              "caught": true,
+              "ms": 1419.2
             },
             {
               "seed": 9,
-              "caught": false,
-              "ms": 1103.8
+              "caught": true,
+              "ms": 1187.7
             },
             {
               "seed": 10,
-              "caught": false,
-              "ms": 1137.4
+              "caught": true,
+              "ms": 1160.8
             }
           ]
         },
         "pact": {
           "caught": false,
           "stage": null,
-          "consumer_ms": 1052.5,
-          "provider_ms": 812.8
+          "consumer_ms": 931.9,
+          "provider_ms": 905.4
         },
         "examples": {
           "caught": false
@@ -1347,117 +1445,117 @@
             {
               "seed": 1,
               "caught": true,
-              "ms": 2369.1
+              "ms": 2365.8
             },
             {
               "seed": 2,
               "caught": true,
-              "ms": 2228.5
+              "ms": 2316.7
             },
             {
               "seed": 3,
               "caught": true,
-              "ms": 2176.3
+              "ms": 2231.5
             },
             {
               "seed": 4,
               "caught": true,
-              "ms": 2213.3
+              "ms": 2363.8
             },
             {
               "seed": 5,
               "caught": true,
-              "ms": 2086.9
+              "ms": 2438.5
             },
             {
               "seed": 6,
               "caught": true,
-              "ms": 2049.7
+              "ms": 2456.6
             },
             {
               "seed": 7,
               "caught": true,
-              "ms": 2131.3
+              "ms": 2387
             },
             {
               "seed": 8,
               "caught": true,
-              "ms": 2219.2
+              "ms": 2404.1
             },
             {
               "seed": 9,
               "caught": true,
-              "ms": 1395.1
+              "ms": 1712.7
             },
             {
               "seed": 10,
               "caught": true,
-              "ms": 1492.2
+              "ms": 1614
             }
           ],
           "errors": [],
           "config_failures": []
         },
         "lanesFast": {
-          "rate": 1,
+          "rate": 0.6,
           "runs": [
             {
               "seed": 1,
               "caught": true,
-              "ms": 1346.2
+              "ms": 1651.8
             },
             {
               "seed": 2,
               "caught": true,
-              "ms": 1319.4
+              "ms": 1510.8
             },
             {
               "seed": 3,
               "caught": true,
-              "ms": 1408.7
+              "ms": 1378
             },
             {
               "seed": 4,
               "caught": true,
-              "ms": 1359.3
+              "ms": 1361.5
             },
             {
               "seed": 5,
               "caught": true,
-              "ms": 1265.2
+              "ms": 1428
             },
             {
               "seed": 6,
               "caught": true,
-              "ms": 1295.7
+              "ms": 1761.4
             },
             {
               "seed": 7,
-              "caught": true,
-              "ms": 1245.2
+              "caught": false,
+              "ms": 1636.8
             },
             {
               "seed": 8,
-              "caught": true,
-              "ms": 1262.9
+              "caught": false,
+              "ms": 1435.5
             },
             {
               "seed": 9,
-              "caught": true,
-              "ms": 1022.4
+              "caught": false,
+              "ms": 1150.8
             },
             {
               "seed": 10,
-              "caught": true,
-              "ms": 1053.4
+              "caught": false,
+              "ms": 1055.9
             }
           ]
         },
         "pact": {
           "caught": false,
           "stage": null,
-          "consumer_ms": 1019.7,
-          "provider_ms": 869.3
+          "consumer_ms": 1291.7,
+          "provider_ms": 882.5
         },
         "examples": {
           "caught": false
@@ -1495,52 +1593,52 @@
             {
               "seed": 1,
               "caught": true,
-              "ms": 2292.6
+              "ms": 2502.7
             },
             {
               "seed": 2,
               "caught": true,
-              "ms": 2228.6
+              "ms": 2810.4
             },
             {
               "seed": 3,
               "caught": true,
-              "ms": 2293.3
+              "ms": 2744.1
             },
             {
               "seed": 4,
               "caught": true,
-              "ms": 2284.2
+              "ms": 2772.8
             },
             {
               "seed": 5,
               "caught": true,
-              "ms": 1998.9
+              "ms": 2639.8
             },
             {
               "seed": 6,
               "caught": true,
-              "ms": 2138.1
+              "ms": 2290.3
             },
             {
               "seed": 7,
               "caught": true,
-              "ms": 2300.9
+              "ms": 2354
             },
             {
               "seed": 8,
               "caught": true,
-              "ms": 2214.3
+              "ms": 2362.4
             },
             {
               "seed": 9,
               "caught": true,
-              "ms": 1428.1
+              "ms": 1448.6
             },
             {
               "seed": 10,
               "caught": true,
-              "ms": 1354.3
+              "ms": 1454.7
             }
           ],
           "errors": [],
@@ -1552,60 +1650,60 @@
             {
               "seed": 1,
               "caught": true,
-              "ms": 1297.4
+              "ms": 1265.2
             },
             {
               "seed": 2,
               "caught": true,
-              "ms": 1238.4
+              "ms": 1268.7
             },
             {
               "seed": 3,
               "caught": true,
-              "ms": 1242.5
+              "ms": 1246.1
             },
             {
               "seed": 4,
               "caught": true,
-              "ms": 1253
+              "ms": 1344
             },
             {
               "seed": 5,
               "caught": true,
-              "ms": 1213.8
+              "ms": 1290.9
             },
             {
               "seed": 6,
               "caught": true,
-              "ms": 1257.7
+              "ms": 1277.8
             },
             {
               "seed": 7,
               "caught": true,
-              "ms": 1236
+              "ms": 1356.2
             },
             {
               "seed": 8,
-              "caught": false,
-              "ms": 1191.3
+              "caught": true,
+              "ms": 1357
             },
             {
               "seed": 9,
-              "caught": true,
-              "ms": 1096.3
+              "caught": false,
+              "ms": 1088.8
             },
             {
               "seed": 10,
               "caught": true,
-              "ms": 1041.5
+              "ms": 1074.2
             }
           ]
         },
         "pact": {
           "caught": false,
           "stage": null,
-          "consumer_ms": 1219.3,
-          "provider_ms": 835.5
+          "consumer_ms": 908.8,
+          "provider_ms": 971.7
         },
         "examples": {
           "caught": false
@@ -1643,52 +1741,52 @@
             {
               "seed": 1,
               "caught": true,
-              "ms": 2656.6
+              "ms": 2383.7
             },
             {
               "seed": 2,
               "caught": true,
-              "ms": 2586.5
+              "ms": 2397.1
             },
             {
               "seed": 3,
               "caught": true,
-              "ms": 2302.3
+              "ms": 2352
             },
             {
               "seed": 4,
               "caught": true,
-              "ms": 2685.1
+              "ms": 2336.4
             },
             {
               "seed": 5,
               "caught": true,
-              "ms": 2339.1
+              "ms": 2451.9
             },
             {
               "seed": 6,
               "caught": true,
-              "ms": 2244.6
+              "ms": 2439.6
             },
             {
               "seed": 7,
               "caught": true,
-              "ms": 2032.5
+              "ms": 2457.2
             },
             {
               "seed": 8,
               "caught": true,
-              "ms": 2221.3
+              "ms": 2492.9
             },
             {
               "seed": 9,
               "caught": true,
-              "ms": 1492.4
+              "ms": 1494.2
             },
             {
               "seed": 10,
               "caught": true,
-              "ms": 1469.6
+              "ms": 1507.5
             }
           ],
           "errors": [],
@@ -1700,60 +1798,60 @@
             {
               "seed": 1,
               "caught": true,
-              "ms": 1254.6
+              "ms": 1340.8
             },
             {
               "seed": 2,
               "caught": true,
-              "ms": 1269.9
+              "ms": 1396.1
             },
             {
               "seed": 3,
               "caught": true,
-              "ms": 1265.7
+              "ms": 1414
             },
             {
               "seed": 4,
               "caught": true,
-              "ms": 1320.4
+              "ms": 1347.7
             },
             {
               "seed": 5,
               "caught": true,
-              "ms": 1265.7
+              "ms": 1221.1
             },
             {
               "seed": 6,
               "caught": true,
-              "ms": 1339.8
+              "ms": 1338.6
             },
             {
               "seed": 7,
               "caught": true,
-              "ms": 1281.5
+              "ms": 1245.8
             },
             {
               "seed": 8,
               "caught": true,
-              "ms": 1252.4
+              "ms": 1373.3
             },
             {
               "seed": 9,
               "caught": true,
-              "ms": 1063.4
+              "ms": 1172.8
             },
             {
               "seed": 10,
               "caught": true,
-              "ms": 1014.1
+              "ms": 1149.5
             }
           ]
         },
         "pact": {
           "caught": false,
           "stage": null,
-          "consumer_ms": 1051.1,
-          "provider_ms": 776.8
+          "consumer_ms": 992.8,
+          "provider_ms": 845.2
         },
         "examples": {
           "caught": false
@@ -1780,7 +1878,7 @@
               {
                 "id": "a-0",
                 "at": {
-                  "x": 31,
+                  "x": 13,
                   "y": 0
                 },
                 "mood": "curious"
@@ -1791,52 +1889,52 @@
             {
               "seed": 1,
               "caught": true,
-              "ms": 2206.7
+              "ms": 2357.1
             },
             {
               "seed": 2,
               "caught": true,
-              "ms": 2286
+              "ms": 2375.8
             },
             {
               "seed": 3,
               "caught": true,
-              "ms": 2263.1
+              "ms": 2466.6
             },
             {
               "seed": 4,
               "caught": true,
-              "ms": 2172.1
+              "ms": 2379.7
             },
             {
               "seed": 5,
               "caught": true,
-              "ms": 2176.3
+              "ms": 2217.6
             },
             {
               "seed": 6,
               "caught": true,
-              "ms": 2320.4
+              "ms": 2187.1
             },
             {
               "seed": 7,
               "caught": true,
-              "ms": 2253.2
+              "ms": 2291
             },
             {
               "seed": 8,
               "caught": true,
-              "ms": 2280
+              "ms": 2265.8
             },
             {
               "seed": 9,
               "caught": true,
-              "ms": 1411.7
+              "ms": 1517.2
             },
             {
               "seed": 10,
               "caught": true,
-              "ms": 1388.6
+              "ms": 1452.6
             }
           ],
           "errors": [],
@@ -1848,60 +1946,60 @@
             {
               "seed": 1,
               "caught": true,
-              "ms": 1237.6
+              "ms": 1390.5
             },
             {
               "seed": 2,
               "caught": true,
-              "ms": 1314.3
+              "ms": 1405
             },
             {
               "seed": 3,
               "caught": true,
-              "ms": 1315.1
+              "ms": 1322.6
             },
             {
               "seed": 4,
               "caught": true,
-              "ms": 1321.2
+              "ms": 1387.8
             },
             {
               "seed": 5,
               "caught": true,
-              "ms": 1509.9
+              "ms": 1319.5
             },
             {
               "seed": 6,
               "caught": true,
-              "ms": 1280.6
+              "ms": 1278.4
             },
             {
               "seed": 7,
               "caught": true,
-              "ms": 1337.9
+              "ms": 1341.6
             },
             {
               "seed": 8,
               "caught": true,
-              "ms": 1346.1
+              "ms": 1418.2
             },
             {
               "seed": 9,
               "caught": true,
-              "ms": 1051.9
+              "ms": 1055.4
             },
             {
               "seed": 10,
               "caught": true,
-              "ms": 1053.4
+              "ms": 1229.2
             }
           ]
         },
         "pact": {
           "caught": false,
           "stage": null,
-          "consumer_ms": 1816.9,
-          "provider_ms": 1154.9
+          "consumer_ms": 988.6,
+          "provider_ms": 867.4
         },
         "examples": {
           "caught": false
@@ -1939,52 +2037,52 @@
             {
               "seed": 1,
               "caught": true,
-              "ms": 3325.1
+              "ms": 2490.3
             },
             {
               "seed": 2,
               "caught": true,
-              "ms": 3311.2
+              "ms": 2692.9
             },
             {
               "seed": 3,
               "caught": true,
-              "ms": 3257.5
+              "ms": 2488.6
             },
             {
               "seed": 4,
               "caught": true,
-              "ms": 3504.3
+              "ms": 2552.5
             },
             {
               "seed": 5,
               "caught": true,
-              "ms": 2220.6
+              "ms": 2677.2
             },
             {
               "seed": 6,
               "caught": true,
-              "ms": 2199
+              "ms": 2611.4
             },
             {
               "seed": 7,
               "caught": true,
-              "ms": 2291.3
+              "ms": 2769.4
             },
             {
               "seed": 8,
               "caught": true,
-              "ms": 2115.8
+              "ms": 2825.6
             },
             {
               "seed": 9,
               "caught": true,
-              "ms": 1588.1
+              "ms": 1742.8
             },
             {
               "seed": 10,
               "caught": true,
-              "ms": 1487.3
+              "ms": 1688.2
             }
           ],
           "errors": [],
@@ -1996,60 +2094,60 @@
             {
               "seed": 1,
               "caught": true,
-              "ms": 1667.7
+              "ms": 1564.7
             },
             {
               "seed": 2,
               "caught": true,
-              "ms": 1476.8
+              "ms": 1606.5
             },
             {
               "seed": 3,
               "caught": true,
-              "ms": 1499.7
+              "ms": 1472.2
             },
             {
               "seed": 4,
               "caught": true,
-              "ms": 1543.2
+              "ms": 1487.2
             },
             {
               "seed": 5,
               "caught": true,
-              "ms": 1395.2
+              "ms": 1310.9
             },
             {
               "seed": 6,
               "caught": true,
-              "ms": 1322.9
+              "ms": 1386.8
             },
             {
               "seed": 7,
               "caught": true,
-              "ms": 1322.9
+              "ms": 1285.1
             },
             {
               "seed": 8,
               "caught": true,
-              "ms": 1554.1
+              "ms": 1297.5
             },
             {
               "seed": 9,
               "caught": true,
-              "ms": 1297.3
+              "ms": 1067.1
             },
             {
               "seed": 10,
               "caught": true,
-              "ms": 1273.5
+              "ms": 1075.2
             }
           ]
         },
         "pact": {
           "caught": true,
           "stage": "provider",
-          "consumer_ms": 1125.5,
-          "provider_ms": 706.1
+          "consumer_ms": 1055.6,
+          "provider_ms": 895.1
         },
         "examples": {
           "caught": true,
@@ -2090,52 +2188,52 @@
             {
               "seed": 1,
               "caught": true,
-              "ms": 2102.4
+              "ms": 2281.1
             },
             {
               "seed": 2,
               "caught": true,
-              "ms": 2316.8
+              "ms": 2258.8
             },
             {
               "seed": 3,
               "caught": true,
-              "ms": 2288.8
+              "ms": 2345.3
             },
             {
               "seed": 4,
               "caught": true,
-              "ms": 2207.2
+              "ms": 2379.8
             },
             {
               "seed": 5,
               "caught": true,
-              "ms": 2380.9
+              "ms": 2165.2
             },
             {
               "seed": 6,
               "caught": true,
-              "ms": 2224.3
+              "ms": 2156.2
             },
             {
               "seed": 7,
               "caught": true,
-              "ms": 2373.4
+              "ms": 2189
             },
             {
               "seed": 8,
               "caught": true,
-              "ms": 2233.7
+              "ms": 2477.3
             },
             {
               "seed": 9,
               "caught": true,
-              "ms": 1424.3
+              "ms": 1533.1
             },
             {
               "seed": 10,
               "caught": true,
-              "ms": 1454.9
+              "ms": 1549.8
             }
           ],
           "errors": [],
@@ -2147,60 +2245,60 @@
             {
               "seed": 1,
               "caught": true,
-              "ms": 1780
+              "ms": 1425.7
             },
             {
               "seed": 2,
               "caught": true,
-              "ms": 1434.1
+              "ms": 1323.4
             },
             {
               "seed": 3,
               "caught": true,
-              "ms": 1515.7
+              "ms": 1354.2
             },
             {
               "seed": 4,
               "caught": true,
-              "ms": 1598.9
+              "ms": 1317.6
             },
             {
               "seed": 5,
               "caught": true,
-              "ms": 1916.7
+              "ms": 1863.9
             },
             {
               "seed": 6,
               "caught": true,
-              "ms": 2118.3
+              "ms": 1898.7
             },
             {
               "seed": 7,
               "caught": true,
-              "ms": 2023.1
+              "ms": 1770.3
             },
             {
               "seed": 8,
               "caught": true,
-              "ms": 1916
+              "ms": 1721.9
             },
             {
               "seed": 9,
               "caught": true,
-              "ms": 1132.5
+              "ms": 1149.4
             },
             {
               "seed": 10,
               "caught": true,
-              "ms": 1081.3
+              "ms": 1189.2
             }
           ]
         },
         "pact": {
           "caught": true,
           "stage": "provider",
-          "consumer_ms": 1486.3,
-          "provider_ms": 850.7
+          "consumer_ms": 980.8,
+          "provider_ms": 1048.7
         },
         "examples": {
           "caught": true,
@@ -2241,52 +2339,52 @@
             {
               "seed": 1,
               "caught": true,
-              "ms": 3357.3
+              "ms": 2316.6
             },
             {
               "seed": 2,
               "caught": true,
-              "ms": 3331.4
+              "ms": 2376
             },
             {
               "seed": 3,
               "caught": true,
-              "ms": 3257.9
+              "ms": 2456.9
             },
             {
               "seed": 4,
               "caught": true,
-              "ms": 3399.7
+              "ms": 2016
             },
             {
               "seed": 5,
               "caught": true,
-              "ms": 3267.7
+              "ms": 2070.5
             },
             {
               "seed": 6,
               "caught": true,
-              "ms": 3160.6
+              "ms": 2259.4
             },
             {
               "seed": 7,
               "caught": true,
-              "ms": 3145.4
+              "ms": 2222.8
             },
             {
               "seed": 8,
               "caught": true,
-              "ms": 3358.3
+              "ms": 2362
             },
             {
               "seed": 9,
               "caught": true,
-              "ms": 2027
+              "ms": 1516.4
             },
             {
               "seed": 10,
               "caught": true,
-              "ms": 2024.1
+              "ms": 1367.5
             }
           ],
           "errors": [],
@@ -2298,60 +2396,60 @@
             {
               "seed": 1,
               "caught": true,
-              "ms": 2038.8
+              "ms": 1607
             },
             {
               "seed": 2,
               "caught": true,
-              "ms": 1905.5
+              "ms": 1673.4
             },
             {
               "seed": 3,
               "caught": true,
-              "ms": 1810.9
+              "ms": 1674.6
             },
             {
               "seed": 4,
               "caught": true,
-              "ms": 1878.7
+              "ms": 1628.7
             },
             {
               "seed": 5,
               "caught": true,
-              "ms": 2020.1
+              "ms": 1596.6
             },
             {
               "seed": 6,
               "caught": true,
-              "ms": 1693.8
+              "ms": 1633.7
             },
             {
               "seed": 7,
               "caught": true,
-              "ms": 2021.6
+              "ms": 1451.9
             },
             {
               "seed": 8,
               "caught": true,
-              "ms": 2065.3
+              "ms": 1516.7
             },
             {
               "seed": 9,
               "caught": true,
-              "ms": 1276.2
+              "ms": 1261.3
             },
             {
               "seed": 10,
               "caught": true,
-              "ms": 1205.4
+              "ms": 1197.8
             }
           ]
         },
         "pact": {
           "caught": true,
           "stage": "provider",
-          "consumer_ms": 1683.6,
-          "provider_ms": 850
+          "consumer_ms": 1176.1,
+          "provider_ms": 925.8
         },
         "examples": {
           "caught": true,
@@ -2382,52 +2480,52 @@
             {
               "seed": 1,
               "caught": true,
-              "ms": 2397.3
+              "ms": 2614.6
             },
             {
               "seed": 2,
               "caught": true,
-              "ms": 2391.5
+              "ms": 2661.8
             },
             {
               "seed": 3,
               "caught": true,
-              "ms": 2539
+              "ms": 2563.3
             },
             {
               "seed": 4,
               "caught": true,
-              "ms": 2428
+              "ms": 2733.9
             },
             {
               "seed": 5,
               "caught": true,
-              "ms": 2220.4
+              "ms": 2258.7
             },
             {
               "seed": 6,
               "caught": true,
-              "ms": 2267.8
+              "ms": 2053.6
             },
             {
               "seed": 7,
               "caught": true,
-              "ms": 2372.6
+              "ms": 2432.4
             },
             {
               "seed": 8,
               "caught": true,
-              "ms": 2101.1
+              "ms": 2341.2
             },
             {
               "seed": 9,
               "caught": true,
-              "ms": 1318.1
+              "ms": 1882.1
             },
             {
               "seed": 10,
               "caught": true,
-              "ms": 1410.2
+              "ms": 1692.7
             }
           ],
           "errors": [],
@@ -2439,60 +2537,60 @@
             {
               "seed": 1,
               "caught": true,
-              "ms": 1370.6
+              "ms": 1587.9
             },
             {
               "seed": 2,
               "caught": true,
-              "ms": 1382.4
+              "ms": 1603.4
             },
             {
               "seed": 3,
               "caught": true,
-              "ms": 1456.4
+              "ms": 1553.5
             },
             {
               "seed": 4,
               "caught": true,
-              "ms": 1247.2
+              "ms": 1708.7
             },
             {
               "seed": 5,
               "caught": true,
-              "ms": 1331.2
+              "ms": 1595.8
             },
             {
               "seed": 6,
               "caught": true,
-              "ms": 1265.3
+              "ms": 1487
             },
             {
               "seed": 7,
               "caught": true,
-              "ms": 1265.1
+              "ms": 1631.4
             },
             {
               "seed": 8,
               "caught": true,
-              "ms": 1196
+              "ms": 1543.8
             },
             {
               "seed": 9,
               "caught": true,
-              "ms": 1021
+              "ms": 1253
             },
             {
               "seed": 10,
               "caught": true,
-              "ms": 1055.6
+              "ms": 1232.6
             }
           ]
         },
         "pact": {
           "caught": true,
           "stage": "provider",
-          "consumer_ms": 997.5,
-          "provider_ms": 890.5
+          "consumer_ms": 1137,
+          "provider_ms": 784.5
         },
         "examples": {
           "caught": true,
@@ -2517,52 +2615,52 @@
             {
               "seed": 1,
               "caught": true,
-              "ms": 2264.6
+              "ms": 2654.7
             },
             {
               "seed": 2,
               "caught": true,
-              "ms": 2271.8
+              "ms": 2695.6
             },
             {
               "seed": 3,
               "caught": true,
-              "ms": 2217.6
+              "ms": 2734.2
             },
             {
               "seed": 4,
               "caught": true,
-              "ms": 2290.2
+              "ms": 2493
             },
             {
               "seed": 5,
               "caught": true,
-              "ms": 2101.7
+              "ms": 2628.9
             },
             {
               "seed": 6,
               "caught": true,
-              "ms": 2396.6
+              "ms": 2631
             },
             {
               "seed": 7,
               "caught": true,
-              "ms": 2296.8
+              "ms": 2768.5
             },
             {
               "seed": 8,
               "caught": true,
-              "ms": 2447.4
+              "ms": 2628.1
             },
             {
               "seed": 9,
               "caught": true,
-              "ms": 1500.6
+              "ms": 1550.5
             },
             {
               "seed": 10,
               "caught": true,
-              "ms": 1357
+              "ms": 1554.6
             }
           ],
           "errors": [],
@@ -2574,60 +2672,60 @@
             {
               "seed": 1,
               "caught": true,
-              "ms": 1266.8
+              "ms": 1597
             },
             {
               "seed": 2,
               "caught": true,
-              "ms": 1227.3
+              "ms": 1281.7
             },
             {
               "seed": 3,
               "caught": true,
-              "ms": 1250.2
+              "ms": 1465.1
             },
             {
               "seed": 4,
               "caught": true,
-              "ms": 1258.4
+              "ms": 1372.1
             },
             {
               "seed": 5,
               "caught": true,
-              "ms": 1213.1
+              "ms": 1404.2
             },
             {
               "seed": 6,
               "caught": true,
-              "ms": 1236.2
+              "ms": 1422.8
             },
             {
               "seed": 7,
               "caught": true,
-              "ms": 1173.9
+              "ms": 1510.4
             },
             {
               "seed": 8,
               "caught": true,
-              "ms": 1236.4
+              "ms": 1473.2
             },
             {
               "seed": 9,
               "caught": true,
-              "ms": 1060.8
+              "ms": 1188.2
             },
             {
               "seed": 10,
               "caught": true,
-              "ms": 1073.4
+              "ms": 1199.7
             }
           ]
         },
         "pact": {
           "caught": true,
           "stage": "provider",
-          "consumer_ms": 1055.1,
-          "provider_ms": 899.1
+          "consumer_ms": 1231.5,
+          "provider_ms": 978
         },
         "examples": {
           "caught": true,
@@ -2666,52 +2764,52 @@
             {
               "seed": 1,
               "caught": true,
-              "ms": 2342.9
+              "ms": 2393.6
             },
             {
               "seed": 2,
               "caught": true,
-              "ms": 2461.5
+              "ms": 2421.2
             },
             {
               "seed": 3,
               "caught": true,
-              "ms": 2306.7
+              "ms": 2350.3
             },
             {
               "seed": 4,
               "caught": true,
-              "ms": 2264
+              "ms": 2396.1
             },
             {
               "seed": 5,
               "caught": true,
-              "ms": 2463.4
+              "ms": 2277.4
             },
             {
               "seed": 6,
               "caught": true,
-              "ms": 2490.1
+              "ms": 2375.2
             },
             {
               "seed": 7,
               "caught": true,
-              "ms": 2514
+              "ms": 2318.8
             },
             {
               "seed": 8,
               "caught": true,
-              "ms": 2440.5
+              "ms": 2356.9
             },
             {
               "seed": 9,
               "caught": true,
-              "ms": 1496.4
+              "ms": 1529
             },
             {
               "seed": 10,
               "caught": true,
-              "ms": 1505.6
+              "ms": 1454.1
             }
           ],
           "errors": [],
@@ -2723,60 +2821,60 @@
             {
               "seed": 1,
               "caught": true,
-              "ms": 1278
+              "ms": 1423
             },
             {
               "seed": 2,
               "caught": true,
-              "ms": 1363.2
+              "ms": 1355
             },
             {
               "seed": 3,
               "caught": true,
-              "ms": 1322.1
+              "ms": 1452.7
             },
             {
               "seed": 4,
               "caught": true,
-              "ms": 1298.1
+              "ms": 1387.1
             },
             {
               "seed": 5,
               "caught": true,
-              "ms": 1333.8
+              "ms": 1375.1
             },
             {
               "seed": 6,
               "caught": true,
-              "ms": 1240.8
+              "ms": 1392
             },
             {
               "seed": 7,
               "caught": true,
-              "ms": 1339.4
+              "ms": 1333.4
             },
             {
               "seed": 8,
               "caught": true,
-              "ms": 1264.7
+              "ms": 1228.2
             },
             {
               "seed": 9,
               "caught": true,
-              "ms": 1037
+              "ms": 1095.1
             },
             {
               "seed": 10,
               "caught": true,
-              "ms": 1023.4
+              "ms": 1118.6
             }
           ]
         },
         "pact": {
           "caught": false,
           "stage": null,
-          "consumer_ms": 1168,
-          "provider_ms": 916.4
+          "consumer_ms": 995.8,
+          "provider_ms": 817.3
         },
         "examples": {
           "caught": false
@@ -2806,52 +2904,52 @@
             {
               "seed": 1,
               "caught": true,
-              "ms": 2412.9
+              "ms": 2423.3
             },
             {
               "seed": 2,
               "caught": true,
-              "ms": 2500.7
+              "ms": 2445.9
             },
             {
               "seed": 3,
               "caught": true,
-              "ms": 2405.6
+              "ms": 2523.2
             },
             {
               "seed": 4,
               "caught": true,
-              "ms": 2458
+              "ms": 2405.9
             },
             {
               "seed": 5,
               "caught": true,
-              "ms": 2379.9
+              "ms": 2209.1
             },
             {
               "seed": 6,
               "caught": true,
-              "ms": 2384.4
+              "ms": 2049.7
             },
             {
               "seed": 7,
               "caught": true,
-              "ms": 2371.6
+              "ms": 2186.9
             },
             {
               "seed": 8,
               "caught": true,
-              "ms": 2255.3
+              "ms": 2256.8
             },
             {
               "seed": 9,
               "caught": true,
-              "ms": 1509.8
+              "ms": 1392.3
             },
             {
               "seed": 10,
               "caught": true,
-              "ms": 1564.9
+              "ms": 1330.3
             }
           ],
           "errors": [],
@@ -2863,64 +2961,64 @@
             {
               "seed": 1,
               "caught": true,
-              "ms": 1327.2
+              "ms": 1368
             },
             {
               "seed": 2,
               "caught": true,
-              "ms": 1268.3
+              "ms": 1246.5
             },
             {
               "seed": 3,
               "caught": true,
-              "ms": 1286
+              "ms": 1285.2
             },
             {
               "seed": 4,
               "caught": true,
-              "ms": 1258.2
+              "ms": 1333.2
             },
             {
               "seed": 5,
               "caught": true,
-              "ms": 1572.2
+              "ms": 1371.6
             },
             {
               "seed": 6,
               "caught": true,
-              "ms": 1732.3
+              "ms": 1450.5
             },
             {
               "seed": 7,
               "caught": true,
-              "ms": 1713.7
+              "ms": 1338.3
             },
             {
               "seed": 8,
               "caught": true,
-              "ms": 1620.8
+              "ms": 1434
             },
             {
               "seed": 9,
               "caught": true,
-              "ms": 1315.2
+              "ms": 1106.7
             },
             {
               "seed": 10,
               "caught": true,
-              "ms": 1241.3
+              "ms": 1033.6
             }
           ]
         },
         "pact": {
           "caught": true,
           "stage": "provider",
-          "consumer_ms": 1169.4,
-          "provider_ms": 855.6
+          "consumer_ms": 1209.3,
+          "provider_ms": 748.9
         },
         "examples": {
           "caught": true,
-          "tail": " FAIL  apps/brain/src/tick.zod.test.ts > brain tick honours TickResponse > valid output for fixture 0 | TypeError: Cannot read properties of undefined (reading 'at') |  FAIL  apps/brain/src/__contracts__/TickRequest.test.ts > brain consumes TickRequest > answers every agent in fixture 0 | TypeError:"
+          "tail": " FAIL  apps/brain/src/__contracts__/TickRequest.test.ts [ apps/brain/src/__contracts__/TickRequest.test.ts ] | Error: Cannot find module '/@fs/home/user/contract_lanes_plugin/plugin/bin/chunks/chunk-SAOZF265.mjs' imported from /home/user/contract_lanes_plugin/plugin/bin/test.mjs |  FAIL  apps/brain/"
         },
         "tsc": {
           "caught": false
@@ -2941,52 +3039,52 @@
             {
               "seed": 1,
               "caught": true,
-              "ms": 2404.5
+              "ms": 2306.8
             },
             {
               "seed": 2,
               "caught": true,
-              "ms": 2380.6
+              "ms": 2503.9
             },
             {
               "seed": 3,
               "caught": true,
-              "ms": 2443.2
+              "ms": 2385.9
             },
             {
               "seed": 4,
               "caught": true,
-              "ms": 2386.3
+              "ms": 2523.6
             },
             {
               "seed": 5,
               "caught": true,
-              "ms": 2435.4
+              "ms": 2296.1
             },
             {
               "seed": 6,
               "caught": true,
-              "ms": 2522.1
+              "ms": 2189.4
             },
             {
               "seed": 7,
               "caught": true,
-              "ms": 2324.3
+              "ms": 2297.2
             },
             {
               "seed": 8,
               "caught": true,
-              "ms": 2444.4
+              "ms": 2272.4
             },
             {
               "seed": 9,
               "caught": true,
-              "ms": 1433.2
+              "ms": 1466.9
             },
             {
               "seed": 10,
               "caught": true,
-              "ms": 1437.1
+              "ms": 1516.6
             }
           ],
           "errors": [],
@@ -2998,60 +3096,60 @@
             {
               "seed": 1,
               "caught": true,
-              "ms": 1602.5
+              "ms": 1280.3
             },
             {
               "seed": 2,
               "caught": true,
-              "ms": 1364.1
+              "ms": 1354.6
             },
             {
               "seed": 3,
               "caught": true,
-              "ms": 1529.9
+              "ms": 1327.2
             },
             {
               "seed": 4,
               "caught": true,
-              "ms": 1473.4
+              "ms": 1457.7
             },
             {
               "seed": 5,
               "caught": true,
-              "ms": 1270.3
+              "ms": 1288.3
             },
             {
               "seed": 6,
               "caught": true,
-              "ms": 1270
+              "ms": 1303.9
             },
             {
               "seed": 7,
               "caught": true,
-              "ms": 1217.6
+              "ms": 1192.6
             },
             {
               "seed": 8,
               "caught": true,
-              "ms": 1224.9
+              "ms": 1297.7
             },
             {
               "seed": 9,
               "caught": true,
-              "ms": 1049.7
+              "ms": 1100.4
             },
             {
               "seed": 10,
               "caught": true,
-              "ms": 1030.1
+              "ms": 1102.5
             }
           ]
         },
         "pact": {
           "caught": false,
           "stage": null,
-          "consumer_ms": 988.7,
-          "provider_ms": 917.3
+          "consumer_ms": 1034.8,
+          "provider_ms": 812.2
         },
         "examples": {
           "caught": false
@@ -3076,117 +3174,117 @@
             {
               "seed": 1,
               "caught": true,
-              "ms": 2454.3
+              "ms": 2489.1
             },
             {
               "seed": 2,
               "caught": true,
-              "ms": 2568.4
+              "ms": 2265
             },
             {
               "seed": 3,
               "caught": true,
-              "ms": 2458
+              "ms": 2449.9
             },
             {
               "seed": 4,
               "caught": true,
-              "ms": 2355.1
+              "ms": 2373.8
             },
             {
               "seed": 5,
               "caught": true,
-              "ms": 2286.4
+              "ms": 2334.5
             },
             {
               "seed": 6,
               "caught": true,
-              "ms": 2367.8
+              "ms": 2240.6
             },
             {
               "seed": 7,
               "caught": true,
-              "ms": 2395.4
+              "ms": 2327.4
             },
             {
               "seed": 8,
               "caught": true,
-              "ms": 2586.7
+              "ms": 2212.2
             },
             {
               "seed": 9,
               "caught": true,
-              "ms": 1409.8
+              "ms": 1413
             },
             {
               "seed": 10,
               "caught": true,
-              "ms": 1343.3
+              "ms": 1534.7
             }
           ],
           "errors": [],
           "config_failures": []
         },
         "lanesFast": {
-          "rate": 1,
+          "rate": 0.8,
           "runs": [
             {
               "seed": 1,
               "caught": true,
-              "ms": 1220.1
+              "ms": 1333.9
             },
             {
               "seed": 2,
               "caught": true,
-              "ms": 1216.6
+              "ms": 1357.4
             },
             {
               "seed": 3,
               "caught": true,
-              "ms": 1234.9
+              "ms": 1369
             },
             {
               "seed": 4,
               "caught": true,
-              "ms": 1276.4
+              "ms": 1370
             },
             {
               "seed": 5,
               "caught": true,
-              "ms": 1223.6
+              "ms": 1381.7
             },
             {
               "seed": 6,
               "caught": true,
-              "ms": 1361.8
+              "ms": 1339.9
             },
             {
               "seed": 7,
               "caught": true,
-              "ms": 1264.9
+              "ms": 1372
             },
             {
               "seed": 8,
               "caught": true,
-              "ms": 1310.4
+              "ms": 1155.1
             },
             {
               "seed": 9,
-              "caught": true,
-              "ms": 1106.9
+              "caught": false,
+              "ms": 948
             },
             {
               "seed": 10,
-              "caught": true,
-              "ms": 1091.2
+              "caught": false,
+              "ms": 741.7
             }
           ]
         },
         "pact": {
           "caught": false,
           "stage": null,
-          "consumer_ms": 1017.7,
-          "provider_ms": 1036.4
+          "consumer_ms": 931,
+          "provider_ms": 863
         },
         "examples": {
           "caught": true,
@@ -3212,52 +3310,52 @@
             {
               "seed": 1,
               "caught": true,
-              "ms": 2080.2
+              "ms": 2494.7
             },
             {
               "seed": 2,
               "caught": true,
-              "ms": 2170.3
+              "ms": 2542.1
             },
             {
               "seed": 3,
               "caught": true,
-              "ms": 2380.7
+              "ms": 2497
             },
             {
               "seed": 4,
               "caught": true,
-              "ms": 2309.8
+              "ms": 2412
             },
             {
               "seed": 5,
               "caught": true,
-              "ms": 2238.6
+              "ms": 2329.6
             },
             {
               "seed": 6,
               "caught": true,
-              "ms": 2307.7
+              "ms": 2419.2
             },
             {
               "seed": 7,
               "caught": true,
-              "ms": 2192.9
+              "ms": 2257.8
             },
             {
               "seed": 8,
               "caught": true,
-              "ms": 2353.1
+              "ms": 2473.5
             },
             {
               "seed": 9,
               "caught": true,
-              "ms": 1523.1
+              "ms": 1570.8
             },
             {
               "seed": 10,
               "caught": true,
-              "ms": 1366.1
+              "ms": 1487.2
             }
           ],
           "errors": [],
@@ -3269,60 +3367,60 @@
             {
               "seed": 1,
               "caught": true,
-              "ms": 1259.1
+              "ms": 1466.4
             },
             {
               "seed": 2,
               "caught": true,
-              "ms": 1316.7
+              "ms": 1419
             },
             {
               "seed": 3,
               "caught": true,
-              "ms": 1253.3
+              "ms": 1332.6
             },
             {
               "seed": 4,
               "caught": true,
-              "ms": 1232.3
+              "ms": 1404
             },
             {
               "seed": 5,
               "caught": true,
-              "ms": 1284.7
+              "ms": 1542.2
             },
             {
               "seed": 6,
               "caught": true,
-              "ms": 1308.9
+              "ms": 1377.1
             },
             {
               "seed": 7,
               "caught": true,
-              "ms": 1323.4
+              "ms": 1443.6
             },
             {
               "seed": 8,
               "caught": true,
-              "ms": 1265.6
+              "ms": 1531.5
             },
             {
               "seed": 9,
               "caught": true,
-              "ms": 1085.4
+              "ms": 1207.3
             },
             {
               "seed": 10,
               "caught": true,
-              "ms": 1103.6
+              "ms": 1139.3
             }
           ]
         },
         "pact": {
           "caught": false,
           "stage": null,
-          "consumer_ms": 1213,
-          "provider_ms": 886.5
+          "consumer_ms": 1069.4,
+          "provider_ms": 878.8
         },
         "examples": {
           "caught": true,
@@ -3334,7 +3432,7 @@
         }
       }
     ],
-    "measured_at": "2026-11-22T21:15:05.911Z",
+    "measured_at": "2026-11-22T22:00:39.465Z",
     "node": "v22.23.5",
     "platform": "linux-x64"
   },
@@ -3345,27 +3443,27 @@
       {
         "mutant": "crowded-hold",
         "property_runs": 50,
-        "rate": 0
+        "rate": 1
       },
       {
         "mutant": "crowded-hold",
         "property_runs": 200,
-        "rate": 0
+        "rate": 1
       },
       {
         "mutant": "crowded-hold",
         "property_runs": 1000,
-        "rate": 0
+        "rate": 1
       },
       {
         "mutant": "crowded-hold",
         "property_runs": 5000,
-        "rate": 0
+        "rate": 1
       },
       {
         "mutant": "haunt-rare",
         "property_runs": 50,
-        "rate": 1
+        "rate": 0.6
       },
       {
         "mutant": "haunt-rare",
@@ -3403,7 +3501,7 @@
         "rate": 1
       }
     ],
-    "measured_at": "2026-11-22T21:19:45.773Z",
+    "measured_at": "2026-11-22T22:02:06.614Z",
     "node": "v22.23.5",
     "platform": "linux-x64"
   },

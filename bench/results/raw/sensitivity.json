@@ -5,27 +5,27 @@
     {
       "mutant": "crowded-hold",
       "property_runs": 50,
-      "rate": 0
+      "rate": 1
     },
     {
       "mutant": "crowded-hold",
       "property_runs": 200,
-      "rate": 0
+      "rate": 1
     },
     {
       "mutant": "crowded-hold",
       "property_runs": 1000,
-      "rate": 0
+      "rate": 1
     },
     {
       "mutant": "crowded-hold",
       "property_runs": 5000,
-      "rate": 0
+      "rate": 1
     },
     {
       "mutant": "haunt-rare",
       "property_runs": 50,
-      "rate": 1
+      "rate": 0.6
     },
     {
       "mutant": "haunt-rare",
@@ -63,7 +63,7 @@
       "rate": 1
     }
   ],
-  "measured_at": "2026-11-22T21:19:45.773Z",
+  "measured_at": "2026-11-22T22:02:06.614Z",
   "node": "v22.23.5",
   "platform": "linux-x64"
 }
