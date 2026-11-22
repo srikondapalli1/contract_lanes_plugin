@@ -7,7 +7,7 @@ import { git, gitOk } from "../util/git.ts";
 import { selfExec } from "../util/local.ts";
 import { renderPrComment } from "../status/prComment.ts";
 import { addLabels, api, autopilotOn, botComment, fileBlocker, handle, labelNames, list, overridesFromCommits, parseMeta, prCommentData, removeLabel, repoSlug, setStatus, upsertIssue, upsertPrComment, withMeta } from "../github/index.ts";
-import { escalate } from "../fix/index.ts";
+import { escalate, MAIN_REF } from "../fix/index.ts";
 
 const log = (s: string) => process.stdout.write(s + "\n");
 const FIXES_RE = /\b(?:fix(?:es|ed)?|close[sd]?|resolve[sd]?)\s+#(\d+)/gi;
@@ -45,7 +45,7 @@ function processPr(root: string, repo: string, pr: any) {
     upsertPrComment(repo, n, renderPrComment(prCommentData(r, overridesFromCommits(repo, n), { state, ...(reason ? { reason } : {}) })));
   };
   comment("rebasing");
-  gitOk(root, "fetch", "-q", "origin", "main", `+refs/heads/${head}:refs/remotes/origin/${head}`);
+  gitOk(root, "fetch", "-q", "origin", MAIN_REF, `+refs/heads/${head}:refs/remotes/origin/${head}`);
   gitOk(root, "checkout", "-q", "-B", "lanes-queue", `origin/${head}`);
   if (git(root, "rebase", "-q", "origin/main").code !== 0) {
     git(root, "rebase", "--abort");
@@ -127,7 +127,7 @@ function red(root: string, repo: string, cfg: LanesConfig | undefined, pr: any, 
 
 function afterMerge(root: string, repo: string, pr: any, report: CheckReport, files: string[]) {
   // GITHUB_TOKEN merges don't trigger workflows, so do the post-merge work here.
-  gitOk(root, "fetch", "-q", "origin", "main");
+  gitOk(root, "fetch", "-q", "origin", MAIN_REF);
   gitOk(root, "checkout", "-q", "--detach", "origin/main");
   const cfg = loadConfig(root).cfg as LanesConfig;
   for (const i of linkedIssues(pr.body)) {

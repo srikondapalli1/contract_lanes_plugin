@@ -11,6 +11,7 @@ import { git, gitOk } from "../util/git.ts";
 import { cliCommand, selfExec, writeBinding } from "../util/local.ts";
 import { addLabels, api, autopilotOn, botComment, handle, labelNames, list, parseMeta, removeLabel, repoSlug, withMeta } from "../github/index.ts";
 
+export const MAIN_REF = "+refs/heads/main:refs/remotes/origin/main";
 const me = () => process.env.LANES_ME ?? process.env.USER ?? "agent";
 const out = (o: FixPlan | FixResult) => process.stdout.write(JSON.stringify(o) + "\n");
 
@@ -56,21 +57,23 @@ export async function fixCommand(cwd: string, arg: string | undefined, o: { subm
   // claim
   if (!autopilotOn(repo, cfg)) { process.stderr.write(`lanes fix: autopilot is off (lanes.yaml or the Lanes control issue). Tell the human about #${n} instead of fixing it.\n`); return 1; }
   const attempts = meta?.attempts ?? 0;
-  if (attempts >= cfg.settings.fix_attempts) { out(escalate(repo, cfg, n, lane, `${attempts} fix attempts used (fix_attempts = ${cfg.settings.fix_attempts})`, meta, issue.body)); return 1; }
+  if (attempts >= cfg.settings.fix_attempts && !(meta?.lease && meta.lease.by === me() && meta.lease.until > Date.now())) { out(escalate(repo, cfg, n, lane, `${attempts} fix attempts used (fix_attempts = ${cfg.settings.fix_attempts})`, meta, issue.body)); return 1; }
   if (meta?.lease && meta.lease.until > Date.now() && meta.lease.by !== me()) {
     process.stderr.write(`lanes fix: #${n} is claimed by ${meta.lease.by} until ${new Date(meta.lease.until).toISOString()}; leave it to them\n`);
     return 1;
   }
   const leaseUntil = Date.now() + cfg.settings.lease_minutes * 60_000;
-  const newMeta: IssueMeta = { ...(meta ?? { v: 1, type: "blocker", to: lane as IssueMeta["to"], from: "human", key: `blocker:issue:${n}` }), attempts: attempts + 1, lease: { by: me(), until: leaseUntil } };
+  const resuming = !!meta?.lease && meta.lease.until > Date.now() && meta.lease.by === me(); // re-claim after a crash isn't a new attempt
+  const attempt = resuming ? Math.max(attempts, 1) : attempts + 1;
+  const newMeta: IssueMeta = { ...(meta ?? { v: 1, type: "blocker", to: lane as IssueMeta["to"], from: "human", key: `blocker:issue:${n}` }), attempts: attempt, lease: { by: me(), until: leaseUntil } };
   api("PATCH", `/repos/${repo}/issues/${n}`, { body: withMeta(issue.body ?? "", newMeta) });
   addLabels(repo, n, ["claimed"]);
-  botComment(repo, n, `Claimed by \`${me()}\` until ${new Date(leaseUntil).toISOString()} (attempt ${attempts + 1}/${cfg.settings.fix_attempts}).`);
+  botComment(repo, n, `${resuming ? "Lease renewed" : "Claimed"} by \`${me()}\` until ${new Date(leaseUntil).toISOString()} (attempt ${attempt}/${cfg.settings.fix_attempts}).`);
 
   // isolated worktree from origin/main
   const wt = worktreeFor(root, lane, n);
   const branch = `fix/${n}`;
-  git(root, "fetch", "-q", "origin", "main");
+  git(root, "fetch", "-q", "origin", MAIN_REF); // explicit refspec: some clones have no default fetch refspec
   if (!existsSync(wt)) gitOk(root, "worktree", "add", "-q", "-B", branch, wt, "origin/main");
   if (existsSync(join(root, "node_modules")) && !existsSync(join(wt, "node_modules"))) {
     symlinkSync(join(root, "node_modules"), join(wt, "node_modules"), "dir");
@@ -80,7 +83,7 @@ export async function fixCommand(cwd: string, arg: string | undefined, o: { subm
   }
   writeBinding(wt, { v: 1, lane, boundAt: Date.now() });
   const repro = meta?.failure?.repro ?? `${cliCommand(root)} check --lane ${lane}`;
-  out({ v: 1, issue: n, lane, worktree: wt, branch, repro: `cd ${wt} && ${repro}`, leaseUntil, attempt: attempts + 1 });
+  out({ v: 1, issue: n, lane, worktree: wt, branch, repro: `cd ${wt} && ${repro}`, leaseUntil, attempt });
   return 0;
 }
 
