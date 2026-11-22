@@ -151,6 +151,18 @@ Develop: `pnpm install && pnpm bundle && pnpm test`. CI checks that the committe
 Lanes runs on its own repo (`lanes.yaml`, `contracts.lock`, `.github/workflows/lanes.yml`), so changes to
 C1–C10 need a `contract/*` branch.
 
+## Publishing to npm
+
+`.github/workflows/publish.yml` publishes `contract-lanes` with provenance. It re-runs the bundle check, typecheck
+and tests first, and does nothing if that version is already on npm. One-time setup:
+1. On npmjs.com: **Access Tokens → Generate New Token → Granular**, with **Read and write** on packages, scoped to all
+   packages (the name doesn't exist until the first publish). If your account enforces 2FA for writes, enable "bypass 2FA" for the token.
+2. In this repo: **Settings → Secrets and variables → Actions → New repository secret**, named `NPM_TOKEN`.
+3. **Actions → publish → Run workflow** on `main`, or publish a GitHub release. Bump `version` in `package.json` and
+   `plugin/.claude-plugin/plugin.json` for later releases.
+
+Once the package exists, `lanes init` writes `contract-lanes@^version` instead of the GitHub fallback.
+
 ## Notes and limits
 
 - **Name**: the npm package is `contract-lanes` (`lanes` is taken), so helpers import from `contract-lanes/test`
