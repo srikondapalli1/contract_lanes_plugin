@@ -230,7 +230,7 @@ const plural = (n, w) => `${n} ${w}${n === 1 ? "" : "s"}`;
 const el = (tag, attrs, parent, text) => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (text != null) e.textContent = text; parent && parent.appendChild(e); return e; };
 const keyOf = (e) => `${e.contract}|${e.producer}|${e.consumer}`;
 const narrow = matchMedia("(max-width: 900px)");
-let data = null, stamp, sel = null, seenData = false, lastOk = 0, edgesByKey = {};
+let data = null, stamp, sel = null, seenData = false, lastOk = 0, failed = false, edgesByKey = {};
 
 const issue = (n) => /^[\w.-]+\/[\w.-]+$/.test(data?.repo || "") ? `<a href="https://github.com/${esc(data.repo)}/issues/${n}" target="_blank" rel="noopener">#${n}</a>` : `#${n}`;
 const ownerOf = (lane) => data.nodes.find((n) => n.lane === lane)?.owner || "";
@@ -333,7 +333,7 @@ function render() {
       const P = box[e.producer], C = box[e.consumer];
       let p;
       if (P === C) { // a lane consuming its own contract: a loop over the box
-        const h = 34 + 22 * j, x0 = P.x - 16, x1 = P.x + 16, y0 = P.y - P.hh - 2;
+        const h = 52 + 30 * j, x0 = P.x - 18, x1 = P.x + 18, y0 = P.y - P.hh - 2;
         p = [{ x: x0, y: y0 }, { x: x0 - 22, y: y0 - h }, { x: x1 + 22, y: y0 - h }, { x: x1, y: y0 - 9 }];
       } else {
         const [A, B] = e.producer < e.consumer ? [P, C] : [C, P], d = unit(A, B), nv = { x: -d.y, y: d.x };
@@ -490,8 +490,8 @@ function rail() {
 function header() {
   $("where").innerHTML = data ? `${data.repo ? `<span class="mono">${esc(data.repo)}</span> · ` : ""}checked ${ago(data.fromReport)}` : "";
   const live = $("live"), stale = Date.now() - lastOk > 4000 && lastOk;
-  live.dataset.s = !lastOk ? "wait" : stale ? "stale" : "live";
-  $("liveText").innerHTML = !lastOk ? "Connecting" : stale ? `Reconnecting<span class="t"> · last update ${clock(lastOk)}</span>` : `Live<span class="t"> · updated ${clock(stamp ?? lastOk)}</span>`;
+  live.dataset.s = !lastOk ? (failed ? "stale" : "wait") : stale ? "stale" : "live";
+  $("liveText").innerHTML = !lastOk ? (failed ? `Not connected<span class="t"> · retrying</span>` : "Connecting") : stale ? `Reconnecting<span class="t"> · last update ${clock(lastOk)}</span>` : `Live<span class="t"> · updated ${clock(stamp ?? lastOk)}</span>`;
   document.body.classList.toggle("stale", !!stale && !!data);
 }
 
@@ -510,7 +510,7 @@ async function tick() {
       select(sel);
       if (ping) { const d = $("dot"); d.classList.remove("ping"); void d.offsetWidth; d.classList.add("ping"); }
     }
-  } catch { if (!data) setState(lastOk ? "offline" : "offline"); }
+  } catch { failed = true; if (!data) setState("offline"); }
   header();
   setTimeout(tick, 1500);
 }
