@@ -63,11 +63,12 @@ function processPr(root: string, repo: string, pr: any) {
   const report = check(root, head);
   const files = git(root, "diff", "--name-only", "origin/main...HEAD").stdout.split("\n").filter(Boolean);
   const reasons: string[] = report ? report.failures.map((f) => `[${f.check}] ${f.message}`) : ["lanes check did not produce a report"];
-  if (cfg && report) {
-    const map = buildOwnership(root, cfg);
-    const counts = new Map<string, number>();
-    files.forEach((f) => { const l = laneOf(map, f); if (l) counts.set(l, (counts.get(l) ?? 0) + 1); });
-    const prLane = labelNames(pr).find((l) => l.startsWith("lane:"))?.slice(5) ?? [...counts].sort((a, b) => b[1] - a[1])[0]?.[0];
+  const map = cfg ? buildOwnership(root, cfg) : undefined;
+  const counts = new Map<string, number>();
+  if (map) files.forEach((f) => { const l = laneOf(map, f); if (l) counts.set(l, (counts.get(l) ?? 0) + 1); });
+  const prLane = labelNames(pr).find((l) => l.startsWith("lane:"))?.slice(5) ?? [...counts].sort((a, b) => b[1] - a[1])[0]?.[0];
+  pr.lanesLane = prLane;
+  if (cfg && report && map) {
     const latest = new Map<string, string>();
     for (const r of list(`/repos/${repo}/pulls/${n}/reviews`)) latest.set(r.user?.login, r.state);
     const approved = (h: string) => latest.get(handle(h)) === "APPROVED";
@@ -121,6 +122,20 @@ function red(root: string, repo: string, cfg: LanesConfig | undefined, pr: any, 
       else botComment(repo, i, `Fix PR #${n} failed in the queue (attempt ${attempts}/${cfg.settings.fix_attempts}): ${reasons[0]}. Claim released.`);
     } catch (e) { log(`  could not update #${i}: ${(e as Error).message}`); }
   }
+  // A PR that isn't an auto-fix has no issue to update: open one for its lane so that lane's watcher wakes.
+  const lane: string | undefined = pr.lanesLane;
+  if (!linkedIssues(pr.body).length && lane && cfg?.lanes[lane]) {
+    try {
+      const r = upsertIssue(repo, {
+        meta: { v: 1, type: "blocker", to: lane as IssueMeta["to"], from: "ci", key: `blocker:queue:failed:${n}` },
+        title: `❌ PR #${n} failed in the queue (${lane})`,
+        text: `PR #${n} (\`${pr.head.ref}\`) was re-checked against the latest main and not merged:\n\n${reasons.slice(0, 12).map((r) => `- ${r}`).join("\n")}\n\nPush a fix to \`${pr.head.ref}\` and re-add the \`queue\` label. This issue closes when the PR merges.`,
+        labels: ["lanes:blocker", `lane:${lane}`],
+        update: `Failed in the queue again: ${reasons[0]}`,
+      });
+      log(`  ${r.created ? "opened" : "updated"} blocker #${r.number} → ${lane}`);
+    } catch (e) { log(`  could not open a blocker for ${lane}: ${(e as Error).message}`); }
+  }
   log(`  failed: ${reasons[0]}`);
   void root;
 }
@@ -132,6 +147,12 @@ function afterMerge(root: string, repo: string, pr: any, report: CheckReport, fi
   const cfg = loadConfig(root).cfg as LanesConfig;
   for (const i of linkedIssues(pr.body)) {
     try { botComment(repo, i, `Fixed by #${pr.number} (merged by the queue).`); api("PATCH", `/repos/${repo}/issues/${i}`, { state: "closed" }); removeLabel(repo, i, "claimed"); } catch { /* already closed */ }
+  }
+  for (const b of list(`/repos/${repo}/issues?state=open&labels=lanes:blocker`)) {
+    const key = parseMeta(b.body)?.key;
+    if (key === `blocker:queue:failed:${pr.number}` || key === `blocker:queue:conflict:${pr.number}`) {
+      try { botComment(repo, b.number, `PR #${pr.number} merged; closing.`); api("PATCH", `/repos/${repo}/issues/${b.number}`, { state: "closed" }); } catch { /* already closed */ }
+    }
   }
   if (!cfg) return;
   const touched = new Set(files.map((f) => new RegExp(`^${cfg.settings.fixtures_dir}/([A-Z][A-Za-z0-9]*)/`).exec(f)?.[1]).filter(Boolean));

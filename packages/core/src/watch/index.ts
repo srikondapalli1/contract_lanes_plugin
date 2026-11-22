@@ -32,7 +32,8 @@ export async function watch(cwd: string, o: { lane?: string; once?: boolean; max
     if (items.length) {
       refreshIssuesCache(root, repo);
       const auto = autopilotOn(repo, cfg);
-      const res: WatchResult = { v: 1, lane, items: items.map((i) => ({ ...i, autopilot: auto })), next };
+      // only blockers labeled auto-fix are for the autonomous fixer (a failed PR of yours is fixed on its own branch)
+      const res: WatchResult = { v: 1, lane, items: items.map(({ autoFix, ...i }) => ({ ...i, autopilot: auto && i.type === "blocker" && autoFix })), next };
       process.stdout.write(JSON.stringify(res) + "\n");
       return 0;
     }
@@ -42,7 +43,7 @@ export async function watch(cwd: string, o: { lane?: string; once?: boolean; max
   }
 }
 
-type Item = Omit<WatchResult["items"][number], "autopilot">;
+type Item = Omit<WatchResult["items"][number], "autopilot"> & { autoFix: boolean };
 
 function poll(repo: string, lane: string, inbox: Inbox): Item[] {
   const q = `/repos/${repo}/issues?state=open&labels=${encodeURIComponent(`lane:${lane}`)}&sort=updated&direction=asc&per_page=100${inbox.since ? `&since=${inbox.since}` : ""}`;
@@ -78,7 +79,7 @@ function poll(repo: string, lane: string, inbox: Inbox): Item[] {
     if (!inbox.since || i.updated_at > inbox.since) inbox.since = i.updated_at;
     if (!reason) continue;
     inbox.items.push({ ...base, title: i.title, reason, at });
-    if (type !== "notice" && !leased) out.push({ ...base, type, reason });
+    if (type !== "notice" && !leased) out.push({ ...base, type, reason, autoFix: labels.includes("auto-fix") });
   }
   return out;
 }

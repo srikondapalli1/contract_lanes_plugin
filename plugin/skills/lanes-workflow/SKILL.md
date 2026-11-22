@@ -43,7 +43,10 @@ It costs nothing while idle and exits with one JSON line only when something act
 When it exits:
 - `autopilot: true` blocker for your lane → follow **lanes-fixer**: `lanes fix <n>`, then spawn the
   `fixer` subagent with the printed worktree.
-- `autopilot: false` (kill switch) or a `request` → summarize it for the human, then act on requests within your lane.
+- A blocker titled "PR #n failed in the queue" (`autopilot: false`): fix that PR's branch in your lane, push, and
+  re-add the `queue` label. It closes when the PR merges.
+- Any other `autopilot: false` blocker (kill switch on) or a `request` → summarize it for the human, then act on
+  requests within your lane.
 - `needs-owner` → tell the human; a person must decide.
 - Then **restart the watcher** with the exact `next` command. Always.
 

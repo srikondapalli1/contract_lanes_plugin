@@ -111,6 +111,22 @@ describe("autonomy loop (M2 acceptance)", () => {
     expect(st.issues[b].labels).toContain("queue-failed");
     expect(st.issues[b].labels).not.toContain("queue");
     expect(st.comments[b].map((c: any) => c.body).join("\n")).toMatch(/holdMs: Too big/);
+    // the failed (non-fix) PR opens a blocker for its lane, so that lane's agent wakes up
+    const blocker: any = Object.values(st.issues).find((i: any) => i.title === `❌ PR #${b} failed in the queue (brain)`);
+    expect(blocker.labels).toEqual(expect.arrayContaining(["lanes:blocker", "lane:brain"]));
+    expect(blocker.labels).not.toContain("auto-fix");
+    const w = JSON.parse(lanes(work, ["watch", "--lane", "brain", "--once"], gh.env).stdout);
+    expect(w.items).toContainEqual({ issue: blocker.number, type: "blocker", reason: "new", autopilot: false });
+    // fix the PR's branch, re-queue: it merges and the blocker closes
+    git(work, "switch", "-q", "brain-slower-base");
+    writeFileSync(join(work, "apps/brain/src/timing.ts"), "export const BASE_MS = 450;\n");
+    git(work, "commit", "-qam", "brain: base 450 keeps longer moves under 1500"); git(work, "push", "-q", "origin", "brain-slower-base");
+    git(work, "switch", "-q", "main");
+    const s2 = gh.read(); s2.issues[b].labels = ["queue", "lane:brain"]; writeFileSync(gh.state, JSON.stringify(s2));
+    const q2 = lanes(ciClone(gh.remote), ["queue"], gh.env);
+    const st2 = gh.read();
+    expect(st2.issues[b].merged_at, q2.stdout).toBeTruthy();
+    expect(st2.issues[blocker.number].state).toBe("closed");
   });
 
   it("two compatible PRs both merge in order; the second is rebased, re-checked and pushed first", () => {
