@@ -114,7 +114,7 @@ Blocked: apps/world/src/apply.ts belongs to lane "world"; you are in "brain". As
 
 ## Verified here
 
-Everything below runs in `pnpm test` (114 tests) or was run by hand in this environment:
+Everything below runs in `pnpm test` (115 tests) or was run by hand in this environment:
 
 | What (BUILD.md / SPEC §21) | Result |
 |---|---|
@@ -130,7 +130,7 @@ Everything below runs in `pnpm test` (114 tests) or was run by hand in this envi
 | vitest 3.2.7 / 4.1.12 / 5.1.1 | same results |
 | `claude plugin validate` (plugin + marketplace) | passed |
 | Lanes checks itself (C1–C10 contracts + a `graphFromReport` handler property test) | 12/12 edges green |
-| Budgets | core 2,426 lines of logic + 265 lines of zod contracts (~2,500); plugin markdown 232 (≤600) |
+| Budgets | core 2,440 lines of logic + 265 lines of zod contracts (~2,500); plugin markdown 251 (≤600) |
 
 ## Benchmarks
 
