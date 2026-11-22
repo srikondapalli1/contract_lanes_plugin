@@ -55,7 +55,8 @@ async function lanesCheck(dir, seed, fast) {
   const ms = performance.now() - t0;
   let rep; try { rep = JSON.parse(stdout); } catch { rep = null; }
   const failures = rep?.failures ?? [];
-  return { seed, code, ms: round(ms), caught: code === 1 && failures.length > 0, kinds: [...new Set(failures.map((f) => f.kind ?? f.check ?? "?"))], first: failures[0] ? (failures[0].message ?? "").slice(0, 160) : undefined, error: rep ? undefined : stdout.slice(0, 300) };
+  const real = failures.filter((f) => f.check !== "config");
+  return { seed, code, ms: round(ms), caught: code === 1 && real.length > 0, kinds: [...new Set(failures.map((f) => f.check ?? "?"))], first: real[0] ? (real[0].message ?? "").slice(0, 160) : undefined, shrunk: real[0]?.counterexample, config: failures.filter((f) => f.check === "config").map((f) => f.message), error: rep ? undefined : stdout.slice(0, 300) };
 }
 
 const ZOD_TEST = readFileSync(join(BENCH, "alternatives/zod-vitest/tick.zod.test.ts"), "utf8");
@@ -108,22 +109,25 @@ export async function pact(dir) {
   return { caught, stage: !out.consumer.ok ? "consumer" : !out.provider?.ok ? "provider" : null, consumer_ms: out.consumer.ms, provider_ms: out.provider?.ms, output: caught ? (out.provider?.output ?? out.consumer.output) : undefined };
 }
 
+/** Run fn over items with n workers; fn gets the worker index so each worker can own a separate repo copy. */
 async function pool(items, n, fn) {
   const out = new Array(items.length); let i = 0;
-  await Promise.all(Array.from({ length: n }, async () => { while (i < items.length) { const k = i++; out[k] = await fn(items[k], k); } }));
+  await Promise.all(Array.from({ length: n }, async (_, w) => { while (i < items.length) { const k = i++; out[k] = await fn(items[k], w); } }));
   return out;
 }
 
 async function study(m) {
-  const dir = exampleRepo(`mut-${m.id}`, (d) => { fixed(d); m.edit?.(d); });
+  // One repo copy per worker: concurrent `lanes check` runs in one checkout race on git's index and .lanes/cache.
+  const dirs = Array.from({ length: POOL }, () => exampleRepo(`mut-${m.id.replace(/\W+/g, "-")}`, (d) => { fixed(d); m.edit?.(d); }));
+  const dir = dirs[0];
   const seeds = Array.from({ length: SEEDS }, (_, i) => i + 1);
-  const lanes = await pool(seeds, POOL, (s) => lanesCheck(dir, s, false));
-  const lanesFast = await pool(seeds, POOL, (s) => lanesCheck(dir, s, true));
+  const lanes = await pool(seeds, POOL, (s, w) => lanesCheck(dirs[w], s, false));
+  const lanesFast = await pool(seeds, POOL, (s, w) => lanesCheck(dirs[w], s, true));
   const [examples, types, p] = await Promise.all([examplesOnly(dir), tsc(dir), pact(pactDir((d) => { fixed(d); m.edit?.(d); }))]);
   const rate = (rs) => rs.filter((r) => r.caught).length / rs.length;
   const row = {
     id: m.id, cat: m.cat, desc: m.desc, trigger: m.trigger,
-    lanes: { rate: rate(lanes), kinds: [...new Set(lanes.flatMap((r) => r.kinds))], first: lanes.find((r) => r.caught)?.first, runs: lanes.map(({ seed, caught, ms }) => ({ seed, caught, ms })), errors: lanes.filter((r) => r.error).map((r) => r.error) },
+    lanes: { rate: rate(lanes), kinds: [...new Set(lanes.flatMap((r) => r.kinds))], first: lanes.find((r) => r.caught)?.first, shrunk: lanes.find((r) => r.caught)?.shrunk, runs: lanes.map(({ seed, caught, ms }) => ({ seed, caught, ms })), errors: lanes.filter((r) => r.error).map((r) => r.error), config_failures: [...new Set(lanes.flatMap((r) => r.config))] },
     lanesFast: { rate: rate(lanesFast), runs: lanesFast.map(({ seed, caught, ms }) => ({ seed, caught, ms })) },
     pact: { caught: p.caught, stage: p.stage, consumer_ms: p.consumer_ms, provider_ms: p.provider_ms },
     examples: { caught: examples.caught, tail: examples.tail },

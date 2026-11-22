@@ -4,8 +4,8 @@ import { dirname, join, resolve } from "node:path";
 
 export interface Run { code: number; stdout: string; stderr: string }
 
-export function run(cmd: string, args: string[], opts: { cwd?: string; input?: string; env?: NodeJS.ProcessEnv } = {}): Run {
-  const r = spawnSync(cmd, args, { cwd: opts.cwd, input: opts.input, env: opts.env ?? process.env, encoding: "utf8", maxBuffer: 64 << 20 });
+export function run(cmd: string, args: string[], opts: { cwd?: string; input?: string; env?: NodeJS.ProcessEnv; timeout?: number } = {}): Run {
+  const r = spawnSync(cmd, args, { cwd: opts.cwd, input: opts.input, env: opts.env ?? process.env, encoding: "utf8", maxBuffer: 64 << 20, timeout: opts.timeout });
   return { code: r.status ?? (r.error ? 127 : 1), stdout: r.stdout ?? "", stderr: (r.stderr ?? "") + (r.error ? String(r.error) : "") };
 }
 
