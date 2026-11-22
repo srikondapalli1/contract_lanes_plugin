@@ -20,6 +20,8 @@ Removing Lanes leaves a normal repo (plain zod, vitest, YAML, GitHub labels).
 
 ![Lanes graph: the planted holdMs bug shows TickResponse brain → world red, with seed, repro and owner](docs/graph.png)
 
+Website: **[srikondapalli1.github.io/contract_lanes_plugin](https://srikondapalli1.github.io/contract_lanes_plugin/)** (source in [`site/`](site/), deployed by the `pages` workflow).
+
 ▶ **[70-second demo video](docs/lanes-demo.mp4)**: a real check finds the planted bug, the guard blocks a cross-lane
 edit, an agent fixes it and the live graph turns green, then the same loop on real GitHub.
 
