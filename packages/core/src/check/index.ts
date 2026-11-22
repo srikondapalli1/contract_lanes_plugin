@@ -11,7 +11,7 @@ import { changedFiles, currentBranch, git, repoFiles } from "../util/git.ts";
 import { matches } from "../util/glob.ts";
 import { cliCommand, readBinding, readOverrides } from "../util/local.ts";
 import type { EngineResult } from "./engine.ts";
-import { runVitest, writeEngineFiles } from "./vitest.ts";
+import { runFiles, runVitest, writeEngineFiles } from "./vitest.ts";
 
 export interface CheckOpts { cwd: string; lane?: string; fast?: boolean; ci?: boolean; seed?: number; ignoreLock?: boolean; skipOwnership?: boolean }
 export interface CheckRun { report: CheckReport; exit: 0 | 1 | 2; root?: string; cfg?: LanesConfig; lockEntries: Map<string, LockEntry>; configError?: boolean }
@@ -117,12 +117,14 @@ export async function runCheck(opts: CheckOpts): Promise<CheckRun> {
   // 3–7: one vitest run (engine + consumer tests)
   const contractFiles = Object.fromEntries(plan.contracts.filter((c) => existsSync(join(root, c.file))).map((c) => [c.name, c.file]));
   const handlerFiles = Object.fromEntries(plan.handlers.filter((h) => existsSync(join(root, h.module))).map((h) => [h.name, h.module]));
-  writeEngineFiles(root, plan, contractFiles, handlerFiles, [".lanes/cache/engine.lanes.mjs", ...toRun.map((t) => t.file)]);
-  rmSync(cachePath(root, "engine.json"), { force: true });
+  const rf = runFiles(root);
+  writeEngineFiles(root, plan, contractFiles, handlerFiles, [`.lanes/cache/${rf.engine}`, ...toRun.map((t) => t.file)]);
+  rmSync(rf.out, { force: true });
   const vt = runVitest(root);
+  const engine = readJson<EngineResult>(rf.out);
+  for (const tmp of [rf.engine, rf.config, rf.out, rf.json]) rmSync(tmp.includes("/") ? tmp : cachePath(root, tmp), { force: true });
   if (!vt.ok) return configFail(vt.error!);
-  const engine = readJson<EngineResult>(cachePath(root, "engine.json"));
-  const engineFile = vt.files.find((f) => f.file.endsWith("engine.lanes.mjs"));
+  const engineFile = vt.files.find((f) => f.file.endsWith(rf.engine));
   if (!engine) return configFail(`the lanes engine did not run: ${(engineFile?.message ?? engineFile?.tests[0]?.failureMessages[0] ?? "no output").split("\n")[0]}`);
   report.failures.push(...engine.failures);
   report.warnings.push(...engine.warnings);

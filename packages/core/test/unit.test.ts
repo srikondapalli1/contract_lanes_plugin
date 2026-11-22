@@ -54,6 +54,12 @@ describe("generator", () => {
     expect(arb).toBeTruthy();
     fc.assert(fc.property(arb, (v) => s.safeParse(v).success), { numRuns: 300 });
   });
+  it("reaches an explicit max array length (rare-input bugs live there)", () => {
+    const arb = arbitraryFor(z.array(z.int()).max(12), "", { warnings: [] })!;
+    const lengths = fc.sample(arb, { numRuns: 400, seed: 1 }).map((a) => (a as unknown[]).length);
+    expect(Math.max(...lengths)).toBe(12);
+    expect(lengths.filter((n) => n >= 11).length).toBeGreaterThan(10);
+  });
   it("skips unsupported types with a warning naming the field", () => {
     const ctx = { warnings: [] as string[] };
     expect(arbitraryFor(z.object({ ok: z.string(), bad: z.string().transform((x) => x.length).pipe(z.number()).optional(), lz: z.lazy(() => z.string()).optional() }), "", ctx)).toBeTruthy();

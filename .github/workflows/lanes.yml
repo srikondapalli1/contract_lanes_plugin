@@ -14,7 +14,8 @@ permissions:
   statuses: write
 jobs:
   check:
-    if: github.event_name == 'pull_request'
+    # labeled events only wake the queue job (which re-checks); skip them here to avoid duplicate runs
+    if: github.event_name == 'pull_request' && github.event.action != 'labeled'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

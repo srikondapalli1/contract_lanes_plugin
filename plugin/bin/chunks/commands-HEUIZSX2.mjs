@@ -1,5 +1,5 @@
 import { createRequire as __lanesRequire } from "node:module"; const require = __lanesRequire(import.meta.url);
-import{formatReport,runCheck,schema}from"./chunk-SEUXEYOE.mjs";import{loadConfig,writeOwnership}from"./chunk-G7A2DAUE.mjs";import"./chunk-Z5UMO2H6.mjs";import{VERSION_STR,addOverrides,cliCommand,readBinding,readOverrides,selfBin,writeBinding}from"./chunk-K76JWJ6Q.mjs";import{currentBranch,git,run}from"./chunk-ASKJ3BQ4.mjs";import{expandBraces}from"./chunk-5AS3GD2Q.mjs";import{CONFIG_FILE,LOCK_FILE,findRoot,readJson,writeJson,writeText}from"./chunk-D5NHXJC4.mjs";import{satisfies}from"./chunk-O2EC2AOB.mjs";import"./chunk-5RTKHCUT.mjs";import{appendFileSync,chmodSync,existsSync,readFileSync,writeFileSync}from"node:fs";import{createRequire}from"node:module";import{basename,join,resolve}from"node:path";import{createInterface}from"node:readline/promises";var exampleContract=`import { z } from "zod";
+import{formatReport,runCheck,schema}from"./chunk-TYI4SDVO.mjs";import{loadConfig,writeOwnership}from"./chunk-G7A2DAUE.mjs";import"./chunk-Z5UMO2H6.mjs";import{VERSION_STR,addOverrides,cliCommand,readBinding,readOverrides,selfBin,writeBinding}from"./chunk-K76JWJ6Q.mjs";import{currentBranch,git,run}from"./chunk-ASKJ3BQ4.mjs";import{expandBraces}from"./chunk-5AS3GD2Q.mjs";import{CONFIG_FILE,LOCK_FILE,findRoot,readJson,writeJson,writeText}from"./chunk-D5NHXJC4.mjs";import{satisfies}from"./chunk-O2EC2AOB.mjs";import"./chunk-5RTKHCUT.mjs";import{appendFileSync,chmodSync,existsSync,readFileSync,writeFileSync}from"node:fs";import{createRequire}from"node:module";import{basename,join,resolve}from"node:path";import{createInterface}from"node:readline/promises";var exampleContract=`import { z } from "zod";
 
 export const VERSION = "1.0.0";
 
@@ -64,7 +64,8 @@ permissions:
   statuses: write
 jobs:
   check:
-    if: github.event_name == 'pull_request'
+    # labeled events only wake the queue job (which re-checks); skip them here to avoid duplicate runs
+    if: github.event_name == 'pull_request' && github.event.action != 'labeled'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

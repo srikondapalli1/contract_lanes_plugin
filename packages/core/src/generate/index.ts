@@ -55,7 +55,8 @@ export function arbitraryFor(s: Z, path: string, ctx: GenCtx): fc.Arbitrary<unkn
         else if (c.check === "max_length") max = Math.min(max ?? Infinity, c.maximum);
         else if (c.check === "length_equals") min = max = c.length;
       }
-      return fc.array(el, { minLength: min, maxLength: max ?? Math.max(min, 5) });
+      // with an explicit max, size "max" lets fast-check reach it (its default size stops around 10 elements)
+      return fc.array(el, { minLength: min, maxLength: max ?? Math.max(min, 5), ...(max !== undefined ? { size: "max" as const } : {}) });
     }
     case "tuple": {
       const items = d.items.map((x: Z, i: number) => arbitraryFor(x, `${path}[${i}]`, ctx));
