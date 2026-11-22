@@ -133,7 +133,7 @@ section.band p.lede { margin: 0 0 44px; max-width: 64ch; color: var(--ink-2); fo
 .recipe td { padding: 0 20px 22px; background: #fff6f5; border-top: 0; }
 .recipe pre { margin: 0; padding: 18px 20px; border-radius: 12px; background: var(--ink); color: #e8ebe7; font-size: .84rem; line-height: 1.6; white-space: pre-wrap; overflow-wrap: anywhere; }
 .recipe .p { color: #8fb4ff; } .recipe .f { color: #ff8f8a; font-weight: 700; } .recipe .g { color: #7fdcaa; } .recipe .d { color: #9aa29c; } .recipe .hl { background: rgba(255, 196, 61, .2); border-radius: 3px; } .recipe .hl .d { color: #c9cfca; }
-@media (max-width: 720px) { .board th:nth-child(2), .board td:nth-child(2) { display: none; } .board col.c2 { width: 0; } .board col.c1 { width: 52%; } .board col.c3 { width: 48%; } .board td, .board th { padding: 14px; } }
+@media (max-width: 720px) { .board th:nth-child(2), .board td:nth-child(2) { visibility: hidden; padding: 0; overflow: hidden; font-size: 0; } .board col.c2 { width: 0; } .board col.c1 { width: 50%; } .board col.c3 { width: 50%; } .board td, .board th { padding: 14px; } .board td:nth-child(2), .board th:nth-child(2) { padding: 0; } .status { white-space: nowrap; } }
 @media (max-width: 860px) { .recipe pre { white-space: pre; overflow-x: auto; overflow-wrap: normal; } }
 
 /* inspection: stations lit */
@@ -169,7 +169,13 @@ section.band p.lede { margin: 0 0 44px; max-width: 64ch; color: var(--ink-2); fo
 @media (max-width: 720px) { .tt::before { left: 77px; } .tt li { grid-template-columns: 62px 44px 1fr; gap: 10px; } .tt time { font-size: .85rem; } }
 
 /* map + video */
-.duo { display: grid; grid-template-columns: 1.25fr 1fr; gap: 40px; align-items: start; }
+.duo { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+.player { position: relative; display: block; width: 100%; padding: 0; border: 0; background: var(--ink); cursor: pointer; }
+.player img { opacity: .92; transition: opacity .3s var(--ease); }
+.player:hover img { opacity: 1; }
+.player .pl { position: absolute; left: 50%; top: 50%; width: 84px; height: 84px; margin: -42px 0 0 -42px; border-radius: 50%; background: var(--paper); border: 3px solid var(--ink); display: grid; place-items: center; transition: transform .3s var(--ease); }
+.player:hover .pl { transform: scale(1.06); }
+.player .pl svg { width: 30px; height: 30px; margin-left: 5px; }
 .frame { margin: 0; border: 2px solid var(--ink); border-radius: 6px; overflow: hidden; background: #fff; }
 .frame img, .frame video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; object-position: top left; background: var(--ink); }
 .frame figcaption { padding: 12px 16px; font-size: .95rem; color: var(--ink-2); border-top: 1px solid var(--rule); }
@@ -177,6 +183,7 @@ section.band p.lede { margin: 0 0 44px; max-width: 64ch; color: var(--ink-2); fo
 
 /* ticket section */
 .tickets { display: grid; grid-template-columns: 1.35fr 1fr; gap: 32px; align-items: start; }
+.ticket .nw { white-space: nowrap; }
 .ticket .sl { display: block; padding-left: 2.6ch; text-indent: -2.6ch; }
 .ticket .sl:first-child { padding-left: 0; text-indent: 0; margin-bottom: .35em; }
 .ticket.full pre { max-height: none; -webkit-mask-image: none; mask-image: none; font-size: .84rem; }
@@ -320,7 +327,7 @@ footer .mark { font-size: 1.1rem; color: var(--ink); }
     <p class="lede"><code>lanes graph</code> draws your lanes and contracts and redraws as checks run. Click a contract for the failure, the seed, the repro, and the lane that owns the fix.</p>
     <div class="duo">
       <figure class="frame"><img src="media/graph.png" alt="The lanes graph page: world, brain and crowd lanes, with the TickResponse contract from brain to world marked fail and its owner, seed and repro in the side panel." width="2560" height="1520" loading="lazy"><figcaption>lanes graph on the three-lane example</figcaption></figure>
-      <figure class="frame"><video src="media/lanes-demo.mp4" controls preload="none" playsinline poster="media/lanes-demo-poster.png" aria-label="70-second Lanes demo"></video><figcaption>70 seconds: the check, the guard, the fix, the merge</figcaption></figure>
+      <figure class="frame" id="demo"><button class="player" type="button" aria-label="Play the 70-second Lanes demo"><img src="media/lanes-demo-poster.png" alt="" width="1920" height="1080" loading="lazy"><span class="pl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l13-7.5z" fill="var(--ink)"/></svg></span></button><figcaption>70 seconds: the check, the guard, the fix, the merge</figcaption></figure>
     </div>
   </div>
 </section>
@@ -371,7 +378,7 @@ const STEPS = [
 ];
 const SETUP = STEPS.join("\n");
 const escH = (t) => t.replace(/[&<>]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]));
-const stepHTML = STEPS.map((t) => `<span class="sl">${escH(t).replace(/\//g, "/<wbr>")}</span>`).join("");
+const stepHTML = STEPS.map((t) => `<span class="sl">${escH(t).replace(/\//g, "/<wbr>").replace(/(--[a-z][a-z-]*)/g, '<span class="nw">$1</span>')}</span>`).join("");
 document.getElementById("setup-preview").innerHTML = stepHTML;
 document.getElementById("setup-full").innerHTML = stepHTML;
 
@@ -382,6 +389,14 @@ document.querySelectorAll("[data-copy]").forEach((b) => b.addEventListener("clic
   b.setAttribute("data-done", ""); b.querySelector("use").setAttribute("href", "#i-check");
   setTimeout(() => { label.textContent = was; b.removeAttribute("data-done"); b.querySelector("use").setAttribute("href", "#i-copy"); }, 2200);
 }));
+
+// the demo video loads only when someone presses play
+document.querySelector("#demo .player").addEventListener("click", (e) => {
+  const v = document.createElement("video");
+  Object.assign(v, { src: "media/lanes-demo.mp4", controls: true, autoplay: true, playsInline: true });
+  v.setAttribute("aria-label", "70-second Lanes demo");
+  e.currentTarget.replaceWith(v); v.focus();
+});
 
 // the signature interaction: the closed interchange reopens when the fix lands
 const notice = document.getElementById("notice");
