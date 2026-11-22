@@ -23,6 +23,63 @@ Removing Lanes leaves a normal repo (plain zod, vitest, YAML, GitHub labels).
 It ships as **one CLI** (`contract-lanes`, command `lanes`), **a Claude Code plugin** (`plugin/`) and **one
 GitHub Action workflow** (`lanes init` writes it). All three call the same code.
 
+## Hackathon setup: paste one prompt
+
+**Project lead:** paste this into Claude Code, Cursor, Codex or any coding agent that can run shell commands, from the
+repo you want to build in:
+
+```text
+Set up Lanes (https://github.com/srikondapalli1/contract_lanes_plugin) in this repo so several coding agents can build
+it in parallel without breaking each other.
+1. Run `npx --yes github:srikondapalli1/contract_lanes_plugin init --yes`. If this is a GitHub repo and `gh auth status`
+   works, also run `npx lanes init --labels`.
+2. Install dependencies (npm install, or the repo's package manager), then run `npx lanes check`. It must exit 0.
+3. Ask me in one message what we're building, who is on the team (GitHub handles) and how many agents will run at
+   once. Then propose 2-6 lanes (folders each person or agent owns) and the contracts between them, and wait for my OK.
+4. Write lanes.yaml, one zod contract per interface in contracts/ with fixtures (at least 1 valid and 1 invalid each)
+   and a consumer test for each consumer. Remove the Example contract if we don't need it. Re-run `npx lanes check`
+   until it's green, then commit and push.
+5. For each teammate run `npx lanes invite @handle --lane <lane>` and show me the messages it prints, so I can
+   forward them.
+6. If you are Claude Code, run `claude plugin marketplace add srikondapalli1/contract_lanes_plugin` and
+   `claude plugin install lanes@contract-lanes`, then tell me to restart. Otherwise follow the rules in AGENTS.md.
+```
+
+**Adding people:** `npx lanes invite @handle --lane brain` adds them as a collaborator, makes them that lane's owner,
+regenerates CODEOWNERS, and prints a message to send them. It contains their prompt:
+
+```text
+Join our Lanes project and set up my lane. Repo: https://github.com/<you>/<repo>  My lane: <lane>
+1. Clone the repo if it isn't here yet, cd into it, and install dependencies (npm install, or the repo's package manager).
+2. Run `npx lanes doctor` and fix anything local it flags.
+3. Run `npx lanes join <lane>`, then `npx lanes check --lane <lane>` and summarize what my lane owns and what is red.
+4. If you are Claude Code, run `claude plugin marketplace add srikondapalli1/contract_lanes_plugin` and
+   `claude plugin install lanes@contract-lanes`, then tell me to restart Claude Code and run /lanes:watch.
+   Otherwise read AGENTS.md and follow its Lanes rules.
+5. From now on: edit only my lane's paths, ask other lanes with `npx lanes msg <lane> --type request "..."`,
+   done means `npx lanes check --lane <lane>` exits 0, and ship through a PR labeled queue and lane:<lane>.
+```
+
+When the interfaces stop moving (often after the first hour), run `npx lanes lock`. From then on `main` only changes
+through the queue.
+
+## How autonomous is it?
+
+| Step | Who does it | Needs a running agent? |
+|---|---|---|
+| Detect a broken contract, from either side | `lanes check`: in each agent's loop, on every PR, nightly with fresh seeds, and after every queue merge (the last three in GitHub Actions) | no |
+| Decide whose fix it is | every failure names an owner: the producer for schema, fixture and handler failures, the consumer for its own tests | no |
+| Tell that lane | a deduplicated `lanes:blocker` issue labeled `lane:<owner>` and `auto-fix` | no (GitHub Actions) |
+| Wake an agent | `lanes watch` running in that lane's session exits on the new blocker | **yes**: a Claude Code session with `/lanes:watch` |
+| Write the fix | the `fixer` subagent in an isolated worktree. `fix --submit` refuses unless the check is green, the diff stays in the lane, no contract or fixture changed, and it's ≤ 200 lines | **yes** (that session's model) |
+| Merge it | the queue job in GitHub Actions: rebase on the latest `main`, re-check, squash-merge, close the issue | no |
+| Stop and ask a human | after 2 failed attempts, a failed gate, a change that crosses lanes, or a major contract change: `needs-owner`, assigned to the lane owner | no |
+
+Detection, routing, re-checking and merging run on GitHub with nobody watching. Writing the fix needs one agent
+session per lane to be running, because Lanes itself never calls a model. If none is running, the blocker waits as an
+issue, and the next session in that lane sees it at startup. This loop ran end to end against real GitHub and
+GitHub Actions, with no human steps (see "Verified here").
+
 ## Quickstart (zero to green in under a minute)
 
 In Claude Code:
@@ -107,6 +164,7 @@ Blocked: apps/world/src/apply.ts belongs to lane "world"; you are in "brain". As
 | `lanes graph [--port 4517]` | Live graph on localhost |
 | `lanes status` | Edges, needs-owner, fixes in flight, and three 7-day numbers |
 | `lanes override <paths…> [--push] --reason "r"` | 30-minute logged override (commit trailer + PR comment) |
+| `lanes invite @handle [--lane l]` | Add a teammate: collaborator invite, lane owner, CODEOWNERS, and their copy-paste prompt |
 | `lanes autopilot on\|off` | Kill switch on the control issue |
 | `lanes doctor` | Node, gh auth, versions, hooks, binding, workflow, labels, control issue, branch protection |
 | `lanes codeowners` | Regenerate `.github/CODEOWNERS` from `lanes.yaml` |
@@ -114,7 +172,7 @@ Blocked: apps/world/src/apply.ts belongs to lane "world"; you are in "brain". As
 
 ## Verified here
 
-Everything below runs in `pnpm test` (115 tests) or was run by hand in this environment:
+Everything below runs in `pnpm test` (116 tests) or was run by hand in this environment:
 
 | What (BUILD.md / SPEC §21) | Result |
 |---|---|

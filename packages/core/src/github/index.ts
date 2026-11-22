@@ -6,6 +6,9 @@ import type { PrComment } from "../contracts/PrComment.ts";
 import type { Failure } from "../contracts/_common.ts";
 import { loadConfig, type LanesConfig } from "../config/index.ts";
 import type { CachedIssue, IssuesCache } from "../graph-data/index.ts";
+import { readFileSync, writeFileSync } from "node:fs";
+import { parseDocument } from "yaml";
+import { join } from "node:path";
 import { cachePath, findRoot, readJson, writeJson } from "../util/fs.ts";
 import { git, run } from "../util/git.ts";
 import { cliCommand, readBinding } from "../util/local.ts";
@@ -122,6 +125,38 @@ export async function initGitHub(root: string): Promise<string> {
     try { run(process.env.LANES_GH ?? "gh", ["api", "graphql", "-f", `query=mutation { pinIssue(input: {issueId: "${control.node_id}"}) { issue { number } } }`]); } catch { /* pinning is best-effort */ }
   }
   return `GitHub: ${made.length ? `created ${made.length} labels` : "labels already present"} · control issue #${control.number}`;
+}
+
+/** `lanes invite @handle [--lane l]`: collaborator + lane owner + CODEOWNERS, then a message to send them. */
+export async function inviteCommand(cwd: string, who: string | undefined, lane: string | undefined): Promise<string> {
+  const usage = (m: string) => Object.assign(new Error(m), { name: "UsageError" });
+  const root = findRoot(cwd);
+  const cfg = root && loadConfig(root).cfg;
+  if (!root || !cfg) throw usage("no valid lanes.yaml");
+  if (!who || !/^@?[A-Za-z0-9-]+$/.test(who)) throw usage("usage: lanes invite @github-handle [--lane <lane>]");
+  if (lane && !cfg.lanes[lane]) throw usage(`unknown lane "${lane}" (lanes: ${Object.keys(cfg.lanes).join(", ")})`);
+  const login = handle(who);
+  const repo = repoSlug(root);
+  const out: string[] = [];
+  try {
+    const r = api("PUT", `/repos/${repo}/collaborators/${login}`, { permission: "push" });
+    out.push(r.status === 201 ? `Invited @${login} as a collaborator on ${repo} (they accept the email/GitHub invite).` : `@${login} already has access to ${repo}.`);
+  } catch (e) { out.push(`Could not add @${login} as a collaborator (${(e as Error).message.split("\n")[0]}); add them in Settings → Collaborators.`); }
+  if (lane) {
+    const file = join(root, "lanes.yaml");
+    const text = readFileSync(file, "utf8");
+    const doc = parseDocument(text);
+    const node = doc.getIn(["lanes", lane, "owner"], true) as { range?: [number, number, number] } | undefined;
+    // splice just the owner value so comments and formatting stay as written
+    if (node?.range) writeFileSync(file, text.slice(0, node.range[0]) + JSON.stringify(`@${login}`) + text.slice(node.range[1]));
+    else { doc.setIn(["lanes", lane, "owner"], `@${login}`); writeFileSync(file, String(doc)); }
+    const { writeCodeowners } = await import("../cli/commands.ts");
+    writeCodeowners(root, loadConfig(root).cfg!);
+    out.push(`lanes.yaml: ${lane}.owner = @${login}; regenerated .github/CODEOWNERS. Commit both (git add lanes.yaml .github/CODEOWNERS).`);
+  }
+  const { teammatePrompt } = await import("../cli/templates.ts");
+  out.push("", `Send this to @${login}; they paste the block into Claude Code, Cursor, Codex or any coding agent:`, "", "```", teammatePrompt(`https://github.com/${repo}`, lane ?? "<pick a lane>"), "```");
+  return out.join("\n");
 }
 
 export async function autopilotCommand(cwd: string, onOff: string | undefined): Promise<string> {

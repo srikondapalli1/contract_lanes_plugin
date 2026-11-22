@@ -16,6 +16,7 @@ const HELP = `lanes ${VERSION_STR}: contract-first parallel development for codi
   lanes graph [--port 4517] [--no-serve]
   lanes status
   lanes override <paths...> [--push] --reason "why"
+  lanes invite @handle [--lane l]       add a teammate: collaborator, lane owner, their setup prompt
   lanes autopilot on|off
   lanes doctor
   lanes codeowners
@@ -60,7 +61,8 @@ async function main(argv: string[]): Promise<number> {
         print(`Initialized lanes in ${r.root}\n${r.created.map((f) => `  + ${f}`).join("\n")}`);
         r.warnings.forEach((w) => print(`  ! ${w}`));
         if (a.labels) { const G = await import("../github/index.ts"); print(await G.initGitHub(r.root)); }
-        print(`\nNext:\n  1. npm install                      (installs contract-lanes, vitest, zod)\n  2. npx lanes check                  (green on the first run)\n  3. git add -A && git commit -m "lanes init"\n  4. npx lanes join <lane>            (one lane per session/worktree), build, then npx lanes lock`);
+        print(`\nNext:\n  1. npm install                      (installs contract-lanes, vitest, zod)\n  2. npx lanes check                  (green on the first run)\n  3. git add -A && git commit -m "lanes init"\n  4. npx lanes invite @teammate --lane <lane>   (sends them a copy-paste setup prompt)
+  5. npx lanes join <lane>            (one lane per session/worktree), build, then npx lanes lock`);
         return 0;
       }
       case "join": print(C.join_(cwd, rest[0])); return 0;
@@ -91,6 +93,7 @@ async function main(argv: string[]): Promise<number> {
       case "doctor": { const r = await C.doctor(cwd); print(r.text); return r.exit; }
       case "graph": { const { graph } = await import("../graph/server.ts"); return graph(cwd, { port: num(a.port) ?? 4517, serve: !a["no-serve"] }); }
       case "msg": { const G = await import("../github/index.ts"); print(await G.msgCommand(cwd, rest[0], { type: str(a.type), contract: str(a.contract), key: str(a.key), text: rest.slice(1).join(" ") })); return 0; }
+      case "invite": { const G = await import("../github/index.ts"); print(await G.inviteCommand(cwd, rest[0], str(a.lane))); return 0; }
       case "autopilot": { const G = await import("../github/index.ts"); print(await G.autopilotCommand(cwd, rest[0])); return 0; }
       case "watch": { const W = await import("../watch/index.ts"); return W.watch(cwd, { lane: str(a.lane), once: !!a.once, maxMinutes: num(a["max-minutes"]), interval: num(a.interval) }); }
       case "fix": { const F = await import("../fix/index.ts"); return F.fixCommand(cwd, rest[0], { submit: !!a.submit, escalate: str(a.escalate), cleanup: !!a.cleanup }); }

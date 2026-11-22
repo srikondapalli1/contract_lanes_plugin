@@ -61,6 +61,7 @@ if (rest[0] === "labels") {
   if (method === "GET") reply(200, page(s.labels.map((name) => ({ name }))));
   s.labels.push(input.name); done(201, { name: input.name });
 }
+if (rest[0] === "collaborators") { const had = (s.collaborators ??= []).includes(rest[1]); if (!had) s.collaborators.push(rest[1]); done(had ? 204 : 201, had ? undefined : { invitee: { login: rest[1] } }); }
 if (rest[0] === "statuses") { s.statuses.push({ sha: rest[1], ...input }); done(201, input); }
 if (rest[0] === "branches") reply(404, { message: "Branch not protected" });
 if (rest[0] === "issues" && rest[1] === "comments" && method === "PATCH") {

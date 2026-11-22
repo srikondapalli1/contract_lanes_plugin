@@ -12,5 +12,6 @@ Set up Lanes here, following the **lanes-workflow** skill's planning section.
 4. Guide the plan: brief → `SPEC.md` (what we're building, one paragraph per lane) → edit `lanes.yaml`
    (2–6 lanes, non-overlapping paths, each producing ≥1 contract) → write `contracts/<Name>.ts` + fixtures
    for each interface (see **lanes-contracts**). Re-run `lanes check` after each step and fix warnings.
-5. Commit. When interfaces settle, `lanes lock`, commit `contracts.lock`, and protect `main`
-   (require PR + `lanes/check`). Each session then runs `/lanes:join <lane>`.
+5. Commit and push. For each teammate run `lanes invite @handle --lane <lane>` and show the user the printed
+   message to forward (it has their copy-paste setup prompt). Each session then runs `/lanes:join <lane>`.
+6. When interfaces settle, `lanes lock`, commit `contracts.lock`, and protect `main` (require PR + `lanes/check`).

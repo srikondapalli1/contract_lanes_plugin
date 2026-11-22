@@ -149,3 +149,14 @@ run() {
 }
 run ${kind === "pre-commit" ? "guard --staged" : 'guard --trailers "$1"'}
 `;
+
+/** The copy-paste prompt a teammate gives their coding agent (also in the README). */
+export const teammatePrompt = (repoUrl: string, lane: string) => `Join our Lanes project and set up my lane. Repo: ${repoUrl}  My lane: ${lane}
+1. Clone the repo if it isn't here yet, cd into it, and install dependencies (npm install, or the repo's package manager).
+2. Run \`npx lanes doctor\` and fix anything local it flags.
+3. Run \`npx lanes join ${lane}\`, then \`npx lanes check --lane ${lane}\` and summarize what my lane owns and what is red.
+4. If you are Claude Code, run \`claude plugin marketplace add srikondapalli1/contract_lanes_plugin\` and
+   \`claude plugin install lanes@contract-lanes\`, then tell me to restart Claude Code and run /lanes:watch.
+   Otherwise read AGENTS.md and follow its Lanes rules.
+5. From now on: edit only my lane's paths, ask other lanes with \`npx lanes msg <lane> --type request "..."\`,
+   done means \`npx lanes check --lane ${lane}\` exits 0, and ship through a PR labeled queue and lane:${lane}.`;

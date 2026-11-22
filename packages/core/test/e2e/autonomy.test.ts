@@ -142,4 +142,19 @@ describe("autonomy loop (M2 acceptance)", () => {
     const main = ciClone(gh.remote);
     expect(existsSync(join(main, "apps/world/src/notes.ts")) && existsSync(join(main, "apps/crowd/src/notes.ts"))).toBe(true);
   });
+
+  it("lanes invite adds a collaborator, sets the lane owner and prints the teammate prompt", () => {
+    const work = exampleRepo("invite", { fixBug: true });
+    const gh = fakeGitHub(work);
+    const r = lanes(work, ["invite", "@new-dev", "--lane", "crowd"], gh.env);
+    expect(r.code, r.stderr).toBe(0);
+    expect(gh.read().collaborators).toEqual(["new-dev"]);
+    expect(r.stdout).toContain("Invited @new-dev");
+    expect(readFileSync(join(work, "lanes.yaml"), "utf8")).toMatch(/crowd: \{ owner: "@new-dev",\s+paths: \["apps\/crowd\/\*\*"\] \}/);
+    expect(readFileSync(join(work, ".github/CODEOWNERS"), "utf8")).toContain("/apps/crowd/** @new-dev");
+    expect(r.stdout).toContain("npx lanes join crowd");
+    expect(r.stdout).toContain("Repo: https://github.com/acme/manor");
+    expect(lanes(work, ["check", "--lane", "crowd"], gh.env).code).toBe(0); // lanes.yaml still valid
+    expect(lanes(work, ["invite", "@new-dev"], gh.env).stdout).toContain("already has access");
+  });
 });
