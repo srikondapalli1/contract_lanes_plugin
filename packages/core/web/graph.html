@@ -153,6 +153,7 @@ body:not([data-state="ready"]) main { grid-template-columns: minmax(0, 1fr); }
 .repro code { flex: 1; min-width: 0; padding-top: 3px; white-space: pre-wrap; overflow-wrap: anywhere; }
 .repro code::before { content: "$ "; color: var(--muted); }
 .repro .tok { white-space: nowrap; }
+.repro .tok.long { white-space: normal; word-break: break-all; }
 button { font: inherit; color: inherit; }
 .copy { flex: none; font-size: 12px; font-weight: 550; height: 26px; padding: 0 10px; border-radius: 5px; border: 1px solid var(--line-2); background: var(--surface); color: var(--ink); cursor: pointer; }
 .copy:hover { border-color: var(--ink-2); }
@@ -465,7 +466,7 @@ function detail() {
       <p class="fix">Fix owned by <b>${esc(f.owner)}</b>${ownerOf(f.owner) ? ` (${esc(ownerOf(f.owner))})` : ""}</p>
       <pre class="msg">${esc(f.message)}</pre>
       ${f.seed != null ? `<div class="kv">Seed <code>${esc(f.seed)}</code></div>` : ""}
-      ${f.repro ? `<div class="kv">Reproduce</div><div class="repro"><code id="repro">${String(f.repro).split(/(\s+)/).map((t) => /^\s*$/.test(t) ? t : `<span class="tok">${esc(t)}</span>`).join("")}</code><button class="copy" id="copy" type="button">Copy</button></div>` : ""}
+      ${f.repro ? `<div class="kv">Reproduce</div><div class="repro"><code id="repro">${String(f.repro).split(/(\s+)/).map((t) => /^\s*$/.test(t) ? t : `<span class="tok${t.length > 24 ? " long" : ""}">${esc(t)}</span>`).join("")}</code><button class="copy" id="copy" type="button">Copy</button></div>` : ""}
     </div>` : notes[e.status] ? `<p class="note">${notes[e.status]}</p>` : ""}`;
   const btn = $("copy");
   if (btn) btn.onclick = async () => {
