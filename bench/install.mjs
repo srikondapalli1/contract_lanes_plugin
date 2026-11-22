@@ -1,6 +1,7 @@
 // Benchmark 4: install footprint. Fresh dir + fresh npm cache per run, so times include downloads (network-dependent).
-//   Lanes: npm pack of this repo (bin from LANES_BIN) + vitest@^5.1 + zod@^4.1   (its peers)
-//   Pact:  @pact-foundation/pact + vitest@^5.1                                    (Pact needs a test runner too)
+//   Lanes:  npm pack of this repo (bin from LANES_BIN) + vitest@^5.1 + zod@^4.1   (its peers)
+//   Pact:   @pact-foundation/pact + vitest@^5.1                                    (Pact needs a test runner too)
+//   vitest: vitest@^5.1 alone, the shared baseline both of the above include
 // Also records registry metadata (`npm view`) for both packages.
 import { cpSync, existsSync, mkdirSync, readdirSync, statSync, lstatSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
@@ -86,6 +87,7 @@ const pack = packLanes();
 console.log("packed", pack);
 const lanesInstall = install("lanes", [pack.tarball, "vitest@^5.1.0", "zod@^4.1.0"]);
 const pactInstall = install("pact", ["@pact-foundation/pact", "vitest@^5.1.0"]);
+const vitestOnly = install("vitest", ["vitest@^5.1.0"]);
 const pactRunDir = pactInstall.runs.find((r) => r.ok)?.dir;
 const pactVersion = pactRunDir ? (await import(join(pactRunDir, "node_modules/@pact-foundation/pact/package.json"), { with: { type: "json" } })).default.version : null;
 const pactCoreVersion = pactRunDir && existsSync(join(pactRunDir, "node_modules/@pact-foundation/pact-core/package.json"))
@@ -96,6 +98,7 @@ saveResult("install", {
   lanes_pack: pack,
   lanes: lanesInstall,
   pact: { ...pactInstall, version: pactVersion, pact_core_version: pactCoreVersion },
+  vitest_only: vitestOnly,
   registry: { "@pact-foundation/pact": view("@pact-foundation/pact"), "@pact-foundation/pact-core": view("@pact-foundation/pact-core"), "contract-lanes": view("contract-lanes") },
   pact_install_dir: pactRunDir ?? null,
 });
