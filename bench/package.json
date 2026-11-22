@@ -1,0 +1,13 @@
+{
+  "name": "contract-lanes-bench",
+  "private": true,
+  "type": "module",
+  "description": "Benchmarks for contract-lanes (see README.md). Not published.",
+  "scripts": {
+    "all": "node run-all.mjs"
+  },
+  "dependencies": {
+    "@anthropic-ai/tokenizer": "^0.0.4",
+    "js-tiktoken": "^1.0.21"
+  }
+}

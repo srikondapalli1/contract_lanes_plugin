@@ -1,0 +1,172 @@
+{
+  "method": "fresh directory + fresh npm cache per run (--prefer-online), npm 10.9.9, 2 run(s) each; wall time includes network downloads",
+  "lanes_pack": {
+    "tarball": "/tmp/claude-0/-home-user-contract-lanes-plugin/724b362f-2aea-5e73-9d01-dff1cebaa7c4/scratchpad/bt/lanes-bench-pack-out-LCXcxR/contract-lanes-0.1.0.tgz",
+    "size": 266198,
+    "unpackedSize": 1165149,
+    "entryCount": 34
+  },
+  "lanes": {
+    "packages_requested": [
+      "contract-lanes (npm pack tarball)",
+      "vitest@^5.1.0",
+      "zod@^4.1.0"
+    ],
+    "runs": [
+      {
+        "ok": true,
+        "seconds": 7.78,
+        "node_modules_bytes": 47327412,
+        "node_modules_files": 1473,
+        "packages": 37,
+        "natives": [
+          {
+            "file": "@rolldown/binding-linux-x64-gnu/rolldown-binding.linux-x64-gnu.node",
+            "bytes": 21117344
+          },
+          {
+            "file": "lightningcss-linux-x64-gnu/lightningcss.linux-x64-gnu.node",
+            "bytes": 10032264
+          }
+        ],
+        "dir": "/tmp/claude-0/-home-user-contract-lanes-plugin/724b362f-2aea-5e73-9d01-dff1cebaa7c4/scratchpad/bt/lanes-bench-install-lanes-TO40dg"
+      },
+      {
+        "ok": true,
+        "seconds": 8.46,
+        "node_modules_bytes": 47327412,
+        "node_modules_files": 1473,
+        "packages": 37,
+        "natives": [
+          {
+            "file": "@rolldown/binding-linux-x64-gnu/rolldown-binding.linux-x64-gnu.node",
+            "bytes": 21117344
+          },
+          {
+            "file": "lightningcss-linux-x64-gnu/lightningcss.linux-x64-gnu.node",
+            "bytes": 10032264
+          }
+        ],
+        "dir": "/tmp/claude-0/-home-user-contract-lanes-plugin/724b362f-2aea-5e73-9d01-dff1cebaa7c4/scratchpad/bt/lanes-bench-install-lanes-zTCeXI"
+      }
+    ]
+  },
+  "pact": {
+    "packages_requested": [
+      "@pact-foundation/pact",
+      "vitest@^5.1.0"
+    ],
+    "runs": [
+      {
+        "ok": true,
+        "seconds": 12.44,
+        "node_modules_bytes": 73075484,
+        "node_modules_files": 5305,
+        "packages": 168,
+        "natives": [
+          {
+            "file": "@pact-foundation/pact-core-linux-x64-glibc/prebuilds/linux-x64/libpact_ffi.so",
+            "bytes": 17620408
+          },
+          {
+            "file": "@pact-foundation/pact-core-linux-x64-glibc/prebuilds/linux-x64/node.napi.node",
+            "bytes": 268840
+          },
+          {
+            "file": "@rolldown/binding-linux-x64-gnu/rolldown-binding.linux-x64-gnu.node",
+            "bytes": 21117344
+          },
+          {
+            "file": "lightningcss-linux-x64-gnu/lightningcss.linux-x64-gnu.node",
+            "bytes": 10032264
+          }
+        ],
+        "dir": "/tmp/claude-0/-home-user-contract-lanes-plugin/724b362f-2aea-5e73-9d01-dff1cebaa7c4/scratchpad/bt/lanes-bench-install-pact-C0pQfp"
+      },
+      {
+        "ok": true,
+        "seconds": 14.54,
+        "node_modules_bytes": 73075484,
+        "node_modules_files": 5305,
+        "packages": 168,
+        "natives": [
+          {
+            "file": "@pact-foundation/pact-core-linux-x64-glibc/prebuilds/linux-x64/libpact_ffi.so",
+            "bytes": 17620408
+          },
+          {
+            "file": "@pact-foundation/pact-core-linux-x64-glibc/prebuilds/linux-x64/node.napi.node",
+            "bytes": 268840
+          },
+          {
+            "file": "@rolldown/binding-linux-x64-gnu/rolldown-binding.linux-x64-gnu.node",
+            "bytes": 21117344
+          },
+          {
+            "file": "lightningcss-linux-x64-gnu/lightningcss.linux-x64-gnu.node",
+            "bytes": 10032264
+          }
+        ],
+        "dir": "/tmp/claude-0/-home-user-contract-lanes-plugin/724b362f-2aea-5e73-9d01-dff1cebaa7c4/scratchpad/bt/lanes-bench-install-pact-OrJXN3"
+      }
+    ],
+    "version": "17.1.4",
+    "pact_core_version": "20.2.0"
+  },
+  "registry": {
+    "@pact-foundation/pact": {
+      "version": "17.1.4",
+      "dist.unpackedSize": 1078703,
+      "dependencies": {
+        "@pact-foundation/pact-core": "^20.1.1",
+        "@scarf/scarf": "^1.4.0",
+        "axios": "^1.12.2",
+        "body-parser": "^2.2.0",
+        "chalk": "4.1.2",
+        "express": "^5.1.0",
+        "graphql": "^16.11.0",
+        "graphql-tag": "^2.12.6",
+        "http-proxy": "^1.18.1",
+        "https-proxy-agent": "^7.0.6",
+        "js-base64": "^3.7.8",
+        "lodash": "^4.17.21",
+        "ramda": "^0.32.0",
+        "randexp": "^0.5.3",
+        "router": "^2.2.0",
+        "stack-utils": "^2.0.6"
+      }
+    },
+    "@pact-foundation/pact-core": {
+      "version": "20.2.0",
+      "dist.unpackedSize": 306831,
+      "dependencies": {
+        "pino": "^10.0.0",
+        "underscore": "1.13.8",
+        "check-types": "11.2.3",
+        "detect-libc": "^2.0.3",
+        "pino-pretty": "^13.1.1",
+        "node-gyp-build": "^4.6.0"
+      },
+      "optionalDependencies": {
+        "@pact-foundation/pact-core-darwin-x64": "20.2.0",
+        "@pact-foundation/pact-core-windows-x64": "20.2.0",
+        "@pact-foundation/pact-core-darwin-arm64": "20.2.0",
+        "@pact-foundation/pact-core-linux-x64-musl": "20.2.0",
+        "@pact-foundation/pact-core-linux-x64-glibc": "20.2.0",
+        "@pact-foundation/pact-core-linux-arm64-musl": "20.2.0",
+        "@pact-foundation/pact-core-linux-arm64-glibc": "20.2.0"
+      }
+    },
+    "contract-lanes": {
+      "error": {
+        "code": "E404",
+        "summary": "Not Found - GET https://registry.npmjs.org/contract-lanes - Not found",
+        "detail": "'contract-lanes@*' is not in this registry.\n\nNote that you can also install from a\ntarball, folder, http url, or git url."
+      }
+    }
+  },
+  "pact_install_dir": "/tmp/claude-0/-home-user-contract-lanes-plugin/724b362f-2aea-5e73-9d01-dff1cebaa7c4/scratchpad/bt/lanes-bench-install-pact-C0pQfp",
+  "measured_at": "2026-11-22T21:03:21.121Z",
+  "node": "v22.23.5",
+  "platform": "linux-x64"
+}
