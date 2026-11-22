@@ -2,3 +2,6 @@ node_modules/
 .lanes/
 *.tgz
 bench/.tmp/
+.impeccable/questions/
+.impeccable/mocks/
+.impeccable/config.local.json

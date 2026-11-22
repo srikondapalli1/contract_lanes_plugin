@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lanes · contract checks for parallel coding agents</title>
+<meta name="description" content="Split one repo into lanes, one coding agent each. Lanes property-tests every contract between them and catches what example-based contract tests miss.">
+<meta property="og:title" content="Lanes catches what other contract tests miss">
+<meta property="og:description" content="Several coding agents, one repo, nothing broken. 19 of 19 seeded bugs caught on the example, against Pact's 6.">
+<meta property="og:image" content="media/graph.png">
+<link rel="preload" href="fonts/overpass.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face { font-family: "Overpass"; src: url("fonts/overpass.woff2") format("woff2"); font-weight: 100 900; font-display: swap; }
+@font-face { font-family: "Overpass Mono"; src: url("fonts/overpass-mono.woff2") format("woff2"); font-weight: 300 700; font-display: swap; }
+:root {
+  --paper: #f5f6f3; --paper-2: #eceee9; --ink: #15181b; --ink-2: #3f454c; --rule: #d3d7d1;
+  --world: #ec6a1c; --brain: #1f4fd1; --crowd: #12945a; --signal: #d0242b;
+  --world-ink: #a4430a; --signal-ink: #a3161c; --crowd-ink: #0b6b40;
+  --line: 15px;
+  --sans: "Overpass", "Segoe UI", system-ui, sans-serif; --mono: "Overpass Mono", ui-monospace, monospace;
+  --ease: cubic-bezier(.16, 1, .3, 1);
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scrollbar-color: var(--ink-2) var(--paper-2); }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 400 1.125rem/1.55 var(--sans); font-feature-settings: "kern"; -webkit-font-smoothing: antialiased; }
+::selection { background: var(--brain); color: #fff; }
+a { color: inherit; text-underline-offset: .2em; text-decoration-thickness: .08em; }
+a:hover { text-decoration-thickness: .14em; }
+:focus-visible { outline: 3px solid var(--brain); outline-offset: 3px; border-radius: 4px; }
+input, textarea { caret-color: var(--brain); }
+code, pre, .num { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+.wrap { width: min(1240px, 100% - 48px); margin-inline: auto; }
+.badge { display: inline-grid; place-items: center; width: 1.6em; height: 1.6em; border-radius: 50%; color: #fff; font: 800 .8rem/1 var(--sans); letter-spacing: 0; flex: none; }
+.b-world { background: var(--world); color: var(--ink); } .b-brain { background: var(--brain); } .b-crowd { background: var(--crowd-ink); }
+.btn { display: inline-flex; align-items: center; gap: .55em; padding: .7em 1.15em; border-radius: 999px; border: 2px solid var(--ink); background: var(--ink); color: var(--paper); font: 700 1rem/1 var(--sans); cursor: pointer; text-decoration: none; transition: background .25s var(--ease), color .25s var(--ease), transform .25s var(--ease); }
+.btn:hover { background: var(--brain); border-color: var(--brain); }
+.btn:active { transform: translateY(1px); }
+.btn.ghost { background: transparent; color: var(--ink); }
+.btn.ghost:hover { background: var(--ink); color: var(--paper); }
+.btn svg { width: 1.05em; height: 1.05em; }
+
+/* ---------- station index (nav) ---------- */
+.index { position: sticky; top: 0; z-index: 20; background: color-mix(in srgb, var(--paper) 92%, transparent); backdrop-filter: saturate(1.2) blur(10px); border-bottom: 1px solid var(--rule); }
+.index .wrap { display: flex; align-items: center; gap: 28px; height: 64px; }
+.mark { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1.3rem; letter-spacing: -.01em; text-decoration: none; }
+.mark svg { width: 34px; height: 34px; }
+.index nav { display: flex; gap: 22px; margin-left: auto; font-weight: 600; font-size: .98rem; }
+.index nav a { text-decoration: none; color: var(--ink-2); padding: 6px 0; border-bottom: 2px solid transparent; transition: color .2s, border-color .2s; }
+.index nav a:hover { color: var(--ink); border-color: var(--ink); }
+.index .gh { font-weight: 700; font-size: .98rem; }
+@media (max-width: 860px) { .index nav { display: none; } .index .gh { margin-left: auto; } }
+
+/* ---------- hero: the map ---------- */
+.hero { position: relative; height: clamp(720px, calc(100svh - 64px), 880px); overflow: hidden; border-bottom: 1px solid var(--rule); background:
+  linear-gradient(var(--paper-2) 1px, transparent 1px) 0 0 / 48px 48px,
+  linear-gradient(90deg, var(--paper-2) 1px, transparent 1px) 0 0 / 48px 48px, var(--paper); }
+.hero svg.map { position: absolute; inset: 0; width: 100%; height: 100%; }
+.map .ln { fill: none; stroke-width: var(--line); stroke-linecap: round; stroke-linejoin: round; }
+.map .st { fill: #fff; stroke: var(--ink); stroke-width: 6; }
+.map .lbl { font: 800 23px var(--sans); fill: var(--ink); letter-spacing: -.01em; }
+.map .lbl.sm { font: 600 16px var(--sans); fill: var(--ink-2); }
+.map .closed .st { stroke: var(--signal); }
+.map .bar { stroke: var(--signal); stroke-width: 6; stroke-linecap: round; transition: opacity .4s var(--ease); }
+.map .closed-lbl { fill: var(--signal-ink); }
+.js.motion .map .ln { stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 1.6s var(--ease) forwards; }
+.js.motion .map .ln.brain { animation-delay: .15s; } .js.motion .map .ln.crowd { animation-delay: .3s; }
+@keyframes draw { to { stroke-dashoffset: 0; } }
+.legend { position: absolute; z-index: 2; top: 50%; transform: translateY(-50%); left: max(24px, calc((100vw - 1240px) / 2)); width: min(560px, calc(100% - 48px)); background: var(--paper); border: 2px solid var(--ink); border-radius: 18px; padding: 30px 32px 26px; box-shadow: 0 18px 40px -22px rgba(21, 24, 27, .35); }
+.legend h1 { margin: 0; font-weight: 850; font-size: clamp(2.3rem, 3.9vw, 3.5rem); line-height: 1; letter-spacing: -.03em; text-wrap: balance; }
+.legend h1 em { font-style: normal; color: var(--brain); }
+.legend p.offer { margin: 16px 0 0; font-size: 1.06rem; color: var(--ink-2); max-width: 52ch; text-wrap: pretty; }
+.key { display: flex; flex-wrap: wrap; gap: 8px 18px; margin: 20px 0 0; padding: 14px 0 0; border-top: 1px solid var(--rule); font-size: .95rem; font-weight: 600; color: var(--ink-2); }
+.key span { display: inline-flex; align-items: center; gap: 8px; }
+.key i { display: inline-block; width: 26px; height: 7px; border-radius: 4px; }
+.ticket { margin-top: 22px; border: 2px solid var(--ink); border-radius: 14px; overflow: hidden; background: #fff; }
+.ticket header { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 14px 12px 18px; border-bottom: 2px dashed var(--rule); }
+.ticket header b { font-size: 1rem; line-height: 1.25; }
+.ticket header b small { display: block; font-weight: 500; font-size: .86rem; color: var(--ink-2); }
+.ticket header .btn { white-space: nowrap; }
+.ticket pre { margin: 0; padding: 12px 18px 12px; font-size: .82rem; line-height: 1.55; white-space: pre-wrap; overflow-wrap: anywhere; color: var(--ink); max-height: 6.4em; overflow: hidden; -webkit-mask-image: linear-gradient(#000 62%, transparent); mask-image: linear-gradient(#000 62%, transparent); }
+.ticket .alt { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 12px 18px 14px; border-top: 1px solid var(--rule); font-size: .92rem; color: var(--ink-2); }
+.ticket .alt code { font-size: .84rem; color: var(--ink); }
+.copy[data-done] { background: var(--crowd); border-color: var(--crowd); }
+
+.notice { font-family: var(--sans); }
+.notice .n { background: #fff; border: 2px solid var(--signal); border-radius: 14px; padding: 14px 16px 14px; box-shadow: 0 14px 30px -18px rgba(21, 24, 27, .5); color: var(--ink); clip-path: inset(0 0 0 0 round 14px); }
+.notice .n.ok { border-color: var(--crowd); }
+.notice .state { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 1.15rem; color: var(--signal-ink); }
+.notice .ok .state { color: var(--crowd-ink); }
+.notice .state svg { width: 20px; height: 20px; }
+.notice .what { margin: 4px 0 8px; font-size: .95rem; line-height: 1.4; }
+.notice .what code { font-size: .86rem; }
+.notice .why { font: 500 .8rem/1.45 var(--mono); color: var(--ink-2); }
+.notice .act { margin-top: 10px; }
+.notice .act .btn { padding: .5em .95em; font-size: .9rem; }
+.notice .n.flip { animation: flip .5s var(--ease); }
+@keyframes flip { from { clip-path: inset(0 0 100% 0 round 14px); } to { clip-path: inset(0 0 0 0 round 14px); } }
+@media (prefers-reduced-motion: reduce) { .notice .n.flip { animation: none; } }
+.notice-m { display: none; }
+
+@media (max-width: 860px) {
+  .hero { height: auto; display: flex; flex-direction: column; }
+  .legend { position: relative; top: auto; left: auto; transform: none; margin: 20px 16px 0; width: auto; padding: 24px 20px 20px; }
+  .hero svg.map { position: relative; inset: auto; height: 400px; order: 2; }
+  .map .notice { display: none; }
+  .notice-m { display: block; order: 3; margin: 0 16px 24px; }
+  .recipe pre { white-space: pre; overflow-x: auto; overflow-wrap: normal; }
+}
+
+/* ---------- sections ---------- */
+section.band { padding: 112px 0; border-bottom: 1px solid var(--rule); }
+section.band h2 { margin: 0 0 16px; font-weight: 850; font-size: clamp(2rem, 3.4vw, 3rem); line-height: 1.02; letter-spacing: -.025em; text-wrap: balance; max-width: 22ch; }
+section.band p.lede { margin: 0 0 44px; max-width: 64ch; color: var(--ink-2); font-size: 1.2rem; text-wrap: pretty; }
+@media (max-width: 860px) { section.band { padding: 72px 0; } }
+
+/* status board */
+.board { width: 100%; border-collapse: collapse; background: #fff; border: 2px solid var(--ink); border-radius: 16px; overflow: hidden; }
+.board th { text-align: left; font-size: .85rem; font-weight: 700; color: var(--ink-2); padding: 14px 20px; background: var(--paper-2); border-bottom: 2px solid var(--ink); }
+.board td { padding: 18px 20px; border-top: 1px solid var(--rule); vertical-align: middle; font-size: 1.05rem; }
+.board tr:first-child td { border-top: 0; }
+.board .contract { font-weight: 800; font-size: 1.15rem; }
+.board .route { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; color: var(--ink-2); white-space: nowrap; }
+.board .route svg { width: 18px; height: 18px; }
+.status { display: inline-flex; align-items: center; gap: 8px; font-weight: 800; }
+.status svg { width: 18px; height: 18px; flex: none; }
+.s-good { color: var(--crowd-ink); } .s-susp { color: var(--signal-ink); }
+.board tr.susp td { background: #fff6f5; }
+.recipe td { padding: 0 20px 22px; background: #fff6f5; border-top: 0; }
+.recipe pre { margin: 0; padding: 18px 20px; border-radius: 12px; background: var(--ink); color: #e8ebe7; font-size: .84rem; line-height: 1.6; white-space: pre-wrap; overflow-wrap: anywhere; }
+.recipe .p { color: #8fb4ff; } .recipe .f { color: #ff8f8a; font-weight: 700; } .recipe .g { color: #7fdcaa; } .recipe .d { color: #9aa29c; } .recipe .hl { background: rgba(255, 196, 61, .2); border-radius: 3px; } .recipe .hl .d { color: #c9cfca; }
+@media (max-width: 720px) { .board th:nth-child(2), .board td:nth-child(2) { display: none; } .board td, .board th { padding: 14px; } }
+
+/* inspection: stations lit */
+.lines { display: grid; gap: 30px; }
+.lrow { display: grid; grid-template-columns: 220px 1fr 190px; align-items: center; gap: 24px; }
+.lrow .who { font-weight: 800; font-size: 1.2rem; line-height: 1.15; }
+.lrow .who small { display: block; font-weight: 500; font-size: .9rem; color: var(--ink-2); }
+.track { position: relative; height: 34px; display: flex; justify-content: space-between; align-items: center; }
+.track::before { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 6px; margin-top: -3px; border-radius: 3px; background: var(--rule); }
+.track .run { position: absolute; left: 0; top: 50%; height: 12px; margin-top: -6px; border-radius: 6px; }
+.track .dot { position: relative; width: 14px; height: 14px; border-radius: 50%; background: var(--paper); border: 3px solid var(--rule); }
+.track .dot.lit { width: 20px; height: 20px; background: #fff; border: 4.5px solid var(--ink); }
+.lrow .tally { font-weight: 800; font-size: 1.35rem; }
+.lrow .tally small { display: block; font-weight: 500; font-size: .88rem; color: var(--ink-2); }
+.fine { margin-top: 36px; max-width: 72ch; font-size: .98rem; color: var(--ink-2); }
+.also { display: flex; flex-wrap: wrap; gap: 10px 34px; margin-top: 28px; font-size: 1.02rem; }
+.also b { font-weight: 800; }
+@media (max-width: 860px) { .lrow { grid-template-columns: minmax(0, 1fr); gap: 8px; } .lrow .tally { font-size: 1.1rem; }
+  .track .dot { width: 9px; height: 9px; border-width: 2px; } .track .dot.lit { width: 14px; height: 14px; border-width: 3.5px; } .track .run { height: 9px; margin-top: -4.5px; } }
+
+/* timetable */
+.tt { list-style: none; margin: 0; padding: 0; position: relative; max-width: 860px; }
+.tt::before { content: ""; position: absolute; left: 105px; top: 14px; bottom: 14px; width: var(--line); border-radius: 8px; background: var(--brain); }
+.tt li { display: grid; grid-template-columns: 90px 44px 1fr; gap: 16px; align-items: start; padding: 10px 0 22px; }
+.tt time { font: 600 1rem/1.9 var(--mono); color: var(--ink-2); text-align: right; font-variant-numeric: tabular-nums; }
+.tt .stop { width: 30px; height: 30px; margin: 2px 0 0 6px; border-radius: 50%; background: #fff; border: 6px solid var(--ink); position: relative; z-index: 1; }
+.tt li.big .stop { border-color: var(--crowd); }
+.tt h3 { margin: 0; font-size: 1.25rem; font-weight: 800; line-height: 1.3; }
+.tt p { margin: 4px 0 0; color: var(--ink-2); max-width: 60ch; }
+.tt code { font-size: .9em; }
+@media (max-width: 720px) { .tt::before { left: 77px; } .tt li { grid-template-columns: 62px 44px 1fr; gap: 10px; } .tt time { font-size: .85rem; } }
+
+/* map + video */
+.duo { display: grid; grid-template-columns: 1.25fr 1fr; gap: 40px; align-items: start; }
+.frame { margin: 0; border: 2px solid var(--ink); border-radius: 16px; overflow: hidden; background: #fff; }
+.frame img, .frame video { display: block; width: 100%; height: auto; }
+.frame figcaption { padding: 12px 16px; font-size: .95rem; color: var(--ink-2); border-top: 1px solid var(--rule); }
+@media (max-width: 960px) { .duo { grid-template-columns: minmax(0, 1fr); } }
+
+/* ticket section */
+.tickets { display: grid; grid-template-columns: 1.35fr 1fr; gap: 32px; align-items: start; }
+.ticket.full pre { max-height: none; -webkit-mask-image: none; mask-image: none; font-size: .84rem; }
+.ticket header { flex-wrap: wrap; }
+.steps { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: minmax(0, 1fr); gap: 22px; }
+.steps li { border-top: 2px solid var(--ink); padding-top: 14px; }
+.steps h3 { margin: 0 0 6px; font-size: 1.2rem; font-weight: 800; }
+.steps p { margin: 0 0 10px; color: var(--ink-2); }
+.steps pre { margin: 0; padding: 12px 14px; border-radius: 10px; background: var(--ink); color: #e8ebe7; font-size: .84rem; white-space: pre-wrap; overflow-wrap: anywhere; }
+@media (max-width: 960px) { .tickets { grid-template-columns: minmax(0, 1fr); } }
+
+footer { padding: 48px 0 64px; color: var(--ink-2); font-size: .95rem; }
+footer .wrap { display: flex; flex-wrap: wrap; gap: 12px 28px; align-items: center; }
+footer .mark { font-size: 1.1rem; color: var(--ink); }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8.5" y="8.5" width="11" height="11" rx="2.5" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M15.5 5.5v-1A1.5 1.5 0 0 0 14 3H5.5A2.5 2.5 0 0 0 3 5.5V14a1.5 1.5 0 0 0 1.5 1.5h1" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-good" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="currentColor"/><path d="M7 12.4l3.2 3.2L17 8.8" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-susp" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="currentColor"/><path d="M7 12h10" stroke="#fff" stroke-width="3" stroke-linecap="round"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h15m-5-5 5 5-5 5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-out" viewBox="0 0 24 24"><path d="M9 5h10v10M19 5 6 18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</svg>
+
+<header class="index">
+  <div class="wrap">
+    <a class="mark" href="#top" aria-label="Lanes, back to top">
+      <svg viewBox="0 0 34 34" aria-hidden="true"><path d="M3 9h11l7 8h10" fill="none" stroke="var(--world)" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 25h11l7-8h10" fill="none" stroke="var(--brain)" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/><rect x="16" y="12" width="9" height="10" rx="4.5" fill="#fff" stroke="var(--ink)" stroke-width="2.6"/></svg>
+      Lanes
+    </a>
+    <nav aria-label="Sections">
+      <a href="#status">Status</a><a href="#inspection">Inspection</a><a href="#timetable">Timetable</a><a href="#map">Map</a><a href="#ticket">Ticket</a>
+    </nav>
+    <a class="gh" href="https://github.com/srikondapalli1/contract_lanes_plugin">GitHub</a>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero" aria-label="Lanes">
+  <svg class="map" viewBox="0 0 1440 860" preserveAspectRatio="xMaxYMid slice" role="img" aria-labelledby="map-title map-desc">
+    <title id="map-title">A three-lane repo drawn as a metro map</title>
+    <desc id="map-desc">The world, brain and crowd lanes are lines. They meet at the contracts TickRequest, Haunt and TickResponse. TickResponse is closed: brain's handler returned holdMs 1800 against a maximum of 1500.</desc>
+    <path class="ln world" pathLength="1" stroke="var(--world)" d="M 190 -20 L 640 430 H 1500"/>
+    <path class="ln brain" pathLength="1" stroke="var(--brain)" d="M -60 760 H 330 L 638 452 H 1340 L 1520 272"/>
+    <path class="ln crowd" pathLength="1" stroke="var(--crowd)" d="M 1040 900 V 300 L 1220 120 H 1500"/>
+    <g aria-hidden="true">
+      <rect class="st" x="803" y="413" width="34" height="56" rx="17"/>
+      <text class="lbl" x="820" y="392" text-anchor="middle">TickRequest</text>
+      <text class="lbl sm" x="820" y="500" text-anchor="middle">world → brain</text>
+      <rect class="st" x="1023" y="413" width="34" height="56" rx="17"/>
+      <text class="lbl" x="1068" y="392">Haunt</text>
+      <text class="lbl sm" x="1068" y="500">crowd → world, brain</text>
+      <g class="closed" id="closed">
+        <rect class="st" x="1243" y="413" width="34" height="56" rx="17"/>
+        <line class="bar" x1="1238" y1="477" x2="1282" y2="405"/>
+      </g>
+      <text class="lbl closed-lbl" id="closed-lbl" x="1260" y="392" text-anchor="middle">TickResponse</text>
+      <g font-family="Overpass, sans-serif" font-weight="800" font-size="17" text-anchor="middle" fill="#fff">
+        <circle cx="1404" cy="430" r="17" fill="var(--world)"/><text x="1404" y="436" fill="var(--ink)">W</text>
+        <circle cx="1412" cy="380" r="17" fill="var(--brain)"/><text x="1412" y="386">B</text>
+        <circle cx="1040" cy="812" r="17" fill="var(--crowd-ink)"/><text x="1040" y="818">C</text>
+      </g>
+    </g>
+    <foreignObject class="notice" x="1100" y="512" width="326" height="230">
+      <div xmlns="http://www.w3.org/1999/xhtml" class="n" id="notice" role="status" aria-live="polite"></div>
+    </foreignObject>
+  </svg>
+
+  <div class="notice notice-m"><div class="n" role="status" aria-live="polite"></div></div>
+  <div class="legend">
+    <h1>Lanes catches what other contract tests <em>miss.</em></h1>
+    <p class="offer">Split one repo into lanes, one coding agent each. Lanes property-tests the real code behind every contract between them and shrinks a failure to the input that breaks it, before it reaches <code>main</code>.</p>
+    <div class="key" aria-label="Map key">
+      <span><i style="background:var(--world)"></i>lane world</span><span><i style="background:var(--brain)"></i>lane brain</span><span><i style="background:var(--crowd)"></i>lane crowd</span>
+    </div>
+    <div class="ticket" aria-label="Setup">
+      <header><b>Setup prompt<small>for Claude Code, Cursor or Codex</small></b><button class="btn copy" type="button" data-copy="setup"><svg aria-hidden="true"><use href="#i-copy"/></svg><span>Copy prompt</span></button></header>
+      <pre id="setup-preview"></pre>
+      <div class="alt"><span>Using Claude Code? The plugin adds the guard hooks and the watcher.</span><a href="#ticket">Install steps</a></div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="status">
+  <div class="wrap">
+    <h2>One interchange is closed, and you know exactly why.</h2>
+    <p class="lede">This is the real output of <code>lanes check</code> on the three-lane example. Brain's tick handler sometimes holds an agent for 1800 ms where the contract allows 1500. Lanes generated inputs until it broke, then shrank the input to one spooked agent.</p>
+    <table class="board">
+      <thead><tr><th scope="col">Contract</th><th scope="col">Route</th><th scope="col">Service</th></tr></thead>
+      <tbody>
+        <tr><td class="contract">TickRequest</td><td><span class="route"><span class="badge b-world">W</span><svg aria-hidden="true"><use href="#i-arrow"/></svg><span class="badge b-brain">B</span> world to brain</span></td><td><span class="status s-good"><svg aria-hidden="true"><use href="#i-good"/></svg>Good service</span></td></tr>
+        <tr class="susp"><td class="contract">TickResponse</td><td><span class="route"><span class="badge b-brain">B</span><svg aria-hidden="true"><use href="#i-arrow"/></svg><span class="badge b-world">W</span> brain to world</span></td><td><span class="status s-susp"><svg aria-hidden="true"><use href="#i-susp"/></svg>Suspended</span></td></tr>
+        <tr class="recipe"><td colspan="3"><pre aria-label="lanes check output"><span class="p">$</span> npx lanes check
+<span class="d">lanes check · local · main · seed 42</span>
+<span class="g">pass</span>      TickRequest   world → brain  v1.0.0 · fixtures 2 valid/2 invalid · 2 consumer test(s)
+<span class="f">fail</span>      TickResponse  brain → world  v1.0.0 · fixtures 1 valid/1 invalid · 1 consumer test(s)
+<span class="g">pass</span>      Haunt         crowd → world  v1.0.0 · fixtures 1 valid/1 invalid · 2 consumer test(s)
+<span class="g">pass</span>      Haunt         crowd → brain  v1.0.0 · fixtures 1 valid/1 invalid · 1 consumer test(s)
+
+<span class="f">[handler-property]</span> TickResponse · owner brain: handler tick (apps/brain/src/tick.ts#tick) returned an invalid TickResponse: actions[0].holdMs: Too big: expected number to be &lt;=1500
+    <span class="d">seed:</span> 42
+    <span class="hl"><span class="d">counterexample:</span> {"tick":0,"worldId":" ","agents":[{"id":"a-0","at":{"x":0,"y":0},"mood":"spooked"}]}</span>
+    <span class="d">repro:</span> npx lanes check --lane brain --seed 42</pre></td></tr>
+        <tr><td class="contract">Haunt</td><td><span class="route"><span class="badge b-crowd">C</span><svg aria-hidden="true"><use href="#i-arrow"/></svg><span class="badge b-world">W</span><span class="badge b-brain">B</span> crowd to world, brain</span></td><td><span class="status s-good"><svg aria-hidden="true"><use href="#i-good"/></svg>Good service</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="band" id="inspection">
+  <div class="wrap">
+    <h2>Nineteen bugs seeded. Lanes lit every station.</h2>
+    <p class="lede">We seeded 19 realistic bugs into the example's producer side (off-by-one bounds, rare inputs, crashes, a loosened schema) and ran each approach on every one. Pact and hand-written tests check the examples someone wrote down; Lanes checks what the code does with inputs nobody wrote down.</p>
+    <div class="lines" id="lines"></div>
+    <p class="fine">Small example, bugs seeded by hand: read this as which kinds of bugs each approach can see, not a general rate. Method, scripts and every number: <a href="https://github.com/srikondapalli1/contract_lanes_plugin/blob/main/bench/REPORT.md">bench/REPORT.md</a>.</p>
+    <div class="also"><span><b class="num">43 ms</b> to block a cross-lane edit</span><span><b class="num">0</b> tokens while the watcher waits</span><span><b class="num">321</b> tokens per failure report, against Pact's <span class="num">1,909</span></span></div>
+  </div>
+</section>
+
+<section class="band" id="timetable">
+  <div class="wrap">
+    <h2>A real run on GitHub, with nobody at the keyboard.</h2>
+    <p class="lede">On the <a href="https://github.com/srikondapalli1/srikondapalli1-lanes-sandbox">sandbox repo</a> the bug landed on <code>main</code>. Everything after that was Lanes and GitHub Actions. Times are UTC, 22 November 2026.</p>
+    <ol class="tt">
+      <li><time>21:19:44</time><span class="stop"></span><div><h3>The nightly check files blocker #2 for lane brain</h3><p>Labelled <code>lanes:blocker</code> and <code>auto-fix</code>, with the seed, the counterexample and the repro in the issue.</p></div></li>
+      <li><time></time><span class="stop"></span><div><h3>Brain's watcher wakes its agent</h3><p><code>lanes fix 2</code> claims the issue and opens an isolated worktree. The agent reproduces the failure first, then changes one line of implementation.</p></div></li>
+      <li><time>21:53:33</time><span class="stop"></span><div><h3>Fix PR #3 opens, labelled <code>queue</code></h3><p>It passed the gates: green check, diff inside the lane, no contract edits, under 200 lines.</p></div></li>
+      <li class="big"><time>21:53:55</time><span class="stop"></span><div><h3>The queue re-checks on the latest main and merges</h3><p>Merged by <code>github-actions[bot]</code>, 22 seconds after the PR opened. Blocker #2 closed four seconds later, and <code>main</code> is green.</p></div></li>
+    </ol>
+  </div>
+</section>
+
+<section class="band" id="map">
+  <div class="wrap">
+    <h2>The live map, in your browser.</h2>
+    <p class="lede"><code>lanes graph</code> draws your lanes and contracts and redraws as checks run. Click a contract for the failure, the seed, the repro, and the lane that owns the fix.</p>
+    <div class="duo">
+      <figure class="frame"><img src="media/graph.png" alt="The lanes graph page: world, brain and crowd lanes, with the TickResponse contract from brain to world marked fail and its owner, seed and repro in the side panel." width="2560" height="1520" loading="lazy"><figcaption>lanes graph on the three-lane example</figcaption></figure>
+      <figure class="frame"><video src="media/lanes-demo.mp4" controls preload="none" playsinline poster="media/graph.png" aria-label="70-second Lanes demo"></video><figcaption>70 seconds: the check, the guard, the fix, the merge</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="ticket">
+  <div class="wrap">
+    <h2>Board in one paste.</h2>
+    <p class="lede">The project lead pastes one prompt into their agent. It installs Lanes, gets the first check green, asks what you're building, and proposes the lanes.</p>
+    <div class="tickets">
+      <div class="ticket full">
+        <header><b>Setup prompt for the project lead</b><button class="btn copy" type="button" data-copy="setup"><svg aria-hidden="true"><use href="#i-copy"/></svg><span>Copy</span></button></header>
+        <pre id="setup-full"></pre>
+      </div>
+      <ol class="steps">
+        <li><h3>Add teammates</h3><p>Adds them to the repo, makes them a lane's owner, and prints a prompt to send them.</p><pre>npx lanes invite @handle --lane brain</pre></li>
+        <li><h3>Claude Code plugin</h3><p>Hooks keep each agent in its lane; the watcher wakes it when its lane breaks.</p><pre>/plugin marketplace add srikondapalli1/contract_lanes_plugin
+/plugin install lanes@contract-lanes</pre></li>
+        <li><h3>Read the source</h3><p>TypeScript, zod, vitest, GitHub Actions. No model calls inside the tool.</p><p><a class="btn ghost" href="https://github.com/srikondapalli1/contract_lanes_plugin">Source on GitHub <svg aria-hidden="true"><use href="#i-out"/></svg></a></p></li>
+      </ol>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span class="mark">Lanes</span>
+    <span>MIT licensed</span>
+    <a href="https://github.com/srikondapalli1/contract_lanes_plugin">GitHub</a>
+    <a href="https://github.com/srikondapalli1/contract_lanes_plugin/blob/main/bench/REPORT.md">Benchmark</a>
+    <span>Type: Overpass (SIL OFL)</span>
+  </div>
+</footer>
+
+<script>
+document.documentElement.classList.add("js");
+// line draw-in for people; automated captures (navigator.webdriver) see the settled map
+if (!matchMedia("(prefers-reduced-motion: reduce)").matches && !navigator.webdriver) document.documentElement.classList.add("motion");
+
+const SETUP = `Set up Lanes (https://github.com/srikondapalli1/contract_lanes_plugin) in this repo so several coding agents can build
+it in parallel without breaking each other.
+1. Run \`npx --yes github:srikondapalli1/contract_lanes_plugin init --yes\`. If this is a GitHub repo and \`gh auth status\`
+   works, also run \`npx lanes init --labels\`.
+2. Install dependencies (npm install, or the repo's package manager), then run \`npx lanes check\`. It must exit 0.
+3. Ask me in one message what we're building, who is on the team (GitHub handles) and how many agents will run at
+   once. Then propose 2-6 lanes (folders each person or agent owns) and the contracts between them, and wait for my OK.
+4. Write lanes.yaml, one zod contract per interface in contracts/ with fixtures (at least 1 valid and 1 invalid each)
+   and a consumer test for each consumer. Remove the Example contract if we don't need it. Re-run \`npx lanes check\`
+   until it's green, then commit and push.
+5. For each teammate run \`npx lanes invite @handle --lane <lane>\` and show me the messages it prints, so I can
+   forward them.
+6. If you are Claude Code, run \`claude plugin marketplace add srikondapalli1/contract_lanes_plugin\` and
+   \`claude plugin install lanes@contract-lanes\`, then tell me to restart. Otherwise follow the rules in AGENTS.md.`;
+document.getElementById("setup-preview").textContent = SETUP;
+document.getElementById("setup-full").textContent = SETUP;
+
+document.querySelectorAll("[data-copy]").forEach((b) => b.addEventListener("click", async () => {
+  const label = b.querySelector("span"), was = label.textContent;
+  try { await navigator.clipboard.writeText(SETUP); label.textContent = "Copied"; }
+  catch { const r = document.createRange(); r.selectNodeContents(document.getElementById("setup-full")); getSelection().removeAllRanges(); getSelection().addRange(r); label.textContent = "Selected: press Ctrl+C"; }
+  b.setAttribute("data-done", ""); b.querySelector("use").setAttribute("href", "#i-check");
+  setTimeout(() => { label.textContent = was; b.removeAttribute("data-done"); b.querySelector("use").setAttribute("href", "#i-copy"); }, 2200);
+}));
+
+// the signature interaction: the closed interchange reopens when the fix lands
+const notice = document.getElementById("notice");
+const STATES = {
+  closed: `<div class="state"><svg aria-hidden="true"><use href="#i-susp"/></svg>Suspended</div>
+    <div class="what">Brain's handler returned <code>holdMs:&nbsp;1800</code>; the contract allows 1500.</div>
+    <div class="why">1 spooked agent · seed&nbsp;42</div>
+    <div class="act"><button class="btn" type="button" data-fix>Apply brain's fix</button></div>`,
+  open: `<div class="state"><svg aria-hidden="true"><use href="#i-good"/></svg>Good service</div>
+    <div class="what">Fixed in lane brain: <code>holdMs:&nbsp;1200</code>. All 4 routes pass.</div>
+    <div class="why">same seed 42 · nothing else changed</div>
+    <div class="act"><button class="btn ghost" type="button" data-fix>Undo</button></div>`,
+};
+let fixed = false;
+const notices = [notice, document.querySelector(".notice-m .n")];
+function paint(anim) {
+  for (const n of notices) {
+    n.className = "n" + (fixed ? " ok" : "") + (anim ? " flip" : "");
+    n.innerHTML = STATES[fixed ? "open" : "closed"];
+    n.querySelector("[data-fix]").addEventListener("click", (e) => { fixed = !fixed; paint(true); e.currentTarget.isConnected || n.querySelector("[data-fix]").focus(); n.querySelector("[data-fix]").focus(); });
+  }
+  document.querySelector("#closed .st").style.stroke = fixed ? "var(--ink)" : "";
+  document.querySelector("#closed .bar").style.opacity = fixed ? 0 : 1;
+  document.getElementById("closed-lbl").style.fill = fixed ? "var(--ink)" : "";
+}
+// phones frame the three interchanges; desktop shows the whole sheet
+const map = document.querySelector("svg.map"), narrow = matchMedia("(max-width: 860px)");
+const frame = () => map.setAttribute("viewBox", narrow.matches ? "700 230 760 520" : "0 0 1440 860");
+narrow.addEventListener("change", frame); frame();
+paint(false);
+
+// inspection: 19 stations per approach, lit where the approach caught the bug
+const ROWS = [
+  ["Lanes", "lanes check", 19, "var(--brain)", "every one of 10 seeds"],
+  ["zod + vitest", "hand-written tests", 8, "var(--ink-2)", "on the fixtures you wrote"],
+  ["Pact", "consumer + provider", 6, "var(--ink-2)", "on the interactions you recorded"],
+  ["TypeScript", "strict types", 3, "var(--ink-2)", "shape errors only"],
+];
+document.getElementById("lines").innerHTML = ROWS.map(([who, sub, n, col, note]) => {
+  const dots = Array.from({ length: 19 }, (_, i) => `<span class="dot${i < n ? " lit" : ""}"></span>`).join("");
+  const run = n ? `<span class="run" style="width:calc(${((n - 1) / 18) * 100}% + 10px);background:${col}"></span>` : "";
+  return `<div class="lrow"><div class="who">${who}<small>${sub}</small></div>
+    <div class="track" role="img" aria-label="${who}: ${n} of 19 seeded bugs caught">${run}${dots}</div>
+    <div class="tally num">${n} of 19<small>${note}</small></div></div>`;
+}).join("");
+</script>
+</body>
+</html>
