@@ -1,0 +1,69 @@
+{
+  "edge": "world ⇄ brain (TickRequest, TickResponse)",
+  "rows": {
+    "lanes": {
+      "files": 12,
+      "lines": 92,
+      "tokens": 1422,
+      "list": [
+        "examples/three-lanes/contracts/TickRequest.ts",
+        "examples/three-lanes/contracts/TickResponse.ts",
+        "examples/three-lanes/contracts/_common.ts",
+        "examples/three-lanes/fixtures/TickRequest/invalid/negative-tick.json",
+        "examples/three-lanes/fixtures/TickRequest/invalid/off-grid.json",
+        "examples/three-lanes/fixtures/TickRequest/valid/empty-world.json",
+        "examples/three-lanes/fixtures/TickRequest/valid/three-agents.json",
+        "examples/three-lanes/fixtures/TickResponse/invalid/hold-too-long.json",
+        "examples/three-lanes/fixtures/TickResponse/valid/basic.json",
+        "examples/three-lanes/apps/brain/src/__contracts__/TickRequest.test.ts",
+        "examples/three-lanes/apps/world/src/__contracts__/TickResponse.test.ts",
+        "examples/three-lanes/lanes.yaml"
+      ],
+      "note": "zod schemas + fixtures + consumer tests + lanes.yaml (lane map, contract map, handler binding for all 3 contracts); property tests, mutation checks and the guard come from the tool"
+    },
+    "zod_vitest": {
+      "files": 13,
+      "lines": 120,
+      "tokens": 2017,
+      "list": [
+        "examples/three-lanes/contracts/TickRequest.ts",
+        "examples/three-lanes/contracts/TickResponse.ts",
+        "examples/three-lanes/contracts/_common.ts",
+        "examples/three-lanes/fixtures/TickRequest/invalid/negative-tick.json",
+        "examples/three-lanes/fixtures/TickRequest/invalid/off-grid.json",
+        "examples/three-lanes/fixtures/TickRequest/valid/empty-world.json",
+        "examples/three-lanes/fixtures/TickRequest/valid/three-agents.json",
+        "examples/three-lanes/fixtures/TickResponse/invalid/hold-too-long.json",
+        "examples/three-lanes/fixtures/TickResponse/valid/basic.json",
+        "examples/three-lanes/apps/brain/src/__contracts__/TickRequest.test.ts",
+        "examples/three-lanes/apps/world/src/__contracts__/TickResponse.test.ts",
+        "bench/alternatives/zod-vitest/tick.zod.test.ts",
+        "bench/alternatives/prompt-only/CLAUDE.md"
+      ],
+      "note": "same schemas/fixtures/tests + a hand-written handler test + CLAUDE.md ownership rules (unenforced)"
+    },
+    "pact": {
+      "files": 3,
+      "lines": 114,
+      "tokens": 1910,
+      "list": [
+        "bench/alternatives/pact/world-brain.consumer.pact.test.ts",
+        "bench/alternatives/pact/brain.provider.pact.test.ts",
+        "bench/alternatives/prompt-only/CLAUDE.md"
+      ],
+      "note": "consumer test + HTTP provider verification + CLAUDE.md ownership rules (unenforced); no schemas (Pact matchers are per-example). Haunt would need a separate message pact (not written)."
+    },
+    "prompt_only": {
+      "files": 1,
+      "lines": 34,
+      "tokens": 608,
+      "list": [
+        "bench/alternatives/prompt-only/CLAUDE.md"
+      ],
+      "note": "rules only; nothing is checked"
+    }
+  },
+  "measured_at": "2026-11-22T21:15:45.705Z",
+  "node": "v22.23.5",
+  "platform": "linux-x64"
+}

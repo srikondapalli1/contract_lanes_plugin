@@ -1,0 +1,4226 @@
+{
+  "guard_scenarios": {
+    "lane": "brain",
+    "rows": [
+      {
+        "scenario": "Edit own lane file (apps/brain/src/tick.ts)",
+        "expected_hook": "allow",
+        "hook": "allow",
+        "expected_pre_commit": "allow",
+        "pre_commit": "allow",
+        "as_expected": true,
+        "hook_ms": 42,
+        "hook_message": "",
+        "pre_commit_message": "",
+        "prompt_only": "allowed (model compliance only)",
+        "pact": "allowed (no ownership model)"
+      },
+      {
+        "scenario": "Edit produced contract (contracts/TickResponse.ts)",
+        "expected_hook": "allow",
+        "hook": "allow",
+        "expected_pre_commit": "allow",
+        "pre_commit": "allow",
+        "as_expected": true,
+        "hook_ms": 47,
+        "hook_message": "",
+        "pre_commit_message": "",
+        "prompt_only": "allowed (model compliance only)",
+        "pact": "allowed (no ownership model)"
+      },
+      {
+        "scenario": "Write produced fixture (fixtures/TickResponse/valid/new.json)",
+        "expected_hook": "allow",
+        "hook": "allow",
+        "expected_pre_commit": "allow",
+        "pre_commit": "allow",
+        "as_expected": true,
+        "hook_ms": 48,
+        "hook_message": "",
+        "pre_commit_message": "",
+        "prompt_only": "allowed (model compliance only)",
+        "pact": "allowed (no ownership model)"
+      },
+      {
+        "scenario": "Edit another lane's file (apps/world/src/apply.ts)",
+        "expected_hook": "block",
+        "hook": "block",
+        "expected_pre_commit": "block",
+        "pre_commit": "block",
+        "as_expected": true,
+        "hook_ms": 93,
+        "hook_message": "Blocked: apps/world/src/apply.ts belongs to lane \"world\"; you are in \"brain\". Ask instead: npx lanes msg world --type request \"<what you need>\". Override (logged): npx lanes override apps/world/src/apply.ts --reason \"<why>\".",
+        "pre_commit_message": "Blocked: apps/world/src/apply.ts belongs to lane \"world\"; you are in \"brain\". Ask instead: npx lanes msg world --type request \"<what you need>\". Override (logged): npx lanes override apps/world/src/ap",
+        "prompt_only": "allowed (model compliance only)",
+        "pact": "allowed (no ownership model)"
+      },
+      {
+        "scenario": "Write new file in another lane (apps/crowd/src/new.ts)",
+        "expected_hook": "block",
+        "hook": "block",
+        "expected_pre_commit": "block",
+        "pre_commit": "block",
+        "as_expected": true,
+        "hook_ms": 54,
+        "hook_message": "Blocked: apps/crowd/src/new.ts belongs to lane \"crowd\"; you are in \"brain\". Ask instead: npx lanes msg crowd --type request \"<what you need>\". Override (logged): npx lanes override apps/crowd/src/new.ts --reason \"<why>\".",
+        "pre_commit_message": "Blocked: apps/crowd/src/new.ts belongs to lane \"crowd\"; you are in \"brain\". Ask instead: npx lanes msg crowd --type request \"<what you need>\". Override (logged): npx lanes override apps/crowd/src/new.",
+        "prompt_only": "allowed (model compliance only)",
+        "pact": "allowed (no ownership model)"
+      },
+      {
+        "scenario": "Edit consumed contract (contracts/TickRequest.ts, producer world)",
+        "expected_hook": "block",
+        "hook": "block",
+        "expected_pre_commit": "block",
+        "pre_commit": "block",
+        "as_expected": true,
+        "hook_ms": 86,
+        "hook_message": "Blocked: contracts/TickRequest.ts belongs to lane \"world\"; you are in \"brain\". Ask instead: npx lanes msg world --type request \"<what you need>\". Override (logged): npx lanes override contracts/TickRequest.ts --reason \"<why>\".",
+        "pre_commit_message": "Blocked: contracts/TickRequest.ts belongs to lane \"world\"; you are in \"brain\". Ask instead: npx lanes msg world --type request \"<what you need>\". Override (logged): npx lanes override contracts/TickRe",
+        "prompt_only": "allowed (model compliance only)",
+        "pact": "allowed (no ownership model)"
+      },
+      {
+        "scenario": "Write consumed contract's fixture (fixtures/TickRequest/valid/x.json)",
+        "expected_hook": "block",
+        "hook": "block",
+        "expected_pre_commit": "block",
+        "pre_commit": "block",
+        "as_expected": true,
+        "hook_ms": 53,
+        "hook_message": "Blocked: fixtures/TickRequest/valid/x.json belongs to lane \"world\"; you are in \"brain\". Ask instead: npx lanes msg world --type request \"<what you need>\". Override (logged): npx lanes override fixtures/TickRequest/valid/x.json --reason \"<wh",
+        "pre_commit_message": "Blocked: fixtures/TickRequest/valid/x.json belongs to lane \"world\"; you are in \"brain\". Ask instead: npx lanes msg world --type request \"<what you need>\". Override (logged): npx lanes override fixture",
+        "prompt_only": "allowed (model compliance only)",
+        "pact": "allowed (no ownership model)"
+      },
+      {
+        "scenario": "Bash sed -i on another lane's file",
+        "expected_hook": "allow",
+        "hook": "allow",
+        "expected_pre_commit": "block",
+        "pre_commit": "block",
+        "as_expected": true,
+        "hook_ms": 85,
+        "hook_message": "",
+        "pre_commit_message": "Blocked: apps/world/src/apply.ts belongs to lane \"world\"; you are in \"brain\". Ask instead: npx lanes msg world --type request \"<what you need>\". Override (logged): npx lanes override apps/world/src/ap",
+        "prompt_only": "allowed (model compliance only)",
+        "pact": "allowed (no ownership model)"
+      },
+      {
+        "scenario": "Bash redirect into another lane",
+        "expected_hook": "allow",
+        "hook": "allow",
+        "expected_pre_commit": "block",
+        "pre_commit": "block",
+        "as_expected": true,
+        "hook_ms": 57,
+        "hook_message": "",
+        "pre_commit_message": "Blocked: apps/world/src/hack.ts belongs to lane \"world\"; you are in \"brain\". Ask instead: npx lanes msg world --type request \"<what you need>\". Override (logged): npx lanes override apps/world/src/hac",
+        "prompt_only": "allowed (model compliance only)",
+        "pact": "allowed (no ownership model)"
+      },
+      {
+        "scenario": "Bash git push --force",
+        "expected_hook": "block",
+        "hook": "block",
+        "expected_pre_commit": "n/a",
+        "pre_commit": "n/a",
+        "as_expected": true,
+        "hook_ms": 45,
+        "hook_message": "Blocked: force-push rewrites shared history. Push a new commit instead (git revert / a follow-up fix). Override (logged): npx lanes override @push --reason \"<why>\".",
+        "prompt_only": "allowed (model compliance only)",
+        "pact": "allowed (no ownership model)"
+      },
+      {
+        "scenario": "Bash git push to main (setup phase: no contracts.lock yet)",
+        "expected_hook": "allow",
+        "hook": "allow",
+        "expected_pre_commit": "n/a",
+        "pre_commit": "n/a",
+        "as_expected": true,
+        "hook_ms": 84,
+        "hook_message": "",
+        "prompt_only": "allowed (model compliance only)",
+        "pact": "allowed (no ownership model)"
+      },
+      {
+        "scenario": "Bash git push to main (after lanes lock)",
+        "expected_hook": "block",
+        "hook": "block",
+        "expected_pre_commit": "n/a",
+        "pre_commit": "n/a",
+        "as_expected": true,
+        "hook_ms": 51,
+        "hook_message": "Blocked: main is queue-only once contracts are locked. Push your branch and open a PR labeled \"queue\": git push -u origin HEAD && gh pr create --fill --label queue. Override (logged): npx lanes override @push --reason \"<why>\".",
+        "prompt_only": "allowed (model compliance only)",
+        "pact": "allowed (no ownership model)"
+      },
+      {
+        "scenario": "Edit produced contract after lanes lock (on main, not contract/*)",
+        "expected_hook": "block",
+        "hook": "block",
+        "expected_pre_commit": "n/a",
+        "pre_commit": "n/a",
+        "as_expected": true,
+        "hook_ms": 47,
+        "hook_message": "Blocked: contracts/TickResponse.ts is locked by contracts.lock. Locked contracts change only on a contract branch: git switch -c contract/TickResponse-<slug>. Override (logged): npx lanes override contracts/TickResponse.ts --reason \"<why>\".",
+        "prompt_only": "allowed (model compliance only)",
+        "pact": "allowed (no ownership model)"
+      },
+      {
+        "scenario": "Bash read-only command (grep across lanes)",
+        "expected_hook": "allow",
+        "hook": "allow",
+        "expected_pre_commit": "n/a",
+        "pre_commit": "n/a",
+        "as_expected": true,
+        "hook_ms": 94,
+        "hook_message": "",
+        "prompt_only": "allowed (model compliance only)",
+        "pact": "allowed (no ownership model)"
+      }
+    ],
+    "violations": 9,
+    "blocked_by_hook": 7,
+    "blocked_by_hook_or_pre_commit": 9,
+    "false_blocks": 0,
+    "as_expected": 14,
+    "measured_at": "2026-11-22T21:13:00.687Z",
+    "node": "v22.23.5",
+    "platform": "linux-x64"
+  },
+  "install": {
+    "method": "fresh directory + fresh npm cache per run (--prefer-online), npm 10.9.9, 2 run(s) each; wall time includes network downloads",
+    "lanes_pack": {
+      "tarball": "/tmp/claude-0/-home-user-contract-lanes-plugin/724b362f-2aea-5e73-9d01-dff1cebaa7c4/scratchpad/bt/lanes-bench-pack-out-lDFb0r/contract-lanes-0.1.0.tgz",
+      "size": 271096,
+      "unpackedSize": 1176640,
+      "entryCount": 34
+    },
+    "lanes": {
+      "packages_requested": [
+        "contract-lanes (npm pack tarball)",
+        "vitest@^5.1.0",
+        "zod@^4.1.0"
+      ],
+      "runs": [
+        {
+          "ok": true,
+          "seconds": 8.33,
+          "node_modules_bytes": 48945200,
+          "node_modules_files": 1542,
+          "packages": 39,
+          "natives": [
+            {
+              "file": "@rolldown/binding-linux-x64-gnu/rolldown-binding.linux-x64-gnu.node",
+              "bytes": 21117344
+            },
+            {
+              "file": "lightningcss-linux-x64-gnu/lightningcss.linux-x64-gnu.node",
+              "bytes": 10032264
+            }
+          ],
+          "dir": "/tmp/claude-0/-home-user-contract-lanes-plugin/724b362f-2aea-5e73-9d01-dff1cebaa7c4/scratchpad/bt/lanes-bench-install-lanes-ST7cm5"
+        },
+        {
+          "ok": true,
+          "seconds": 8.22,
+          "node_modules_bytes": 48945200,
+          "node_modules_files": 1542,
+          "packages": 39,
+          "natives": [
+            {
+              "file": "@rolldown/binding-linux-x64-gnu/rolldown-binding.linux-x64-gnu.node",
+              "bytes": 21117344
+            },
+            {
+              "file": "lightningcss-linux-x64-gnu/lightningcss.linux-x64-gnu.node",
+              "bytes": 10032264
+            }
+          ],
+          "dir": "/tmp/claude-0/-home-user-contract-lanes-plugin/724b362f-2aea-5e73-9d01-dff1cebaa7c4/scratchpad/bt/lanes-bench-install-lanes-Y6k4Uq"
+        }
+      ]
+    },
+    "pact": {
+      "packages_requested": [
+        "@pact-foundation/pact",
+        "vitest@^5.1.0"
+      ],
+      "runs": [
+        {
+          "ok": true,
+          "seconds": 11.35,
+          "node_modules_bytes": 73075484,
+          "node_modules_files": 5305,
+          "packages": 168,
+          "natives": [
+            {
+              "file": "@pact-foundation/pact-core-linux-x64-glibc/prebuilds/linux-x64/libpact_ffi.so",
+              "bytes": 17620408
+            },
+            {
+              "file": "@pact-foundation/pact-core-linux-x64-glibc/prebuilds/linux-x64/node.napi.node",
+              "bytes": 268840
+            },
+            {
+              "file": "@rolldown/binding-linux-x64-gnu/rolldown-binding.linux-x64-gnu.node",
+              "bytes": 21117344
+            },
+            {
+              "file": "lightningcss-linux-x64-gnu/lightningcss.linux-x64-gnu.node",
+              "bytes": 10032264
+            }
+          ],
+          "dir": "/tmp/claude-0/-home-user-contract-lanes-plugin/724b362f-2aea-5e73-9d01-dff1cebaa7c4/scratchpad/bt/lanes-bench-install-pact-3oFgAJ"
+        },
+        {
+          "ok": true,
+          "seconds": 12.15,
+          "node_modules_bytes": 73075484,
+          "node_modules_files": 5305,
+          "packages": 168,
+          "natives": [
+            {
+              "file": "@pact-foundation/pact-core-linux-x64-glibc/prebuilds/linux-x64/libpact_ffi.so",
+              "bytes": 17620408
+            },
+            {
+              "file": "@pact-foundation/pact-core-linux-x64-glibc/prebuilds/linux-x64/node.napi.node",
+              "bytes": 268840
+            },
+            {
+              "file": "@rolldown/binding-linux-x64-gnu/rolldown-binding.linux-x64-gnu.node",
+              "bytes": 21117344
+            },
+            {
+              "file": "lightningcss-linux-x64-gnu/lightningcss.linux-x64-gnu.node",
+              "bytes": 10032264
+            }
+          ],
+          "dir": "/tmp/claude-0/-home-user-contract-lanes-plugin/724b362f-2aea-5e73-9d01-dff1cebaa7c4/scratchpad/bt/lanes-bench-install-pact-3IaKH6"
+        }
+      ],
+      "version": "17.1.4",
+      "pact_core_version": "20.2.0"
+    },
+    "vitest_only": {
+      "packages_requested": [
+        "vitest@^5.1.0"
+      ],
+      "runs": [
+        {
+          "ok": true,
+          "seconds": 7.29,
+          "node_modules_bytes": 40012432,
+          "node_modules_files": 599,
+          "packages": 35,
+          "natives": [
+            {
+              "file": "@rolldown/binding-linux-x64-gnu/rolldown-binding.linux-x64-gnu.node",
+              "bytes": 21117344
+            },
+            {
+              "file": "lightningcss-linux-x64-gnu/lightningcss.linux-x64-gnu.node",
+              "bytes": 10032264
+            }
+          ],
+          "dir": "/tmp/claude-0/-home-user-contract-lanes-plugin/724b362f-2aea-5e73-9d01-dff1cebaa7c4/scratchpad/bt/lanes-bench-install-vitest-y1NowE"
+        },
+        {
+          "ok": true,
+          "seconds": 7.96,
+          "node_modules_bytes": 40012432,
+          "node_modules_files": 599,
+          "packages": 35,
+          "natives": [
+            {
+              "file": "@rolldown/binding-linux-x64-gnu/rolldown-binding.linux-x64-gnu.node",
+              "bytes": 21117344
+            },
+            {
+              "file": "lightningcss-linux-x64-gnu/lightningcss.linux-x64-gnu.node",
+              "bytes": 10032264
+            }
+          ],
+          "dir": "/tmp/claude-0/-home-user-contract-lanes-plugin/724b362f-2aea-5e73-9d01-dff1cebaa7c4/scratchpad/bt/lanes-bench-install-vitest-ub3en9"
+        }
+      ]
+    },
+    "registry": {
+      "@pact-foundation/pact": {
+        "version": "17.1.4",
+        "dist.unpackedSize": 1078703,
+        "dependencies": {
+          "@pact-foundation/pact-core": "^20.1.1",
+          "@scarf/scarf": "^1.4.0",
+          "axios": "^1.12.2",
+          "body-parser": "^2.2.0",
+          "chalk": "4.1.2",
+          "express": "^5.1.0",
+          "graphql": "^16.11.0",
+          "graphql-tag": "^2.12.6",
+          "http-proxy": "^1.18.1",
+          "https-proxy-agent": "^7.0.6",
+          "js-base64": "^3.7.8",
+          "lodash": "^4.17.21",
+          "ramda": "^0.32.0",
+          "randexp": "^0.5.3",
+          "router": "^2.2.0",
+          "stack-utils": "^2.0.6"
+        }
+      },
+      "@pact-foundation/pact-core": {
+        "version": "20.2.0",
+        "dist.unpackedSize": 306831,
+        "dependencies": {
+          "pino": "^10.0.0",
+          "underscore": "1.13.8",
+          "check-types": "11.2.3",
+          "detect-libc": "^2.0.3",
+          "pino-pretty": "^13.1.1",
+          "node-gyp-build": "^4.6.0"
+        },
+        "optionalDependencies": {
+          "@pact-foundation/pact-core-darwin-x64": "20.2.0",
+          "@pact-foundation/pact-core-windows-x64": "20.2.0",
+          "@pact-foundation/pact-core-darwin-arm64": "20.2.0",
+          "@pact-foundation/pact-core-linux-x64-musl": "20.2.0",
+          "@pact-foundation/pact-core-linux-x64-glibc": "20.2.0",
+          "@pact-foundation/pact-core-linux-arm64-musl": "20.2.0",
+          "@pact-foundation/pact-core-linux-arm64-glibc": "20.2.0"
+        }
+      },
+      "contract-lanes": {
+        "error": {
+          "code": "E404",
+          "summary": "Not Found - GET https://registry.npmjs.org/contract-lanes - Not found",
+          "detail": "'contract-lanes@*' is not in this registry.\n\nNote that you can also install from a\ntarball, folder, http url, or git url."
+        }
+      }
+    },
+    "pact_install_dir": "/tmp/claude-0/-home-user-contract-lanes-plugin/724b362f-2aea-5e73-9d01-dff1cebaa7c4/scratchpad/bt/lanes-bench-install-pact-3oFgAJ",
+    "measured_at": "2026-11-22T21:20:42.557Z",
+    "node": "v22.23.5",
+    "platform": "linux-x64"
+  },
+  "mutants": {
+    "method": "19 single-bug mutants of examples/three-lanes (planted bug fixed as baseline); lanes runs seeds 1..10; \"caught\" = the approach exits non-zero.",
+    "seeds": 10,
+    "n": 19,
+    "baseline": {
+      "id": "baseline (fixed)",
+      "cat": "none",
+      "desc": "planted bug fixed, no mutation",
+      "trigger": "-",
+      "lanes": {
+        "rate": 0,
+        "kinds": [],
+        "runs": [
+          {
+            "seed": 1,
+            "caught": false,
+            "ms": 2230
+          },
+          {
+            "seed": 2,
+            "caught": false,
+            "ms": 2310.7
+          },
+          {
+            "seed": 3,
+            "caught": false,
+            "ms": 2265.2
+          },
+          {
+            "seed": 4,
+            "caught": false,
+            "ms": 2203.1
+          },
+          {
+            "seed": 5,
+            "caught": false,
+            "ms": 2243.6
+          },
+          {
+            "seed": 6,
+            "caught": false,
+            "ms": 2160.9
+          },
+          {
+            "seed": 7,
+            "caught": false,
+            "ms": 2202.9
+          },
+          {
+            "seed": 8,
+            "caught": false,
+            "ms": 2159.5
+          },
+          {
+            "seed": 9,
+            "caught": false,
+            "ms": 1370.1
+          },
+          {
+            "seed": 10,
+            "caught": false,
+            "ms": 1349
+          }
+        ],
+        "errors": [],
+        "config_failures": []
+      },
+      "lanesFast": {
+        "rate": 0,
+        "runs": [
+          {
+            "seed": 1,
+            "caught": false,
+            "ms": 1263.6
+          },
+          {
+            "seed": 2,
+            "caught": false,
+            "ms": 1182
+          },
+          {
+            "seed": 3,
+            "caught": false,
+            "ms": 1203.1
+          },
+          {
+            "seed": 4,
+            "caught": false,
+            "ms": 1255.9
+          },
+          {
+            "seed": 5,
+            "caught": false,
+            "ms": 1284.9
+          },
+          {
+            "seed": 6,
+            "caught": false,
+            "ms": 1299
+          },
+          {
+            "seed": 7,
+            "caught": false,
+            "ms": 1192.1
+          },
+          {
+            "seed": 8,
+            "caught": false,
+            "ms": 1267.2
+          },
+          {
+            "seed": 9,
+            "caught": false,
+            "ms": 994
+          },
+          {
+            "seed": 10,
+            "caught": false,
+            "ms": 1027.7
+          }
+        ]
+      },
+      "pact": {
+        "caught": false,
+        "stage": null,
+        "consumer_ms": 1012.2,
+        "provider_ms": 859.8
+      },
+      "examples": {
+        "caught": false
+      },
+      "tsc": {
+        "caught": false
+      }
+    },
+    "baseline_false_positive": false,
+    "totals": {
+      "lanes": {
+        "caught_any_seed": 18,
+        "caught_every_seed": 18,
+        "per_seed_catch_counts": [
+          18,
+          18,
+          18,
+          18,
+          18,
+          18,
+          18,
+          18,
+          18,
+          18
+        ]
+      },
+      "lanesFast": {
+        "caught_any_seed": 18,
+        "caught_every_seed": 17,
+        "per_seed_catch_counts": [
+          18,
+          18,
+          18,
+          18,
+          18,
+          18,
+          18,
+          17,
+          18,
+          18
+        ]
+      },
+      "pact": {
+        "caught_any_seed": 6
+      },
+      "examples": {
+        "caught_any_seed": 8
+      },
+      "tsc": {
+        "caught_any_seed": 3
+      }
+    },
+    "union_pact_examples_tsc": 8,
+    "rows": [
+      {
+        "id": "hold-1800",
+        "cat": "range",
+        "desc": "spooked holdMs 1800 (the example's planted bug; max 1500)",
+        "trigger": "any spooked agent",
+        "lanes": {
+          "rate": 1,
+          "kinds": [
+            "handler-property"
+          ],
+          "first": "handler tick (apps/brain/src/tick.ts#tick) returned an invalid TickResponse: actions[0].holdMs: Too big: expected number to be <=1500",
+          "shrunk": {
+            "tick": 0,
+            "worldId": " ",
+            "agents": [
+              {
+                "id": "a-0",
+                "at": {
+                  "x": 0,
+                  "y": 0
+                },
+                "mood": "spooked"
+              }
+            ]
+          },
+          "runs": [
+            {
+              "seed": 1,
+              "caught": true,
+              "ms": 2225.5
+            },
+            {
+              "seed": 2,
+              "caught": true,
+              "ms": 2219.8
+            },
+            {
+              "seed": 3,
+              "caught": true,
+              "ms": 2053.9
+            },
+            {
+              "seed": 4,
+              "caught": true,
+              "ms": 2152.6
+            },
+            {
+              "seed": 5,
+              "caught": true,
+              "ms": 2173.7
+            },
+            {
+              "seed": 6,
+              "caught": true,
+              "ms": 2010.8
+            },
+            {
+              "seed": 7,
+              "caught": true,
+              "ms": 2188.1
+            },
+            {
+              "seed": 8,
+              "caught": true,
+              "ms": 2138.2
+            },
+            {
+              "seed": 9,
+              "caught": true,
+              "ms": 1295.8
+            },
+            {
+              "seed": 10,
+              "caught": true,
+              "ms": 1350.2
+            }
+          ],
+          "errors": [],
+          "config_failures": []
+        },
+        "lanesFast": {
+          "rate": 1,
+          "runs": [
+            {
+              "seed": 1,
+              "caught": true,
+              "ms": 1240.4
+            },
+            {
+              "seed": 2,
+              "caught": true,
+              "ms": 1299.3
+            },
+            {
+              "seed": 3,
+              "caught": true,
+              "ms": 1241.2
+            },
+            {
+              "seed": 4,
+              "caught": true,
+              "ms": 1214.6
+            },
+            {
+              "seed": 5,
+              "caught": true,
+              "ms": 1306
+            },
+            {
+              "seed": 6,
+              "caught": true,
+              "ms": 1247.6
+            },
+            {
+              "seed": 7,
+              "caught": true,
+              "ms": 1236.6
+            },
+            {
+              "seed": 8,
+              "caught": true,
+              "ms": 1175.9
+            },
+            {
+              "seed": 9,
+              "caught": true,
+              "ms": 1140.3
+            },
+            {
+              "seed": 10,
+              "caught": true,
+              "ms": 1038.9
+            }
+          ]
+        },
+        "pact": {
+          "caught": false,
+          "stage": null,
+          "consumer_ms": 1133.1,
+          "provider_ms": 790.5
+        },
+        "examples": {
+          "caught": false
+        },
+        "tsc": {
+          "caught": false
+        }
+      },
+      {
+        "id": "hold-off-by-one",
+        "cat": "range",
+        "desc": "spooked holdMs 1501 (off by one)",
+        "trigger": "any spooked agent",
+        "lanes": {
+          "rate": 1,
+          "kinds": [
+            "handler-property"
+          ],
+          "first": "handler tick (apps/brain/src/tick.ts#tick) returned an invalid TickResponse: actions[0].holdMs: Too big: expected number to be <=1500",
+          "shrunk": {
+            "tick": 0,
+            "worldId": " ",
+            "agents": [
+              {
+                "id": "a-0",
+                "at": {
+                  "x": 0,
+                  "y": 0
+                },
+                "mood": "spooked"
+              }
+            ]
+          },
+          "runs": [
+            {
+              "seed": 1,
+              "caught": true,
+              "ms": 2545.1
+            },
+            {
+              "seed": 2,
+              "caught": true,
+              "ms": 2405.1
+            },
+            {
+              "seed": 3,
+              "caught": true,
+              "ms": 2504.2
+            },
+            {
+              "seed": 4,
+              "caught": true,
+              "ms": 2342.8
+            },
+            {
+              "seed": 5,
+              "caught": true,
+              "ms": 2169.9
+            },
+            {
+              "seed": 6,
+              "caught": true,
+              "ms": 2065.7
+            },
+            {
+              "seed": 7,
+              "caught": true,
+              "ms": 2246.2
+            },
+            {
+              "seed": 8,
+              "caught": true,
+              "ms": 2224
+            },
+            {
+              "seed": 9,
+              "caught": true,
+              "ms": 1525.8
+            },
+            {
+              "seed": 10,
+              "caught": true,
+              "ms": 1361.9
+            }
+          ],
+          "errors": [],
+          "config_failures": []
+        },
+        "lanesFast": {
+          "rate": 1,
+          "runs": [
+            {
+              "seed": 1,
+              "caught": true,
+              "ms": 1209.9
+            },
+            {
+              "seed": 2,
+              "caught": true,
+              "ms": 1315.4
+            },
+            {
+              "seed": 3,
+              "caught": true,
+              "ms": 1226
+            },
+            {
+              "seed": 4,
+              "caught": true,
+              "ms": 1289.7
+            },
+            {
+              "seed": 5,
+              "caught": true,
+              "ms": 1325.7
+            },
+            {
+              "seed": 6,
+              "caught": true,
+              "ms": 1277.3
+            },
+            {
+              "seed": 7,
+              "caught": true,
+              "ms": 1281.2
+            },
+            {
+              "seed": 8,
+              "caught": true,
+              "ms": 1264.7
+            },
+            {
+              "seed": 9,
+              "caught": true,
+              "ms": 1034.8
+            },
+            {
+              "seed": 10,
+              "caught": true,
+              "ms": 1018
+            }
+          ]
+        },
+        "pact": {
+          "caught": false,
+          "stage": null,
+          "consumer_ms": 1019,
+          "provider_ms": 820.3
+        },
+        "examples": {
+          "caught": false
+        },
+        "tsc": {
+          "caught": false
+        }
+      },
+      {
+        "id": "hold-negative",
+        "cat": "range",
+        "desc": "calm holdMs = 250 - 5·x (negative when x > 50)",
+        "trigger": "calm agent with x > 50",
+        "lanes": {
+          "rate": 1,
+          "kinds": [
+            "handler-property"
+          ],
+          "first": "handler tick (apps/brain/src/tick.ts#tick) returned an invalid TickResponse: actions[0].holdMs: Too small: expected number to be >=0",
+          "shrunk": {
+            "tick": 0,
+            "worldId": " ",
+            "agents": [
+              {
+                "id": "a-0",
+                "at": {
+                  "x": 51,
+                  "y": 0
+                },
+                "mood": "calm"
+              }
+            ]
+          },
+          "runs": [
+            {
+              "seed": 1,
+              "caught": true,
+              "ms": 2138.3
+            },
+            {
+              "seed": 2,
+              "caught": true,
+              "ms": 2077
+            },
+            {
+              "seed": 3,
+              "caught": true,
+              "ms": 2210.8
+            },
+            {
+              "seed": 4,
+              "caught": true,
+              "ms": 2243.9
+            },
+            {
+              "seed": 5,
+              "caught": true,
+              "ms": 2222.3
+            },
+            {
+              "seed": 6,
+              "caught": true,
+              "ms": 2170.6
+            },
+            {
+              "seed": 7,
+              "caught": true,
+              "ms": 2233.7
+            },
+            {
+              "seed": 8,
+              "caught": true,
+              "ms": 2173.2
+            },
+            {
+              "seed": 9,
+              "caught": true,
+              "ms": 1334.7
+            },
+            {
+              "seed": 10,
+              "caught": true,
+              "ms": 1416.5
+            }
+          ],
+          "errors": [],
+          "config_failures": []
+        },
+        "lanesFast": {
+          "rate": 1,
+          "runs": [
+            {
+              "seed": 1,
+              "caught": true,
+              "ms": 1260
+            },
+            {
+              "seed": 2,
+              "caught": true,
+              "ms": 1400.2
+            },
+            {
+              "seed": 3,
+              "caught": true,
+              "ms": 1372.1
+            },
+            {
+              "seed": 4,
+              "caught": true,
+              "ms": 1361.2
+            },
+            {
+              "seed": 5,
+              "caught": true,
+              "ms": 1267.5
+            },
+            {
+              "seed": 6,
+              "caught": true,
+              "ms": 1422.8
+            },
+            {
+              "seed": 7,
+              "caught": true,
+              "ms": 1348.7
+            },
+            {
+              "seed": 8,
+              "caught": true,
+              "ms": 1265.9
+            },
+            {
+              "seed": 9,
+              "caught": true,
+              "ms": 1094
+            },
+            {
+              "seed": 10,
+              "caught": true,
+              "ms": 1045.7
+            }
+          ]
+        },
+        "pact": {
+          "caught": false,
+          "stage": null,
+          "consumer_ms": 1355.6,
+          "provider_ms": 836.7
+        },
+        "examples": {
+          "caught": false
+        },
+        "tsc": {
+          "caught": false
+        }
+      },
+      {
+        "id": "hold-float",
+        "cat": "type-refinement",
+        "desc": "curious holdMs = 400 + x/2 (non-integer for odd x)",
+        "trigger": "curious agent with odd x",
+        "lanes": {
+          "rate": 1,
+          "kinds": [
+            "handler-property"
+          ],
+          "first": "handler tick (apps/brain/src/tick.ts#tick) returned an invalid TickResponse: actions[0].holdMs: Invalid input: expected int, received number",
+          "shrunk": {
+            "tick": 0,
+            "worldId": " ",
+            "agents": [
+              {
+                "id": "a-0",
+                "at": {
+                  "x": 31,
+                  "y": 0
+                },
+                "mood": "curious"
+              }
+            ]
+          },
+          "runs": [
+            {
+              "seed": 1,
+              "caught": true,
+              "ms": 3685.2
+            },
+            {
+              "seed": 2,
+              "caught": true,
+              "ms": 3357.4
+            },
+            {
+              "seed": 3,
+              "caught": true,
+              "ms": 3473.1
+            },
+            {
+              "seed": 4,
+              "caught": true,
+              "ms": 3472.7
+            },
+            {
+              "seed": 5,
+              "caught": true,
+              "ms": 3130
+            },
+            {
+              "seed": 6,
+              "caught": true,
+              "ms": 3183
+            },
+            {
+              "seed": 7,
+              "caught": true,
+              "ms": 3053.6
+            },
+            {
+              "seed": 8,
+              "caught": true,
+              "ms": 3085.9
+            },
+            {
+              "seed": 9,
+              "caught": true,
+              "ms": 1995.8
+            },
+            {
+              "seed": 10,
+              "caught": true,
+              "ms": 2032.4
+            }
+          ],
+          "errors": [],
+          "config_failures": []
+        },
+        "lanesFast": {
+          "rate": 1,
+          "runs": [
+            {
+              "seed": 1,
+              "caught": true,
+              "ms": 2064.6
+            },
+            {
+              "seed": 2,
+              "caught": true,
+              "ms": 2060.8
+            },
+            {
+              "seed": 3,
+              "caught": true,
+              "ms": 2123.3
+            },
+            {
+              "seed": 4,
+              "caught": true,
+              "ms": 2108
+            },
+            {
+              "seed": 5,
+              "caught": true,
+              "ms": 1564.9
+            },
+            {
+              "seed": 6,
+              "caught": true,
+              "ms": 1790.9
+            },
+            {
+              "seed": 7,
+              "caught": true,
+              "ms": 1550.5
+            },
+            {
+              "seed": 8,
+              "caught": true,
+              "ms": 1566.9
+            },
+            {
+              "seed": 9,
+              "caught": true,
+              "ms": 1207.7
+            },
+            {
+              "seed": 10,
+              "caught": true,
+              "ms": 1125.5
+            }
+          ]
+        },
+        "pact": {
+          "caught": false,
+          "stage": null,
+          "consumer_ms": 1065.1,
+          "provider_ms": 862.4
+        },
+        "examples": {
+          "caught": false
+        },
+        "tsc": {
+          "caught": false
+        }
+      },
+      {
+        "id": "crowded-hold",
+        "cat": "rare-input",
+        "desc": "calm holdMs = 140 · agents.length (> 1500 with 11-12 agents)",
+        "trigger": "calm agent in a world of 11-12 agents",
+        "lanes": {
+          "rate": 0,
+          "kinds": [],
+          "runs": [
+            {
+              "seed": 1,
+              "caught": false,
+              "ms": 2370.2
+            },
+            {
+              "seed": 2,
+              "caught": false,
+              "ms": 2218.9
+            },
+            {
+              "seed": 3,
+              "caught": false,
+              "ms": 2271.5
+            },
+            {
+              "seed": 4,
+              "caught": false,
+              "ms": 2346.6
+            },
+            {
+              "seed": 5,
+              "caught": false,
+              "ms": 2308.6
+            },
+            {
+              "seed": 6,
+              "caught": false,
+              "ms": 2338.5
+            },
+            {
+              "seed": 7,
+              "caught": false,
+              "ms": 2275.9
+            },
+            {
+              "seed": 8,
+              "caught": false,
+              "ms": 2302.9
+            },
+            {
+              "seed": 9,
+              "caught": false,
+              "ms": 1412.4
+            },
+            {
+              "seed": 10,
+              "caught": false,
+              "ms": 1363.3
+            }
+          ],
+          "errors": [],
+          "config_failures": []
+        },
+        "lanesFast": {
+          "rate": 0,
+          "runs": [
+            {
+              "seed": 1,
+              "caught": false,
+              "ms": 1281.2
+            },
+            {
+              "seed": 2,
+              "caught": false,
+              "ms": 1228
+            },
+            {
+              "seed": 3,
+              "caught": false,
+              "ms": 1295.6
+            },
+            {
+              "seed": 4,
+              "caught": false,
+              "ms": 1320
+            },
+            {
+              "seed": 5,
+              "caught": false,
+              "ms": 1436.2
+            },
+            {
+              "seed": 6,
+              "caught": false,
+              "ms": 1311
+            },
+            {
+              "seed": 7,
+              "caught": false,
+              "ms": 1418
+            },
+            {
+              "seed": 8,
+              "caught": false,
+              "ms": 1443.2
+            },
+            {
+              "seed": 9,
+              "caught": false,
+              "ms": 1103.8
+            },
+            {
+              "seed": 10,
+              "caught": false,
+              "ms": 1137.4
+            }
+          ]
+        },
+        "pact": {
+          "caught": false,
+          "stage": null,
+          "consumer_ms": 1052.5,
+          "provider_ms": 812.8
+        },
+        "examples": {
+          "caught": false
+        },
+        "tsc": {
+          "caught": false
+        }
+      },
+      {
+        "id": "haunt-rare",
+        "cat": "rare-input",
+        "desc": "curious holdMs 2000 when any haunt has intensity > 9",
+        "trigger": "curious agent + haunt intensity > 9",
+        "lanes": {
+          "rate": 1,
+          "kinds": [
+            "handler-property"
+          ],
+          "first": "handler tick (apps/brain/src/tick.ts#tick) returned an invalid TickResponse: actions[0].holdMs: Too big: expected number to be <=1500",
+          "shrunk": {
+            "tick": 0,
+            "worldId": " ",
+            "agents": [
+              {
+                "id": "a-0",
+                "at": {
+                  "x": 0,
+                  "y": 0
+                },
+                "mood": "curious"
+              }
+            ],
+            "haunts": [
+              {
+                "id": " ",
+                "at": {
+                  "x": 0,
+                  "y": 0
+                },
+                "intensity": 9.000000000000002
+              }
+            ]
+          },
+          "runs": [
+            {
+              "seed": 1,
+              "caught": true,
+              "ms": 2369.1
+            },
+            {
+              "seed": 2,
+              "caught": true,
+              "ms": 2228.5
+            },
+            {
+              "seed": 3,
+              "caught": true,
+              "ms": 2176.3
+            },
+            {
+              "seed": 4,
+              "caught": true,
+              "ms": 2213.3
+            },
+            {
+              "seed": 5,
+              "caught": true,
+              "ms": 2086.9
+            },
+            {
+              "seed": 6,
+              "caught": true,
+              "ms": 2049.7
+            },
+            {
+              "seed": 7,
+              "caught": true,
+              "ms": 2131.3
+            },
+            {
+              "seed": 8,
+              "caught": true,
+              "ms": 2219.2
+            },
+            {
+              "seed": 9,
+              "caught": true,
+              "ms": 1395.1
+            },
+            {
+              "seed": 10,
+              "caught": true,
+              "ms": 1492.2
+            }
+          ],
+          "errors": [],
+          "config_failures": []
+        },
+        "lanesFast": {
+          "rate": 1,
+          "runs": [
+            {
+              "seed": 1,
+              "caught": true,
+              "ms": 1346.2
+            },
+            {
+              "seed": 2,
+              "caught": true,
+              "ms": 1319.4
+            },
+            {
+              "seed": 3,
+              "caught": true,
+              "ms": 1408.7
+            },
+            {
+              "seed": 4,
+              "caught": true,
+              "ms": 1359.3
+            },
+            {
+              "seed": 5,
+              "caught": true,
+              "ms": 1265.2
+            },
+            {
+              "seed": 6,
+              "caught": true,
+              "ms": 1295.7
+            },
+            {
+              "seed": 7,
+              "caught": true,
+              "ms": 1245.2
+            },
+            {
+              "seed": 8,
+              "caught": true,
+              "ms": 1262.9
+            },
+            {
+              "seed": 9,
+              "caught": true,
+              "ms": 1022.4
+            },
+            {
+              "seed": 10,
+              "caught": true,
+              "ms": 1053.4
+            }
+          ]
+        },
+        "pact": {
+          "caught": false,
+          "stage": null,
+          "consumer_ms": 1019.7,
+          "provider_ms": 869.3
+        },
+        "examples": {
+          "caught": false
+        },
+        "tsc": {
+          "caught": false
+        }
+      },
+      {
+        "id": "to-no-clamp-high",
+        "cat": "range",
+        "desc": "curious move forgets clamp (x = 64 at the east edge)",
+        "trigger": "curious agent with x = 63",
+        "lanes": {
+          "rate": 1,
+          "kinds": [
+            "handler-property"
+          ],
+          "first": "handler tick (apps/brain/src/tick.ts#tick) returned an invalid TickResponse: actions[0].to.x: Too big: expected number to be <=63",
+          "shrunk": {
+            "tick": 0,
+            "worldId": " ",
+            "agents": [
+              {
+                "id": "a-0",
+                "at": {
+                  "x": 63,
+                  "y": 0
+                },
+                "mood": "curious"
+              }
+            ]
+          },
+          "runs": [
+            {
+              "seed": 1,
+              "caught": true,
+              "ms": 2292.6
+            },
+            {
+              "seed": 2,
+              "caught": true,
+              "ms": 2228.6
+            },
+            {
+              "seed": 3,
+              "caught": true,
+              "ms": 2293.3
+            },
+            {
+              "seed": 4,
+              "caught": true,
+              "ms": 2284.2
+            },
+            {
+              "seed": 5,
+              "caught": true,
+              "ms": 1998.9
+            },
+            {
+              "seed": 6,
+              "caught": true,
+              "ms": 2138.1
+            },
+            {
+              "seed": 7,
+              "caught": true,
+              "ms": 2300.9
+            },
+            {
+              "seed": 8,
+              "caught": true,
+              "ms": 2214.3
+            },
+            {
+              "seed": 9,
+              "caught": true,
+              "ms": 1428.1
+            },
+            {
+              "seed": 10,
+              "caught": true,
+              "ms": 1354.3
+            }
+          ],
+          "errors": [],
+          "config_failures": []
+        },
+        "lanesFast": {
+          "rate": 0.9,
+          "runs": [
+            {
+              "seed": 1,
+              "caught": true,
+              "ms": 1297.4
+            },
+            {
+              "seed": 2,
+              "caught": true,
+              "ms": 1238.4
+            },
+            {
+              "seed": 3,
+              "caught": true,
+              "ms": 1242.5
+            },
+            {
+              "seed": 4,
+              "caught": true,
+              "ms": 1253
+            },
+            {
+              "seed": 5,
+              "caught": true,
+              "ms": 1213.8
+            },
+            {
+              "seed": 6,
+              "caught": true,
+              "ms": 1257.7
+            },
+            {
+              "seed": 7,
+              "caught": true,
+              "ms": 1236
+            },
+            {
+              "seed": 8,
+              "caught": false,
+              "ms": 1191.3
+            },
+            {
+              "seed": 9,
+              "caught": true,
+              "ms": 1096.3
+            },
+            {
+              "seed": 10,
+              "caught": true,
+              "ms": 1041.5
+            }
+          ]
+        },
+        "pact": {
+          "caught": false,
+          "stage": null,
+          "consumer_ms": 1219.3,
+          "provider_ms": 835.5
+        },
+        "examples": {
+          "caught": false
+        },
+        "tsc": {
+          "caught": false
+        }
+      },
+      {
+        "id": "to-no-clamp-low",
+        "cat": "range",
+        "desc": "spooked flee forgets clamp (negative x/y near the origin)",
+        "trigger": "spooked agent with x < 2 or y < 2",
+        "lanes": {
+          "rate": 1,
+          "kinds": [
+            "handler-property"
+          ],
+          "first": "handler tick (apps/brain/src/tick.ts#tick) returned an invalid TickResponse: actions[0].to.x: Too small: expected number to be >=0; actions[0].to.y: Too small: ",
+          "shrunk": {
+            "tick": 0,
+            "worldId": " ",
+            "agents": [
+              {
+                "id": "a-0",
+                "at": {
+                  "x": 0,
+                  "y": 0
+                },
+                "mood": "spooked"
+              }
+            ]
+          },
+          "runs": [
+            {
+              "seed": 1,
+              "caught": true,
+              "ms": 2656.6
+            },
+            {
+              "seed": 2,
+              "caught": true,
+              "ms": 2586.5
+            },
+            {
+              "seed": 3,
+              "caught": true,
+              "ms": 2302.3
+            },
+            {
+              "seed": 4,
+              "caught": true,
+              "ms": 2685.1
+            },
+            {
+              "seed": 5,
+              "caught": true,
+              "ms": 2339.1
+            },
+            {
+              "seed": 6,
+              "caught": true,
+              "ms": 2244.6
+            },
+            {
+              "seed": 7,
+              "caught": true,
+              "ms": 2032.5
+            },
+            {
+              "seed": 8,
+              "caught": true,
+              "ms": 2221.3
+            },
+            {
+              "seed": 9,
+              "caught": true,
+              "ms": 1492.4
+            },
+            {
+              "seed": 10,
+              "caught": true,
+              "ms": 1469.6
+            }
+          ],
+          "errors": [],
+          "config_failures": []
+        },
+        "lanesFast": {
+          "rate": 1,
+          "runs": [
+            {
+              "seed": 1,
+              "caught": true,
+              "ms": 1254.6
+            },
+            {
+              "seed": 2,
+              "caught": true,
+              "ms": 1269.9
+            },
+            {
+              "seed": 3,
+              "caught": true,
+              "ms": 1265.7
+            },
+            {
+              "seed": 4,
+              "caught": true,
+              "ms": 1320.4
+            },
+            {
+              "seed": 5,
+              "caught": true,
+              "ms": 1265.7
+            },
+            {
+              "seed": 6,
+              "caught": true,
+              "ms": 1339.8
+            },
+            {
+              "seed": 7,
+              "caught": true,
+              "ms": 1281.5
+            },
+            {
+              "seed": 8,
+              "caught": true,
+              "ms": 1252.4
+            },
+            {
+              "seed": 9,
+              "caught": true,
+              "ms": 1063.4
+            },
+            {
+              "seed": 10,
+              "caught": true,
+              "ms": 1014.1
+            }
+          ]
+        },
+        "pact": {
+          "caught": false,
+          "stage": null,
+          "consumer_ms": 1051.1,
+          "provider_ms": 776.8
+        },
+        "examples": {
+          "caught": false
+        },
+        "tsc": {
+          "caught": false
+        }
+      },
+      {
+        "id": "to-float",
+        "cat": "type-refinement",
+        "desc": "curious move x = clamp(1.5·x) (non-integer for odd x)",
+        "trigger": "curious agent with odd x",
+        "lanes": {
+          "rate": 1,
+          "kinds": [
+            "handler-property"
+          ],
+          "first": "handler tick (apps/brain/src/tick.ts#tick) returned an invalid TickResponse: actions[0].to.x: Invalid input: expected int, received number",
+          "shrunk": {
+            "tick": 0,
+            "worldId": " ",
+            "agents": [
+              {
+                "id": "a-0",
+                "at": {
+                  "x": 31,
+                  "y": 0
+                },
+                "mood": "curious"
+              }
+            ]
+          },
+          "runs": [
+            {
+              "seed": 1,
+              "caught": true,
+              "ms": 2206.7
+            },
+            {
+              "seed": 2,
+              "caught": true,
+              "ms": 2286
+            },
+            {
+              "seed": 3,
+              "caught": true,
+              "ms": 2263.1
+            },
+            {
+              "seed": 4,
+              "caught": true,
+              "ms": 2172.1
+            },
+            {
+              "seed": 5,
+              "caught": true,
+              "ms": 2176.3
+            },
+            {
+              "seed": 6,
+              "caught": true,
+              "ms": 2320.4
+            },
+            {
+              "seed": 7,
+              "caught": true,
+              "ms": 2253.2
+            },
+            {
+              "seed": 8,
+              "caught": true,
+              "ms": 2280
+            },
+            {
+              "seed": 9,
+              "caught": true,
+              "ms": 1411.7
+            },
+            {
+              "seed": 10,
+              "caught": true,
+              "ms": 1388.6
+            }
+          ],
+          "errors": [],
+          "config_failures": []
+        },
+        "lanesFast": {
+          "rate": 1,
+          "runs": [
+            {
+              "seed": 1,
+              "caught": true,
+              "ms": 1237.6
+            },
+            {
+              "seed": 2,
+              "caught": true,
+              "ms": 1314.3
+            },
+            {
+              "seed": 3,
+              "caught": true,
+              "ms": 1315.1
+            },
+            {
+              "seed": 4,
+              "caught": true,
+              "ms": 1321.2
+            },
+            {
+              "seed": 5,
+              "caught": true,
+              "ms": 1509.9
+            },
+            {
+              "seed": 6,
+              "caught": true,
+              "ms": 1280.6
+            },
+            {
+              "seed": 7,
+              "caught": true,
+              "ms": 1337.9
+            },
+            {
+              "seed": 8,
+              "caught": true,
+              "ms": 1346.1
+            },
+            {
+              "seed": 9,
+              "caught": true,
+              "ms": 1051.9
+            },
+            {
+              "seed": 10,
+              "caught": true,
+              "ms": 1053.4
+            }
+          ]
+        },
+        "pact": {
+          "caught": false,
+          "stage": null,
+          "consumer_ms": 1816.9,
+          "provider_ms": 1154.9
+        },
+        "examples": {
+          "caught": false
+        },
+        "tsc": {
+          "caught": false
+        }
+      },
+      {
+        "id": "kind-typo",
+        "cat": "enum",
+        "desc": "curious kind \"walk\" (not in enum)",
+        "trigger": "any curious agent",
+        "lanes": {
+          "rate": 1,
+          "kinds": [
+            "handler-property"
+          ],
+          "first": "handler tick (apps/brain/src/tick.ts#tick) returned an invalid TickResponse: actions[0].kind: Invalid option: expected one of \"move\"|\"wait\"|\"flee\"",
+          "shrunk": {
+            "tick": 0,
+            "worldId": " ",
+            "agents": [
+              {
+                "id": "a-0",
+                "at": {
+                  "x": 0,
+                  "y": 0
+                },
+                "mood": "curious"
+              }
+            ]
+          },
+          "runs": [
+            {
+              "seed": 1,
+              "caught": true,
+              "ms": 3325.1
+            },
+            {
+              "seed": 2,
+              "caught": true,
+              "ms": 3311.2
+            },
+            {
+              "seed": 3,
+              "caught": true,
+              "ms": 3257.5
+            },
+            {
+              "seed": 4,
+              "caught": true,
+              "ms": 3504.3
+            },
+            {
+              "seed": 5,
+              "caught": true,
+              "ms": 2220.6
+            },
+            {
+              "seed": 6,
+              "caught": true,
+              "ms": 2199
+            },
+            {
+              "seed": 7,
+              "caught": true,
+              "ms": 2291.3
+            },
+            {
+              "seed": 8,
+              "caught": true,
+              "ms": 2115.8
+            },
+            {
+              "seed": 9,
+              "caught": true,
+              "ms": 1588.1
+            },
+            {
+              "seed": 10,
+              "caught": true,
+              "ms": 1487.3
+            }
+          ],
+          "errors": [],
+          "config_failures": []
+        },
+        "lanesFast": {
+          "rate": 1,
+          "runs": [
+            {
+              "seed": 1,
+              "caught": true,
+              "ms": 1667.7
+            },
+            {
+              "seed": 2,
+              "caught": true,
+              "ms": 1476.8
+            },
+            {
+              "seed": 3,
+              "caught": true,
+              "ms": 1499.7
+            },
+            {
+              "seed": 4,
+              "caught": true,
+              "ms": 1543.2
+            },
+            {
+              "seed": 5,
+              "caught": true,
+              "ms": 1395.2
+            },
+            {
+              "seed": 6,
+              "caught": true,
+              "ms": 1322.9
+            },
+            {
+              "seed": 7,
+              "caught": true,
+              "ms": 1322.9
+            },
+            {
+              "seed": 8,
+              "caught": true,
+              "ms": 1554.1
+            },
+            {
+              "seed": 9,
+              "caught": true,
+              "ms": 1297.3
+            },
+            {
+              "seed": 10,
+              "caught": true,
+              "ms": 1273.5
+            }
+          ]
+        },
+        "pact": {
+          "caught": true,
+          "stage": "provider",
+          "consumer_ms": 1125.5,
+          "provider_ms": 706.1
+        },
+        "examples": {
+          "caught": true,
+          "tail": " FAIL  apps/brain/src/tick.zod.test.ts > brain tick honours TickResponse > valid output for fixture 1 | AssertionError: [{\"code\":\"invalid_value\",\"values\":[\"move\",\"wait\",\"flee\"],\"path\":[\"actions\",1,\"kind\"],\"message\":\"Invalid option: expected one of \\\"move\\\"|\\\"wait\\\"|\\\"flee\\\"\"}]: expected false to be "
+        },
+        "tsc": {
+          "caught": true,
+          "tail": "apps/brain/src/tick.ts(10,5): error TS2322: Type '({ agentId: string; kind: \"flee\"; to: { x: number; y: number; }; holdMs: number; } | { agentId: string; kind: \"walk\"; to: { x: number; y: number; }; holdMs: number; } | { agentId: string; kind: \"wait\"; holdMs: number; to?: undefined; })[]' is not ass"
+        }
+      },
+      {
+        "id": "missing-agentId",
+        "cat": "shape",
+        "desc": "calm action drops agentId",
+        "trigger": "any calm agent",
+        "lanes": {
+          "rate": 1,
+          "kinds": [
+            "handler-property",
+            "consumer-test"
+          ],
+          "first": "handler tick (apps/brain/src/tick.ts#tick) returned an invalid TickResponse: actions[0].agentId: Invalid input: expected string, received undefined",
+          "shrunk": {
+            "tick": 0,
+            "worldId": " ",
+            "agents": [
+              {
+                "id": "a-0",
+                "at": {
+                  "x": 0,
+                  "y": 0
+                },
+                "mood": "calm"
+              }
+            ]
+          },
+          "runs": [
+            {
+              "seed": 1,
+              "caught": true,
+              "ms": 2102.4
+            },
+            {
+              "seed": 2,
+              "caught": true,
+              "ms": 2316.8
+            },
+            {
+              "seed": 3,
+              "caught": true,
+              "ms": 2288.8
+            },
+            {
+              "seed": 4,
+              "caught": true,
+              "ms": 2207.2
+            },
+            {
+              "seed": 5,
+              "caught": true,
+              "ms": 2380.9
+            },
+            {
+              "seed": 6,
+              "caught": true,
+              "ms": 2224.3
+            },
+            {
+              "seed": 7,
+              "caught": true,
+              "ms": 2373.4
+            },
+            {
+              "seed": 8,
+              "caught": true,
+              "ms": 2233.7
+            },
+            {
+              "seed": 9,
+              "caught": true,
+              "ms": 1424.3
+            },
+            {
+              "seed": 10,
+              "caught": true,
+              "ms": 1454.9
+            }
+          ],
+          "errors": [],
+          "config_failures": []
+        },
+        "lanesFast": {
+          "rate": 1,
+          "runs": [
+            {
+              "seed": 1,
+              "caught": true,
+              "ms": 1780
+            },
+            {
+              "seed": 2,
+              "caught": true,
+              "ms": 1434.1
+            },
+            {
+              "seed": 3,
+              "caught": true,
+              "ms": 1515.7
+            },
+            {
+              "seed": 4,
+              "caught": true,
+              "ms": 1598.9
+            },
+            {
+              "seed": 5,
+              "caught": true,
+              "ms": 1916.7
+            },
+            {
+              "seed": 6,
+              "caught": true,
+              "ms": 2118.3
+            },
+            {
+              "seed": 7,
+              "caught": true,
+              "ms": 2023.1
+            },
+            {
+              "seed": 8,
+              "caught": true,
+              "ms": 1916
+            },
+            {
+              "seed": 9,
+              "caught": true,
+              "ms": 1132.5
+            },
+            {
+              "seed": 10,
+              "caught": true,
+              "ms": 1081.3
+            }
+          ]
+        },
+        "pact": {
+          "caught": true,
+          "stage": "provider",
+          "consumer_ms": 1486.3,
+          "provider_ms": 850.7
+        },
+        "examples": {
+          "caught": true,
+          "tail": " FAIL  apps/brain/src/tick.zod.test.ts > brain tick honours TickResponse > valid output for fixture 1 | AssertionError: [{\"expected\":\"string\",\"code\":\"invalid_type\",\"path\":[\"actions\",0,\"agentId\"],\"message\":\"Invalid input: expected string, received undefined\"},{\"expected\":\"string\",\"code\":\"invalid_type"
+        },
+        "tsc": {
+          "caught": true,
+          "tail": "apps/brain/src/tick.ts(10,5): error TS2322: Type '({ agentId: string; kind: \"flee\"; to: { x: number; y: number; }; holdMs: number; } | { agentId: string; kind: \"move\"; to: { x: number; y: number; }; holdMs: number; } | { kind: \"wait\"; holdMs: number; agentId?: undefined; to?: undefined; })[]' is not"
+        }
+      },
+      {
+        "id": "agentId-format",
+        "cat": "format",
+        "desc": "calm agentId upper-cased (\"A-1\" fails the regex)",
+        "trigger": "any calm agent",
+        "lanes": {
+          "rate": 1,
+          "kinds": [
+            "handler-property",
+            "consumer-test"
+          ],
+          "first": "handler tick (apps/brain/src/tick.ts#tick) returned an invalid TickResponse: actions[0].agentId: Invalid string: must match pattern /^a-[0-9]{1,4}$/",
+          "shrunk": {
+            "tick": 0,
+            "worldId": " ",
+            "agents": [
+              {
+                "id": "a-0",
+                "at": {
+                  "x": 0,
+                  "y": 0
+                },
+                "mood": "calm"
+              }
+            ]
+          },
+          "runs": [
+            {
+              "seed": 1,
+              "caught": true,
+              "ms": 3357.3
+            },
+            {
+              "seed": 2,
+              "caught": true,
+              "ms": 3331.4
+            },
+            {
+              "seed": 3,
+              "caught": true,
+              "ms": 3257.9
+            },
+            {
+              "seed": 4,
+              "caught": true,
+              "ms": 3399.7
+            },
+            {
+              "seed": 5,
+              "caught": true,
+              "ms": 3267.7
+            },
+            {
+              "seed": 6,
+              "caught": true,
+              "ms": 3160.6
+            },
+            {
+              "seed": 7,
+              "caught": true,
+              "ms": 3145.4
+            },
+            {
+              "seed": 8,
+              "caught": true,
+              "ms": 3358.3
+            },
+            {
+              "seed": 9,
+              "caught": true,
+              "ms": 2027
+            },
+            {
+              "seed": 10,
+              "caught": true,
+              "ms": 2024.1
+            }
+          ],
+          "errors": [],
+          "config_failures": []
+        },
+        "lanesFast": {
+          "rate": 1,
+          "runs": [
+            {
+              "seed": 1,
+              "caught": true,
+              "ms": 2038.8
+            },
+            {
+              "seed": 2,
+              "caught": true,
+              "ms": 1905.5
+            },
+            {
+              "seed": 3,
+              "caught": true,
+              "ms": 1810.9
+            },
+            {
+              "seed": 4,
+              "caught": true,
+              "ms": 1878.7
+            },
+            {
+              "seed": 5,
+              "caught": true,
+              "ms": 2020.1
+            },
+            {
+              "seed": 6,
+              "caught": true,
+              "ms": 1693.8
+            },
+            {
+              "seed": 7,
+              "caught": true,
+              "ms": 2021.6
+            },
+            {
+              "seed": 8,
+              "caught": true,
+              "ms": 2065.3
+            },
+            {
+              "seed": 9,
+              "caught": true,
+              "ms": 1276.2
+            },
+            {
+              "seed": 10,
+              "caught": true,
+              "ms": 1205.4
+            }
+          ]
+        },
+        "pact": {
+          "caught": true,
+          "stage": "provider",
+          "consumer_ms": 1683.6,
+          "provider_ms": 850
+        },
+        "examples": {
+          "caught": true,
+          "tail": " FAIL  apps/brain/src/tick.zod.test.ts > brain tick honours TickResponse > valid output for fixture 1 | AssertionError: [{\"origin\":\"string\",\"code\":\"invalid_format\",\"format\":\"regex\",\"pattern\":\"/^a-[0-9]{1,4}$/\",\"path\":[\"actions\",0,\"agentId\"],\"message\":\"Invalid string: must match pattern /^a-[0-9]{1,4"
+        },
+        "tsc": {
+          "caught": false
+        }
+      },
+      {
+        "id": "tick-echo",
+        "cat": "semantic",
+        "desc": "response tick = request tick + 1 (schema-valid)",
+        "trigger": "every request",
+        "lanes": {
+          "rate": 1,
+          "kinds": [
+            "handler-property",
+            "consumer-test"
+          ],
+          "first": "handler tick (apps/brain/src/tick.ts#tick) returned an invalid TickResponse: tick: Too big: expected int to be <=9007199254740991",
+          "shrunk": {
+            "tick": 9007199254740991,
+            "worldId": " ",
+            "agents": []
+          },
+          "runs": [
+            {
+              "seed": 1,
+              "caught": true,
+              "ms": 2397.3
+            },
+            {
+              "seed": 2,
+              "caught": true,
+              "ms": 2391.5
+            },
+            {
+              "seed": 3,
+              "caught": true,
+              "ms": 2539
+            },
+            {
+              "seed": 4,
+              "caught": true,
+              "ms": 2428
+            },
+            {
+              "seed": 5,
+              "caught": true,
+              "ms": 2220.4
+            },
+            {
+              "seed": 6,
+              "caught": true,
+              "ms": 2267.8
+            },
+            {
+              "seed": 7,
+              "caught": true,
+              "ms": 2372.6
+            },
+            {
+              "seed": 8,
+              "caught": true,
+              "ms": 2101.1
+            },
+            {
+              "seed": 9,
+              "caught": true,
+              "ms": 1318.1
+            },
+            {
+              "seed": 10,
+              "caught": true,
+              "ms": 1410.2
+            }
+          ],
+          "errors": [],
+          "config_failures": []
+        },
+        "lanesFast": {
+          "rate": 1,
+          "runs": [
+            {
+              "seed": 1,
+              "caught": true,
+              "ms": 1370.6
+            },
+            {
+              "seed": 2,
+              "caught": true,
+              "ms": 1382.4
+            },
+            {
+              "seed": 3,
+              "caught": true,
+              "ms": 1456.4
+            },
+            {
+              "seed": 4,
+              "caught": true,
+              "ms": 1247.2
+            },
+            {
+              "seed": 5,
+              "caught": true,
+              "ms": 1331.2
+            },
+            {
+              "seed": 6,
+              "caught": true,
+              "ms": 1265.3
+            },
+            {
+              "seed": 7,
+              "caught": true,
+              "ms": 1265.1
+            },
+            {
+              "seed": 8,
+              "caught": true,
+              "ms": 1196
+            },
+            {
+              "seed": 9,
+              "caught": true,
+              "ms": 1021
+            },
+            {
+              "seed": 10,
+              "caught": true,
+              "ms": 1055.6
+            }
+          ]
+        },
+        "pact": {
+          "caught": true,
+          "stage": "provider",
+          "consumer_ms": 997.5,
+          "provider_ms": 890.5
+        },
+        "examples": {
+          "caught": true,
+          "tail": " FAIL  apps/brain/src/__contracts__/TickRequest.test.ts > brain consumes TickRequest > answers every agent in fixture 0 | AssertionError: expected 1 to be +0 // Object.is equality |  FAIL  apps/brain/src/__contracts__/TickRequest.test.ts > brain consumes TickRequest > answers every agent in fixture "
+        },
+        "tsc": {
+          "caught": false
+        }
+      },
+      {
+        "id": "drop-agent",
+        "cat": "semantic",
+        "desc": "skips the first agent (schema-valid)",
+        "trigger": "any non-empty world",
+        "lanes": {
+          "rate": 1,
+          "kinds": [
+            "consumer-test"
+          ],
+          "first": "apps/brain/src/__contracts__/TickRequest.test.ts: \"brain consumes TickRequest answers every agent in fixture 1\" failed against TickRequest fixtures",
+          "runs": [
+            {
+              "seed": 1,
+              "caught": true,
+              "ms": 2264.6
+            },
+            {
+              "seed": 2,
+              "caught": true,
+              "ms": 2271.8
+            },
+            {
+              "seed": 3,
+              "caught": true,
+              "ms": 2217.6
+            },
+            {
+              "seed": 4,
+              "caught": true,
+              "ms": 2290.2
+            },
+            {
+              "seed": 5,
+              "caught": true,
+              "ms": 2101.7
+            },
+            {
+              "seed": 6,
+              "caught": true,
+              "ms": 2396.6
+            },
+            {
+              "seed": 7,
+              "caught": true,
+              "ms": 2296.8
+            },
+            {
+              "seed": 8,
+              "caught": true,
+              "ms": 2447.4
+            },
+            {
+              "seed": 9,
+              "caught": true,
+              "ms": 1500.6
+            },
+            {
+              "seed": 10,
+              "caught": true,
+              "ms": 1357
+            }
+          ],
+          "errors": [],
+          "config_failures": []
+        },
+        "lanesFast": {
+          "rate": 1,
+          "runs": [
+            {
+              "seed": 1,
+              "caught": true,
+              "ms": 1266.8
+            },
+            {
+              "seed": 2,
+              "caught": true,
+              "ms": 1227.3
+            },
+            {
+              "seed": 3,
+              "caught": true,
+              "ms": 1250.2
+            },
+            {
+              "seed": 4,
+              "caught": true,
+              "ms": 1258.4
+            },
+            {
+              "seed": 5,
+              "caught": true,
+              "ms": 1213.1
+            },
+            {
+              "seed": 6,
+              "caught": true,
+              "ms": 1236.2
+            },
+            {
+              "seed": 7,
+              "caught": true,
+              "ms": 1173.9
+            },
+            {
+              "seed": 8,
+              "caught": true,
+              "ms": 1236.4
+            },
+            {
+              "seed": 9,
+              "caught": true,
+              "ms": 1060.8
+            },
+            {
+              "seed": 10,
+              "caught": true,
+              "ms": 1073.4
+            }
+          ]
+        },
+        "pact": {
+          "caught": true,
+          "stage": "provider",
+          "consumer_ms": 1055.1,
+          "provider_ms": 899.1
+        },
+        "examples": {
+          "caught": true,
+          "tail": " FAIL  apps/brain/src/__contracts__/TickRequest.test.ts > brain consumes TickRequest > answers every agent in fixture 1 | AssertionError: expected [ 'a-2', 'a-3' ] to deeply equal [ 'a-1', 'a-2', 'a-3' ]"
+        },
+        "tsc": {
+          "caught": false
+        }
+      },
+      {
+        "id": "crash-no-haunts",
+        "cat": "crash",
+        "desc": "curious hold reads req.haunts![0] (throws when there are no haunts)",
+        "trigger": "curious agent, no haunts",
+        "lanes": {
+          "rate": 1,
+          "kinds": [
+            "handler-property"
+          ],
+          "first": "handler tick (apps/brain/src/tick.ts#tick) threw: Cannot read properties of undefined (reading '0')",
+          "shrunk": {
+            "tick": 0,
+            "worldId": " ",
+            "agents": [
+              {
+                "id": "a-0",
+                "at": {
+                  "x": 0,
+                  "y": 0
+                },
+                "mood": "curious"
+              }
+            ]
+          },
+          "runs": [
+            {
+              "seed": 1,
+              "caught": true,
+              "ms": 2342.9
+            },
+            {
+              "seed": 2,
+              "caught": true,
+              "ms": 2461.5
+            },
+            {
+              "seed": 3,
+              "caught": true,
+              "ms": 2306.7
+            },
+            {
+              "seed": 4,
+              "caught": true,
+              "ms": 2264
+            },
+            {
+              "seed": 5,
+              "caught": true,
+              "ms": 2463.4
+            },
+            {
+              "seed": 6,
+              "caught": true,
+              "ms": 2490.1
+            },
+            {
+              "seed": 7,
+              "caught": true,
+              "ms": 2514
+            },
+            {
+              "seed": 8,
+              "caught": true,
+              "ms": 2440.5
+            },
+            {
+              "seed": 9,
+              "caught": true,
+              "ms": 1496.4
+            },
+            {
+              "seed": 10,
+              "caught": true,
+              "ms": 1505.6
+            }
+          ],
+          "errors": [],
+          "config_failures": []
+        },
+        "lanesFast": {
+          "rate": 1,
+          "runs": [
+            {
+              "seed": 1,
+              "caught": true,
+              "ms": 1278
+            },
+            {
+              "seed": 2,
+              "caught": true,
+              "ms": 1363.2
+            },
+            {
+              "seed": 3,
+              "caught": true,
+              "ms": 1322.1
+            },
+            {
+              "seed": 4,
+              "caught": true,
+              "ms": 1298.1
+            },
+            {
+              "seed": 5,
+              "caught": true,
+              "ms": 1333.8
+            },
+            {
+              "seed": 6,
+              "caught": true,
+              "ms": 1240.8
+            },
+            {
+              "seed": 7,
+              "caught": true,
+              "ms": 1339.4
+            },
+            {
+              "seed": 8,
+              "caught": true,
+              "ms": 1264.7
+            },
+            {
+              "seed": 9,
+              "caught": true,
+              "ms": 1037
+            },
+            {
+              "seed": 10,
+              "caught": true,
+              "ms": 1023.4
+            }
+          ]
+        },
+        "pact": {
+          "caught": false,
+          "stage": null,
+          "consumer_ms": 1168,
+          "provider_ms": 916.4
+        },
+        "examples": {
+          "caught": false
+        },
+        "tsc": {
+          "caught": false
+        }
+      },
+      {
+        "id": "crash-empty-world",
+        "cat": "crash",
+        "desc": "reads req.agents[0] up front (throws on an empty world)",
+        "trigger": "no agents",
+        "lanes": {
+          "rate": 1,
+          "kinds": [
+            "handler-property",
+            "consumer-test"
+          ],
+          "first": "handler tick (apps/brain/src/tick.ts#tick) threw: Cannot read properties of undefined (reading 'at')",
+          "shrunk": {
+            "tick": 0,
+            "worldId": " ",
+            "agents": []
+          },
+          "runs": [
+            {
+              "seed": 1,
+              "caught": true,
+              "ms": 2412.9
+            },
+            {
+              "seed": 2,
+              "caught": true,
+              "ms": 2500.7
+            },
+            {
+              "seed": 3,
+              "caught": true,
+              "ms": 2405.6
+            },
+            {
+              "seed": 4,
+              "caught": true,
+              "ms": 2458
+            },
+            {
+              "seed": 5,
+              "caught": true,
+              "ms": 2379.9
+            },
+            {
+              "seed": 6,
+              "caught": true,
+              "ms": 2384.4
+            },
+            {
+              "seed": 7,
+              "caught": true,
+              "ms": 2371.6
+            },
+            {
+              "seed": 8,
+              "caught": true,
+              "ms": 2255.3
+            },
+            {
+              "seed": 9,
+              "caught": true,
+              "ms": 1509.8
+            },
+            {
+              "seed": 10,
+              "caught": true,
+              "ms": 1564.9
+            }
+          ],
+          "errors": [],
+          "config_failures": []
+        },
+        "lanesFast": {
+          "rate": 1,
+          "runs": [
+            {
+              "seed": 1,
+              "caught": true,
+              "ms": 1327.2
+            },
+            {
+              "seed": 2,
+              "caught": true,
+              "ms": 1268.3
+            },
+            {
+              "seed": 3,
+              "caught": true,
+              "ms": 1286
+            },
+            {
+              "seed": 4,
+              "caught": true,
+              "ms": 1258.2
+            },
+            {
+              "seed": 5,
+              "caught": true,
+              "ms": 1572.2
+            },
+            {
+              "seed": 6,
+              "caught": true,
+              "ms": 1732.3
+            },
+            {
+              "seed": 7,
+              "caught": true,
+              "ms": 1713.7
+            },
+            {
+              "seed": 8,
+              "caught": true,
+              "ms": 1620.8
+            },
+            {
+              "seed": 9,
+              "caught": true,
+              "ms": 1315.2
+            },
+            {
+              "seed": 10,
+              "caught": true,
+              "ms": 1241.3
+            }
+          ]
+        },
+        "pact": {
+          "caught": true,
+          "stage": "provider",
+          "consumer_ms": 1169.4,
+          "provider_ms": 855.6
+        },
+        "examples": {
+          "caught": true,
+          "tail": " FAIL  apps/brain/src/tick.zod.test.ts > brain tick honours TickResponse > valid output for fixture 0 | TypeError: Cannot read properties of undefined (reading 'at') |  FAIL  apps/brain/src/__contracts__/TickRequest.test.ts > brain consumes TickRequest > answers every agent in fixture 0 | TypeError:"
+        },
+        "tsc": {
+          "caught": false
+        }
+      },
+      {
+        "id": "schema-loosened",
+        "cat": "contract",
+        "desc": "producer loosens holdMs max to 2000 (and emits 1800); world still throws above 1500",
+        "trigger": "any spooked agent (world breaks at runtime)",
+        "lanes": {
+          "rate": 1,
+          "kinds": [
+            "fixture-invalid"
+          ],
+          "first": "fixtures/TickResponse/invalid/hold-too-long.json should fail but parses; make it actually invalid or move it to valid/",
+          "runs": [
+            {
+              "seed": 1,
+              "caught": true,
+              "ms": 2404.5
+            },
+            {
+              "seed": 2,
+              "caught": true,
+              "ms": 2380.6
+            },
+            {
+              "seed": 3,
+              "caught": true,
+              "ms": 2443.2
+            },
+            {
+              "seed": 4,
+              "caught": true,
+              "ms": 2386.3
+            },
+            {
+              "seed": 5,
+              "caught": true,
+              "ms": 2435.4
+            },
+            {
+              "seed": 6,
+              "caught": true,
+              "ms": 2522.1
+            },
+            {
+              "seed": 7,
+              "caught": true,
+              "ms": 2324.3
+            },
+            {
+              "seed": 8,
+              "caught": true,
+              "ms": 2444.4
+            },
+            {
+              "seed": 9,
+              "caught": true,
+              "ms": 1433.2
+            },
+            {
+              "seed": 10,
+              "caught": true,
+              "ms": 1437.1
+            }
+          ],
+          "errors": [],
+          "config_failures": []
+        },
+        "lanesFast": {
+          "rate": 1,
+          "runs": [
+            {
+              "seed": 1,
+              "caught": true,
+              "ms": 1602.5
+            },
+            {
+              "seed": 2,
+              "caught": true,
+              "ms": 1364.1
+            },
+            {
+              "seed": 3,
+              "caught": true,
+              "ms": 1529.9
+            },
+            {
+              "seed": 4,
+              "caught": true,
+              "ms": 1473.4
+            },
+            {
+              "seed": 5,
+              "caught": true,
+              "ms": 1270.3
+            },
+            {
+              "seed": 6,
+              "caught": true,
+              "ms": 1270
+            },
+            {
+              "seed": 7,
+              "caught": true,
+              "ms": 1217.6
+            },
+            {
+              "seed": 8,
+              "caught": true,
+              "ms": 1224.9
+            },
+            {
+              "seed": 9,
+              "caught": true,
+              "ms": 1049.7
+            },
+            {
+              "seed": 10,
+              "caught": true,
+              "ms": 1030.1
+            }
+          ]
+        },
+        "pact": {
+          "caught": false,
+          "stage": null,
+          "consumer_ms": 988.7,
+          "provider_ms": 917.3
+        },
+        "examples": {
+          "caught": false
+        },
+        "tsc": {
+          "caught": false
+        }
+      },
+      {
+        "id": "bad-valid-fixture",
+        "cat": "contract",
+        "desc": "producer adds a 'valid' TickResponse fixture with holdMs 1600",
+        "trigger": "fixture itself",
+        "lanes": {
+          "rate": 1,
+          "kinds": [
+            "fixture-valid",
+            "consumer-test"
+          ],
+          "first": "fixtures/TickResponse/valid/spooked.json should parse but fails: actions[0].holdMs: Too big: expected number to be <=1500",
+          "runs": [
+            {
+              "seed": 1,
+              "caught": true,
+              "ms": 2454.3
+            },
+            {
+              "seed": 2,
+              "caught": true,
+              "ms": 2568.4
+            },
+            {
+              "seed": 3,
+              "caught": true,
+              "ms": 2458
+            },
+            {
+              "seed": 4,
+              "caught": true,
+              "ms": 2355.1
+            },
+            {
+              "seed": 5,
+              "caught": true,
+              "ms": 2286.4
+            },
+            {
+              "seed": 6,
+              "caught": true,
+              "ms": 2367.8
+            },
+            {
+              "seed": 7,
+              "caught": true,
+              "ms": 2395.4
+            },
+            {
+              "seed": 8,
+              "caught": true,
+              "ms": 2586.7
+            },
+            {
+              "seed": 9,
+              "caught": true,
+              "ms": 1409.8
+            },
+            {
+              "seed": 10,
+              "caught": true,
+              "ms": 1343.3
+            }
+          ],
+          "errors": [],
+          "config_failures": []
+        },
+        "lanesFast": {
+          "rate": 1,
+          "runs": [
+            {
+              "seed": 1,
+              "caught": true,
+              "ms": 1220.1
+            },
+            {
+              "seed": 2,
+              "caught": true,
+              "ms": 1216.6
+            },
+            {
+              "seed": 3,
+              "caught": true,
+              "ms": 1234.9
+            },
+            {
+              "seed": 4,
+              "caught": true,
+              "ms": 1276.4
+            },
+            {
+              "seed": 5,
+              "caught": true,
+              "ms": 1223.6
+            },
+            {
+              "seed": 6,
+              "caught": true,
+              "ms": 1361.8
+            },
+            {
+              "seed": 7,
+              "caught": true,
+              "ms": 1264.9
+            },
+            {
+              "seed": 8,
+              "caught": true,
+              "ms": 1310.4
+            },
+            {
+              "seed": 9,
+              "caught": true,
+              "ms": 1106.9
+            },
+            {
+              "seed": 10,
+              "caught": true,
+              "ms": 1091.2
+            }
+          ]
+        },
+        "pact": {
+          "caught": false,
+          "stage": null,
+          "consumer_ms": 1017.7,
+          "provider_ms": 1036.4
+        },
+        "examples": {
+          "caught": true,
+          "tail": " FAIL  apps/world/src/__contracts__/TickResponse.test.ts > world consumes TickResponse > applies fixture 1 within the animation budget | AssertionError: expected [Function] to not throw an error but 'Error: animation budget exceeded: 160…' was thrown | \"Error: animation budget exceeded: 1600ms\""
+        },
+        "tsc": {
+          "caught": false
+        }
+      },
+      {
+        "id": "required-field",
+        "cat": "contract",
+        "desc": "producer adds required action.reason to the schema but the handler never emits it",
+        "trigger": "every non-empty response",
+        "lanes": {
+          "rate": 1,
+          "kinds": [
+            "fixture-valid",
+            "handler-property"
+          ],
+          "first": "fixtures/TickResponse/valid/basic.json should parse but fails: actions[0].reason: Invalid input: expected string, received undefined; actions[1].reason: Invalid",
+          "runs": [
+            {
+              "seed": 1,
+              "caught": true,
+              "ms": 2080.2
+            },
+            {
+              "seed": 2,
+              "caught": true,
+              "ms": 2170.3
+            },
+            {
+              "seed": 3,
+              "caught": true,
+              "ms": 2380.7
+            },
+            {
+              "seed": 4,
+              "caught": true,
+              "ms": 2309.8
+            },
+            {
+              "seed": 5,
+              "caught": true,
+              "ms": 2238.6
+            },
+            {
+              "seed": 6,
+              "caught": true,
+              "ms": 2307.7
+            },
+            {
+              "seed": 7,
+              "caught": true,
+              "ms": 2192.9
+            },
+            {
+              "seed": 8,
+              "caught": true,
+              "ms": 2353.1
+            },
+            {
+              "seed": 9,
+              "caught": true,
+              "ms": 1523.1
+            },
+            {
+              "seed": 10,
+              "caught": true,
+              "ms": 1366.1
+            }
+          ],
+          "errors": [],
+          "config_failures": []
+        },
+        "lanesFast": {
+          "rate": 1,
+          "runs": [
+            {
+              "seed": 1,
+              "caught": true,
+              "ms": 1259.1
+            },
+            {
+              "seed": 2,
+              "caught": true,
+              "ms": 1316.7
+            },
+            {
+              "seed": 3,
+              "caught": true,
+              "ms": 1253.3
+            },
+            {
+              "seed": 4,
+              "caught": true,
+              "ms": 1232.3
+            },
+            {
+              "seed": 5,
+              "caught": true,
+              "ms": 1284.7
+            },
+            {
+              "seed": 6,
+              "caught": true,
+              "ms": 1308.9
+            },
+            {
+              "seed": 7,
+              "caught": true,
+              "ms": 1323.4
+            },
+            {
+              "seed": 8,
+              "caught": true,
+              "ms": 1265.6
+            },
+            {
+              "seed": 9,
+              "caught": true,
+              "ms": 1085.4
+            },
+            {
+              "seed": 10,
+              "caught": true,
+              "ms": 1103.6
+            }
+          ]
+        },
+        "pact": {
+          "caught": false,
+          "stage": null,
+          "consumer_ms": 1213,
+          "provider_ms": 886.5
+        },
+        "examples": {
+          "caught": true,
+          "tail": " FAIL  apps/brain/src/tick.zod.test.ts > brain tick honours TickResponse > valid output for fixture 1 | AssertionError: [{\"expected\":\"string\",\"code\":\"invalid_type\",\"path\":[\"actions\",0,\"reason\"],\"message\":\"Invalid input: expected string, received undefined\"},{\"expected\":\"string\",\"code\":\"invalid_type\""
+        },
+        "tsc": {
+          "caught": true,
+          "tail": "apps/brain/src/tick.ts(10,5): error TS2322: Type '({ agentId: string; kind: \"flee\"; to: { x: number; y: number; }; holdMs: number; } | { agentId: string; kind: \"move\"; to: { x: number; y: number; }; holdMs: number; } | { agentId: string; kind: \"wait\"; holdMs: number; to?: undefined; })[]' is not ass"
+        }
+      }
+    ],
+    "measured_at": "2026-11-22T21:15:05.911Z",
+    "node": "v22.23.5",
+    "platform": "linux-x64"
+  },
+  "sensitivity": {
+    "method": "lanes check --lane brain over seeds 1..10, property_runs set in lanes.yaml",
+    "seeds": 10,
+    "rows": [
+      {
+        "mutant": "crowded-hold",
+        "property_runs": 50,
+        "rate": 0
+      },
+      {
+        "mutant": "crowded-hold",
+        "property_runs": 200,
+        "rate": 0
+      },
+      {
+        "mutant": "crowded-hold",
+        "property_runs": 1000,
+        "rate": 0
+      },
+      {
+        "mutant": "crowded-hold",
+        "property_runs": 5000,
+        "rate": 0
+      },
+      {
+        "mutant": "haunt-rare",
+        "property_runs": 50,
+        "rate": 1
+      },
+      {
+        "mutant": "haunt-rare",
+        "property_runs": 200,
+        "rate": 1
+      },
+      {
+        "mutant": "haunt-rare",
+        "property_runs": 1000,
+        "rate": 1
+      },
+      {
+        "mutant": "haunt-rare",
+        "property_runs": 5000,
+        "rate": 1
+      },
+      {
+        "mutant": "to-no-clamp-high",
+        "property_runs": 50,
+        "rate": 0.9
+      },
+      {
+        "mutant": "to-no-clamp-high",
+        "property_runs": 200,
+        "rate": 1
+      },
+      {
+        "mutant": "to-no-clamp-high",
+        "property_runs": 1000,
+        "rate": 1
+      },
+      {
+        "mutant": "to-no-clamp-high",
+        "property_runs": 5000,
+        "rate": 1
+      }
+    ],
+    "measured_at": "2026-11-22T21:19:45.773Z",
+    "node": "v22.23.5",
+    "platform": "linux-x64"
+  },
+  "setup_size": {
+    "edge": "world ⇄ brain (TickRequest, TickResponse)",
+    "rows": {
+      "lanes": {
+        "files": 12,
+        "lines": 92,
+        "tokens": 1422,
+        "list": [
+          "examples/three-lanes/contracts/TickRequest.ts",
+          "examples/three-lanes/contracts/TickResponse.ts",
+          "examples/three-lanes/contracts/_common.ts",
+          "examples/three-lanes/fixtures/TickRequest/invalid/negative-tick.json",
+          "examples/three-lanes/fixtures/TickRequest/invalid/off-grid.json",
+          "examples/three-lanes/fixtures/TickRequest/valid/empty-world.json",
+          "examples/three-lanes/fixtures/TickRequest/valid/three-agents.json",
+          "examples/three-lanes/fixtures/TickResponse/invalid/hold-too-long.json",
+          "examples/three-lanes/fixtures/TickResponse/valid/basic.json",
+          "examples/three-lanes/apps/brain/src/__contracts__/TickRequest.test.ts",
+          "examples/three-lanes/apps/world/src/__contracts__/TickResponse.test.ts",
+          "examples/three-lanes/lanes.yaml"
+        ],
+        "note": "zod schemas + fixtures + consumer tests + lanes.yaml (lane map, contract map, handler binding for all 3 contracts); property tests, mutation checks and the guard come from the tool"
+      },
+      "zod_vitest": {
+        "files": 13,
+        "lines": 120,
+        "tokens": 2017,
+        "list": [
+          "examples/three-lanes/contracts/TickRequest.ts",
+          "examples/three-lanes/contracts/TickResponse.ts",
+          "examples/three-lanes/contracts/_common.ts",
+          "examples/three-lanes/fixtures/TickRequest/invalid/negative-tick.json",
+          "examples/three-lanes/fixtures/TickRequest/invalid/off-grid.json",
+          "examples/three-lanes/fixtures/TickRequest/valid/empty-world.json",
+          "examples/three-lanes/fixtures/TickRequest/valid/three-agents.json",
+          "examples/three-lanes/fixtures/TickResponse/invalid/hold-too-long.json",
+          "examples/three-lanes/fixtures/TickResponse/valid/basic.json",
+          "examples/three-lanes/apps/brain/src/__contracts__/TickRequest.test.ts",
+          "examples/three-lanes/apps/world/src/__contracts__/TickResponse.test.ts",
+          "bench/alternatives/zod-vitest/tick.zod.test.ts",
+          "bench/alternatives/prompt-only/CLAUDE.md"
+        ],
+        "note": "same schemas/fixtures/tests + a hand-written handler test + CLAUDE.md ownership rules (unenforced)"
+      },
+      "pact": {
+        "files": 3,
+        "lines": 114,
+        "tokens": 1910,
+        "list": [
+          "bench/alternatives/pact/world-brain.consumer.pact.test.ts",
+          "bench/alternatives/pact/brain.provider.pact.test.ts",
+          "bench/alternatives/prompt-only/CLAUDE.md"
+        ],
+        "note": "consumer test + HTTP provider verification + CLAUDE.md ownership rules (unenforced); no schemas (Pact matchers are per-example). Haunt would need a separate message pact (not written)."
+      },
+      "prompt_only": {
+        "files": 1,
+        "lines": 34,
+        "tokens": 608,
+        "list": [
+          "bench/alternatives/prompt-only/CLAUDE.md"
+        ],
+        "note": "rules only; nothing is checked"
+      }
+    },
+    "measured_at": "2026-11-22T21:15:45.705Z",
+    "node": "v22.23.5",
+    "platform": "linux-x64"
+  },
+  "speed": {
+    "method": "wall-clock ms via spawnSync from Node (includes process start); guard: 50 runs each; checks: 7 runs after 1 warm-up",
+    "node_startup": {
+      "n": 50,
+      "min": 36.2,
+      "median": 45.9,
+      "p95": 50.7,
+      "max": 53.8,
+      "mean": 45.1
+    },
+    "guard": {
+      "allow_own_lane": {
+        "n": 50,
+        "min": 36.9,
+        "median": 43.3,
+        "p95": 54.9,
+        "max": 58.4,
+        "mean": 44.7
+      },
+      "block_other_lane": {
+        "n": 50,
+        "min": 38.4,
+        "median": 43.2,
+        "p95": 55.9,
+        "max": 59.3,
+        "mean": 46
+      },
+      "bash_command": {
+        "n": 50,
+        "min": 36.7,
+        "median": 42.4,
+        "p95": 51.9,
+        "max": 61.6,
+        "mean": 44.2
+      },
+      "session_start": {
+        "n": 20,
+        "min": 92.2,
+        "median": 100.8,
+        "p95": 113.6,
+        "max": 115.9,
+        "mean": 101.8
+      }
+    },
+    "checks": {
+      "full": {
+        "n": 7,
+        "min": 1152.2,
+        "median": 1296.5,
+        "p95": 1314.8,
+        "max": 1320.6,
+        "mean": 1265.8
+      },
+      "--fast": {
+        "n": 7,
+        "min": 1026.8,
+        "median": 1074,
+        "p95": 1182.2,
+        "max": 1209.3,
+        "mean": 1087.3
+      },
+      "--lane brain": {
+        "n": 7,
+        "min": 1164.5,
+        "median": 1250.6,
+        "p95": 1343,
+        "max": 1343.8,
+        "mean": 1257.4
+      },
+      "--fast --lane brain": {
+        "n": 7,
+        "min": 1016.7,
+        "median": 1048.4,
+        "p95": 1095.1,
+        "max": 1104.2,
+        "mean": 1051.8
+      }
+    },
+    "property_runs_curve": [
+      {
+        "property_runs": 50,
+        "bug": false,
+        "n": 7,
+        "min": 1181.4,
+        "median": 1268,
+        "p95": 1390.1,
+        "max": 1397.5,
+        "mean": 1289.4,
+        "internal_duration_ms": 1314,
+        "exit_failures": 0
+      },
+      {
+        "property_runs": 200,
+        "bug": false,
+        "n": 7,
+        "min": 1147.8,
+        "median": 1223.2,
+        "p95": 1287.1,
+        "max": 1289,
+        "mean": 1223.4,
+        "internal_duration_ms": 1208,
+        "exit_failures": 0
+      },
+      {
+        "property_runs": 1000,
+        "bug": false,
+        "n": 7,
+        "min": 1200.9,
+        "median": 1240.6,
+        "p95": 1394.4,
+        "max": 1410.7,
+        "mean": 1269.4,
+        "internal_duration_ms": 1148,
+        "exit_failures": 0
+      },
+      {
+        "property_runs": 5000,
+        "bug": false,
+        "n": 7,
+        "min": 1395.1,
+        "median": 1526.4,
+        "p95": 1663.7,
+        "max": 1677.8,
+        "mean": 1539.7,
+        "internal_duration_ms": 1437,
+        "exit_failures": 0
+      },
+      {
+        "property_runs": 50,
+        "bug": true,
+        "n": 7,
+        "min": 1109.3,
+        "median": 1222.2,
+        "p95": 1260.8,
+        "max": 1266.6,
+        "mean": 1213.1,
+        "internal_duration_ms": 1140,
+        "exit_failures": 1
+      },
+      {
+        "property_runs": 200,
+        "bug": true,
+        "n": 7,
+        "min": 1213.4,
+        "median": 1266.9,
+        "p95": 1307.4,
+        "max": 1323.6,
+        "mean": 1257.7,
+        "internal_duration_ms": 1181,
+        "exit_failures": 1
+      },
+      {
+        "property_runs": 1000,
+        "bug": true,
+        "n": 7,
+        "min": 1160.2,
+        "median": 1236.8,
+        "p95": 1350.5,
+        "max": 1372.3,
+        "mean": 1249.2,
+        "internal_duration_ms": 1110,
+        "exit_failures": 1
+      },
+      {
+        "property_runs": 5000,
+        "bug": true,
+        "n": 7,
+        "min": 1261.4,
+        "median": 1294.3,
+        "p95": 1371.4,
+        "max": 1377.9,
+        "mean": 1311.7,
+        "internal_duration_ms": 1214,
+        "exit_failures": 1
+      }
+    ],
+    "time_to_first_failure": {
+      "runs": [
+        {
+          "seed": 1,
+          "wall_ms": 1365.8,
+          "report_ms": 1284,
+          "caught": true,
+          "shrinks": 11
+        },
+        {
+          "seed": 2,
+          "wall_ms": 1335.5,
+          "report_ms": 1254,
+          "caught": true,
+          "shrinks": 14
+        },
+        {
+          "seed": 3,
+          "wall_ms": 1231.5,
+          "report_ms": 1146,
+          "caught": true,
+          "shrinks": 11
+        },
+        {
+          "seed": 4,
+          "wall_ms": 1289.5,
+          "report_ms": 1213,
+          "caught": true,
+          "shrinks": 7
+        },
+        {
+          "seed": 5,
+          "wall_ms": 1300.2,
+          "report_ms": 1213,
+          "caught": true,
+          "shrinks": 10
+        },
+        {
+          "seed": 6,
+          "wall_ms": 1286.6,
+          "report_ms": 1209,
+          "caught": true,
+          "shrinks": 9
+        },
+        {
+          "seed": 7,
+          "wall_ms": 1175.8,
+          "report_ms": 1099,
+          "caught": true,
+          "shrinks": 10
+        },
+        {
+          "seed": 8,
+          "wall_ms": 1243.8,
+          "report_ms": 1162,
+          "caught": true,
+          "shrinks": 11
+        },
+        {
+          "seed": 9,
+          "wall_ms": 1250.9,
+          "report_ms": 1142,
+          "caught": true,
+          "shrinks": 9
+        },
+        {
+          "seed": 10,
+          "wall_ms": 1214.8,
+          "report_ms": 1135,
+          "caught": true,
+          "shrinks": 10
+        },
+        {
+          "seed": 11,
+          "wall_ms": 1280.9,
+          "report_ms": 1197,
+          "caught": true,
+          "shrinks": 13
+        },
+        {
+          "seed": 12,
+          "wall_ms": 1316.7,
+          "report_ms": 1237,
+          "caught": true,
+          "shrinks": 10
+        },
+        {
+          "seed": 13,
+          "wall_ms": 1290.2,
+          "report_ms": 1204,
+          "caught": true,
+          "shrinks": 10
+        },
+        {
+          "seed": 14,
+          "wall_ms": 1380.6,
+          "report_ms": 1297,
+          "caught": true,
+          "shrinks": 9
+        },
+        {
+          "seed": 15,
+          "wall_ms": 1373.5,
+          "report_ms": 1281,
+          "caught": true,
+          "shrinks": 9
+        },
+        {
+          "seed": 16,
+          "wall_ms": 1283.1,
+          "report_ms": 1190,
+          "caught": true,
+          "shrinks": 10
+        },
+        {
+          "seed": 17,
+          "wall_ms": 1320.1,
+          "report_ms": 1221,
+          "caught": true,
+          "shrinks": 10
+        },
+        {
+          "seed": 18,
+          "wall_ms": 1236.6,
+          "report_ms": 1129,
+          "caught": true,
+          "shrinks": 7
+        },
+        {
+          "seed": 19,
+          "wall_ms": 1350.7,
+          "report_ms": 1250,
+          "caught": true,
+          "shrinks": 10
+        },
+        {
+          "seed": 20,
+          "wall_ms": 1244.1,
+          "report_ms": 1152,
+          "caught": true,
+          "shrinks": 11
+        }
+      ],
+      "wall": {
+        "n": 20,
+        "min": 1175.8,
+        "median": 1288.1,
+        "p95": 1373.9,
+        "max": 1380.6,
+        "mean": 1288.5
+      },
+      "shrinks": {
+        "n": 20,
+        "min": 7,
+        "median": 10,
+        "p95": 13.1,
+        "max": 14,
+        "mean": 10.1
+      },
+      "caught": 20
+    },
+    "pact": {
+      "runs": [
+        {
+          "consumer_ms": 831.3,
+          "provider_ms": 886.1,
+          "total_ms": 1717.4
+        },
+        {
+          "consumer_ms": 790.9,
+          "provider_ms": 729.5,
+          "total_ms": 1520.4
+        },
+        {
+          "consumer_ms": 878.6,
+          "provider_ms": 637.4,
+          "total_ms": 1516
+        },
+        {
+          "consumer_ms": 960.8,
+          "provider_ms": 900.8,
+          "total_ms": 1861.6
+        },
+        {
+          "consumer_ms": 773,
+          "provider_ms": 925.2,
+          "total_ms": 1698.2
+        },
+        {
+          "consumer_ms": 889.3,
+          "provider_ms": 859.7,
+          "total_ms": 1749
+        },
+        {
+          "consumer_ms": 800.3,
+          "provider_ms": 828.8,
+          "total_ms": 1629.1
+        }
+      ],
+      "total": {
+        "n": 7,
+        "min": 1516,
+        "median": 1698.2,
+        "p95": 1827.8,
+        "max": 1861.6,
+        "mean": 1670.2
+      },
+      "consumer": {
+        "n": 7,
+        "min": 773,
+        "median": 831.3,
+        "p95": 939.4,
+        "max": 960.8,
+        "mean": 846.3
+      },
+      "provider": {
+        "n": 7,
+        "min": 637.4,
+        "median": 859.7,
+        "p95": 917.9,
+        "max": 925.2,
+        "mean": 823.9
+      }
+    },
+    "measured_at": "2026-11-22T21:18:17.901Z",
+    "node": "v22.23.5",
+    "platform": "linux-x64"
+  },
+  "tokens": {
+    "tokenizer": "approximate tokens (@anthropic-ai/tokenizer 0.0.4, legacy Claude BPE; cross-checked with js-tiktoken cl100k_base)",
+    "items": {
+      "lanes_always": {
+        "skill+agent+command listing": {
+          "chars": 1545,
+          "tokens": 410,
+          "tokens_cl100k": 388,
+          "chars_div_4": 387,
+          "note": "frontmatter name/description lines for 3 skills, 1 agent, 5 commands"
+        }
+      },
+      "lanes_on_demand": {
+        "skill lanes-contracts": {
+          "chars": 3692,
+          "tokens": 982,
+          "tokens_cl100k": 883,
+          "chars_div_4": 923
+        },
+        "skill lanes-fixer": {
+          "chars": 2035,
+          "tokens": 573,
+          "tokens_cl100k": 536,
+          "chars_div_4": 509
+        },
+        "skill lanes-workflow": {
+          "chars": 3987,
+          "tokens": 1049,
+          "tokens_cl100k": 993,
+          "chars_div_4": 997
+        },
+        "agent fixer": {
+          "chars": 1395,
+          "tokens": 381,
+          "tokens_cl100k": 364,
+          "chars_div_4": 349
+        },
+        "command /lanes:doctor": {
+          "chars": 384,
+          "tokens": 104,
+          "tokens_cl100k": 94,
+          "chars_div_4": 96
+        },
+        "command /lanes:init": {
+          "chars": 1293,
+          "tokens": 386,
+          "tokens_cl100k": 363,
+          "chars_div_4": 324
+        },
+        "command /lanes:join": {
+          "chars": 470,
+          "tokens": 137,
+          "tokens_cl100k": 125,
+          "chars_div_4": 118
+        },
+        "command /lanes:status": {
+          "chars": 417,
+          "tokens": 123,
+          "tokens_cl100k": 111,
+          "chars_div_4": 105
+        },
+        "command /lanes:watch": {
+          "chars": 631,
+          "tokens": 176,
+          "tokens_cl100k": 163,
+          "chars_div_4": 158
+        }
+      },
+      "lanes_session": {
+        "SessionStart hook (bound lane, 1 red edge)": {
+          "chars": 334,
+          "tokens": 92,
+          "tokens_cl100k": 88,
+          "chars_div_4": 84,
+          "note": "once per session"
+        },
+        "UserPromptSubmit inbox (empty)": {
+          "chars": 0,
+          "tokens": 0,
+          "tokens_cl100k": 0,
+          "chars_div_4": 0,
+          "note": "per prompt; empty when no new messages"
+        }
+      },
+      "lanes_feedback": {
+        "guard block message": {
+          "chars": 225,
+          "tokens": 63,
+          "tokens_cl100k": 56,
+          "chars_div_4": 57,
+          "note": "per blocked cross-lane edit (exit 2)"
+        },
+        "lanes check (human, planted bug)": {
+          "chars": 964,
+          "tokens": 315,
+          "tokens_cl100k": 315,
+          "chars_div_4": 241
+        },
+        "lanes check --lane brain (human, planted bug)": {
+          "chars": 977,
+          "tokens": 318,
+          "tokens_cl100k": 318,
+          "chars_div_4": 245
+        },
+        "lanes check --json (planted bug)": {
+          "chars": 3400,
+          "tokens": 985,
+          "tokens_cl100k": 1018,
+          "chars_div_4": 850
+        },
+        "lanes watch wake (WatchResult line)": {
+          "chars": 157,
+          "tokens": 45,
+          "tokens_cl100k": 45,
+          "chars_div_4": 40,
+          "note": "per actionable event"
+        }
+      },
+      "lanes_optional": {
+        "AGENTS.md section written by lanes init": {
+          "chars": 1026,
+          "tokens": 270,
+          "tokens_cl100k": 253,
+          "chars_div_4": 257,
+          "note": "for non-Claude agents; Claude Code loads CLAUDE.md, not AGENTS.md, unless imported"
+        }
+      },
+      "same_failure": {
+        "lanes check (human)": {
+          "chars": 977,
+          "tokens": 321,
+          "tokens_cl100k": 318,
+          "chars_div_4": 245
+        },
+        "lanes check --json": {
+          "chars": 3415,
+          "tokens": 994,
+          "tokens_cl100k": 1020,
+          "chars_div_4": 854
+        },
+        "vitest run (consumer + hand-written zod tests)": {
+          "chars": 1182,
+          "tokens": 493,
+          "tokens_cl100k": 480,
+          "chars_div_4": 296
+        },
+        "tsc --noEmit --strict": {
+          "chars": 1180,
+          "tokens": 402,
+          "tokens_cl100k": 395,
+          "chars_div_4": 295
+        },
+        "Pact provider verification (vitest)": {
+          "chars": 5604,
+          "tokens": 1909,
+          "tokens_cl100k": 1855,
+          "chars_div_4": 1401,
+          "note": "caught at provider"
+        }
+      },
+      "prompt_only": {
+        "CLAUDE.md rules + lane/contract map (always loaded, not enforced)": {
+          "chars": 2300,
+          "tokens": 608,
+          "tokens_cl100k": 562,
+          "chars_div_4": 575
+        }
+      },
+      "pact": {
+        "Pact JS README.md (npm tarball, read once to learn the API)": {
+          "chars": 14731,
+          "tokens": 4515,
+          "tokens_cl100k": 3850,
+          "chars_div_4": 3683,
+          "note": "on demand, once"
+        },
+        "consumer test (world → brain), authored": {
+          "chars": 2452,
+          "tokens": 842,
+          "tokens_cl100k": 808,
+          "chars_div_4": 613
+        },
+        "provider verification (brain), authored": {
+          "chars": 1535,
+          "tokens": 458,
+          "tokens_cl100k": 399,
+          "chars_div_4": 384
+        }
+      },
+      "zod_vitest": {
+        "hand-written zod handler test, authored": {
+          "chars": 978,
+          "tokens": 273,
+          "tokens_cl100k": 226,
+          "chars_div_4": 245
+        }
+      }
+    },
+    "totals": {
+      "lanes_always_loaded": 410,
+      "lanes_session_start": 92,
+      "lanes_on_demand_all": 3911,
+      "prompt_only_always_loaded": 608,
+      "pact_authored": 1300,
+      "pact_readme": 4515
+    },
+    "idle_model": {
+      "formula_poll": "tokens/hour = (60 / N_min) × (C + p)",
+      "formula_watch": "tokens/hour = E × (C + w)  (E = actionable events/hour; 0 when idle)",
+      "p_poll_turn_tokens": 79,
+      "w_wake_tokens": 71,
+      "contexts": [
+        20000,
+        50000
+      ],
+      "poll": {
+        "20000": [
+          {
+            "interval_min": 1,
+            "tokens_per_hour": 1204740,
+            "incremental_per_hour": 4740
+          },
+          {
+            "interval_min": 2,
+            "tokens_per_hour": 602370,
+            "incremental_per_hour": 2370
+          },
+          {
+            "interval_min": 5,
+            "tokens_per_hour": 240948,
+            "incremental_per_hour": 948
+          },
+          {
+            "interval_min": 10,
+            "tokens_per_hour": 120474,
+            "incremental_per_hour": 474
+          },
+          {
+            "interval_min": 15,
+            "tokens_per_hour": 80316,
+            "incremental_per_hour": 316
+          },
+          {
+            "interval_min": 20,
+            "tokens_per_hour": 60237,
+            "incremental_per_hour": 237
+          },
+          {
+            "interval_min": 30,
+            "tokens_per_hour": 40158,
+            "incremental_per_hour": 158
+          },
+          {
+            "interval_min": 60,
+            "tokens_per_hour": 20079,
+            "incremental_per_hour": 79
+          }
+        ],
+        "50000": [
+          {
+            "interval_min": 1,
+            "tokens_per_hour": 3004740,
+            "incremental_per_hour": 4740
+          },
+          {
+            "interval_min": 2,
+            "tokens_per_hour": 1502370,
+            "incremental_per_hour": 2370
+          },
+          {
+            "interval_min": 5,
+            "tokens_per_hour": 600948,
+            "incremental_per_hour": 948
+          },
+          {
+            "interval_min": 10,
+            "tokens_per_hour": 300474,
+            "incremental_per_hour": 474
+          },
+          {
+            "interval_min": 15,
+            "tokens_per_hour": 200316,
+            "incremental_per_hour": 316
+          },
+          {
+            "interval_min": 20,
+            "tokens_per_hour": 150237,
+            "incremental_per_hour": 237
+          },
+          {
+            "interval_min": 30,
+            "tokens_per_hour": 100158,
+            "incremental_per_hour": 158
+          },
+          {
+            "interval_min": 60,
+            "tokens_per_hour": 50079,
+            "incremental_per_hour": 79
+          }
+        ]
+      },
+      "watch": {
+        "20000": [
+          {
+            "events_per_hour": 0,
+            "tokens_per_hour": 0,
+            "incremental_per_hour": 0
+          },
+          {
+            "events_per_hour": 1,
+            "tokens_per_hour": 20071,
+            "incremental_per_hour": 71
+          },
+          {
+            "events_per_hour": 4,
+            "tokens_per_hour": 80284,
+            "incremental_per_hour": 284
+          }
+        ],
+        "50000": [
+          {
+            "events_per_hour": 0,
+            "tokens_per_hour": 0,
+            "incremental_per_hour": 0
+          },
+          {
+            "events_per_hour": 1,
+            "tokens_per_hour": 50071,
+            "incremental_per_hour": 71
+          },
+          {
+            "events_per_hour": 4,
+            "tokens_per_hour": 200284,
+            "incremental_per_hour": 284
+          }
+        ]
+      },
+      "note": "C is re-read on every model turn (prompt caching lowers its price, not its count). Incremental = tokens beyond the re-read context."
+    },
+    "measured_at": "2026-11-22T21:11:54.457Z",
+    "node": "v22.23.5",
+    "platform": "linux-x64"
+  }
+}

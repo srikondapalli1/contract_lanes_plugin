@@ -1,9 +1,9 @@
 {
   "method": "fresh directory + fresh npm cache per run (--prefer-online), npm 10.9.9, 2 run(s) each; wall time includes network downloads",
   "lanes_pack": {
-    "tarball": "/tmp/claude-0/-home-user-contract-lanes-plugin/724b362f-2aea-5e73-9d01-dff1cebaa7c4/scratchpad/bt/lanes-bench-pack-out-LCXcxR/contract-lanes-0.1.0.tgz",
-    "size": 266198,
-    "unpackedSize": 1165149,
+    "tarball": "/tmp/claude-0/-home-user-contract-lanes-plugin/724b362f-2aea-5e73-9d01-dff1cebaa7c4/scratchpad/bt/lanes-bench-pack-out-lDFb0r/contract-lanes-0.1.0.tgz",
+    "size": 271096,
+    "unpackedSize": 1176640,
     "entryCount": 34
   },
   "lanes": {
@@ -15,10 +15,10 @@
     "runs": [
       {
         "ok": true,
-        "seconds": 7.78,
-        "node_modules_bytes": 47327412,
-        "node_modules_files": 1473,
-        "packages": 37,
+        "seconds": 8.33,
+        "node_modules_bytes": 48945200,
+        "node_modules_files": 1542,
+        "packages": 39,
         "natives": [
           {
             "file": "@rolldown/binding-linux-x64-gnu/rolldown-binding.linux-x64-gnu.node",
@@ -29,14 +29,14 @@
             "bytes": 10032264
           }
         ],
-        "dir": "/tmp/claude-0/-home-user-contract-lanes-plugin/724b362f-2aea-5e73-9d01-dff1cebaa7c4/scratchpad/bt/lanes-bench-install-lanes-TO40dg"
+        "dir": "/tmp/claude-0/-home-user-contract-lanes-plugin/724b362f-2aea-5e73-9d01-dff1cebaa7c4/scratchpad/bt/lanes-bench-install-lanes-ST7cm5"
       },
       {
         "ok": true,
-        "seconds": 8.46,
-        "node_modules_bytes": 47327412,
-        "node_modules_files": 1473,
-        "packages": 37,
+        "seconds": 8.22,
+        "node_modules_bytes": 48945200,
+        "node_modules_files": 1542,
+        "packages": 39,
         "natives": [
           {
             "file": "@rolldown/binding-linux-x64-gnu/rolldown-binding.linux-x64-gnu.node",
@@ -47,7 +47,7 @@
             "bytes": 10032264
           }
         ],
-        "dir": "/tmp/claude-0/-home-user-contract-lanes-plugin/724b362f-2aea-5e73-9d01-dff1cebaa7c4/scratchpad/bt/lanes-bench-install-lanes-zTCeXI"
+        "dir": "/tmp/claude-0/-home-user-contract-lanes-plugin/724b362f-2aea-5e73-9d01-dff1cebaa7c4/scratchpad/bt/lanes-bench-install-lanes-Y6k4Uq"
       }
     ]
   },
@@ -59,7 +59,7 @@
     "runs": [
       {
         "ok": true,
-        "seconds": 12.44,
+        "seconds": 11.35,
         "node_modules_bytes": 73075484,
         "node_modules_files": 5305,
         "packages": 168,
@@ -81,11 +81,11 @@
             "bytes": 10032264
           }
         ],
-        "dir": "/tmp/claude-0/-home-user-contract-lanes-plugin/724b362f-2aea-5e73-9d01-dff1cebaa7c4/scratchpad/bt/lanes-bench-install-pact-C0pQfp"
+        "dir": "/tmp/claude-0/-home-user-contract-lanes-plugin/724b362f-2aea-5e73-9d01-dff1cebaa7c4/scratchpad/bt/lanes-bench-install-pact-3oFgAJ"
       },
       {
         "ok": true,
-        "seconds": 14.54,
+        "seconds": 12.15,
         "node_modules_bytes": 73075484,
         "node_modules_files": 5305,
         "packages": 168,
@@ -107,11 +107,54 @@
             "bytes": 10032264
           }
         ],
-        "dir": "/tmp/claude-0/-home-user-contract-lanes-plugin/724b362f-2aea-5e73-9d01-dff1cebaa7c4/scratchpad/bt/lanes-bench-install-pact-OrJXN3"
+        "dir": "/tmp/claude-0/-home-user-contract-lanes-plugin/724b362f-2aea-5e73-9d01-dff1cebaa7c4/scratchpad/bt/lanes-bench-install-pact-3IaKH6"
       }
     ],
     "version": "17.1.4",
     "pact_core_version": "20.2.0"
+  },
+  "vitest_only": {
+    "packages_requested": [
+      "vitest@^5.1.0"
+    ],
+    "runs": [
+      {
+        "ok": true,
+        "seconds": 7.29,
+        "node_modules_bytes": 40012432,
+        "node_modules_files": 599,
+        "packages": 35,
+        "natives": [
+          {
+            "file": "@rolldown/binding-linux-x64-gnu/rolldown-binding.linux-x64-gnu.node",
+            "bytes": 21117344
+          },
+          {
+            "file": "lightningcss-linux-x64-gnu/lightningcss.linux-x64-gnu.node",
+            "bytes": 10032264
+          }
+        ],
+        "dir": "/tmp/claude-0/-home-user-contract-lanes-plugin/724b362f-2aea-5e73-9d01-dff1cebaa7c4/scratchpad/bt/lanes-bench-install-vitest-y1NowE"
+      },
+      {
+        "ok": true,
+        "seconds": 7.96,
+        "node_modules_bytes": 40012432,
+        "node_modules_files": 599,
+        "packages": 35,
+        "natives": [
+          {
+            "file": "@rolldown/binding-linux-x64-gnu/rolldown-binding.linux-x64-gnu.node",
+            "bytes": 21117344
+          },
+          {
+            "file": "lightningcss-linux-x64-gnu/lightningcss.linux-x64-gnu.node",
+            "bytes": 10032264
+          }
+        ],
+        "dir": "/tmp/claude-0/-home-user-contract-lanes-plugin/724b362f-2aea-5e73-9d01-dff1cebaa7c4/scratchpad/bt/lanes-bench-install-vitest-ub3en9"
+      }
+    ]
   },
   "registry": {
     "@pact-foundation/pact": {
@@ -165,8 +208,8 @@
       }
     }
   },
-  "pact_install_dir": "/tmp/claude-0/-home-user-contract-lanes-plugin/724b362f-2aea-5e73-9d01-dff1cebaa7c4/scratchpad/bt/lanes-bench-install-pact-C0pQfp",
-  "measured_at": "2026-11-22T21:03:21.121Z",
+  "pact_install_dir": "/tmp/claude-0/-home-user-contract-lanes-plugin/724b362f-2aea-5e73-9d01-dff1cebaa7c4/scratchpad/bt/lanes-bench-install-pact-3oFgAJ",
+  "measured_at": "2026-11-22T21:20:42.557Z",
   "node": "v22.23.5",
   "platform": "linux-x64"
 }

@@ -1,0 +1,404 @@
+{
+  "method": "wall-clock ms via spawnSync from Node (includes process start); guard: 50 runs each; checks: 7 runs after 1 warm-up",
+  "node_startup": {
+    "n": 50,
+    "min": 36.2,
+    "median": 45.9,
+    "p95": 50.7,
+    "max": 53.8,
+    "mean": 45.1
+  },
+  "guard": {
+    "allow_own_lane": {
+      "n": 50,
+      "min": 36.9,
+      "median": 43.3,
+      "p95": 54.9,
+      "max": 58.4,
+      "mean": 44.7
+    },
+    "block_other_lane": {
+      "n": 50,
+      "min": 38.4,
+      "median": 43.2,
+      "p95": 55.9,
+      "max": 59.3,
+      "mean": 46
+    },
+    "bash_command": {
+      "n": 50,
+      "min": 36.7,
+      "median": 42.4,
+      "p95": 51.9,
+      "max": 61.6,
+      "mean": 44.2
+    },
+    "session_start": {
+      "n": 20,
+      "min": 92.2,
+      "median": 100.8,
+      "p95": 113.6,
+      "max": 115.9,
+      "mean": 101.8
+    }
+  },
+  "checks": {
+    "full": {
+      "n": 7,
+      "min": 1152.2,
+      "median": 1296.5,
+      "p95": 1314.8,
+      "max": 1320.6,
+      "mean": 1265.8
+    },
+    "--fast": {
+      "n": 7,
+      "min": 1026.8,
+      "median": 1074,
+      "p95": 1182.2,
+      "max": 1209.3,
+      "mean": 1087.3
+    },
+    "--lane brain": {
+      "n": 7,
+      "min": 1164.5,
+      "median": 1250.6,
+      "p95": 1343,
+      "max": 1343.8,
+      "mean": 1257.4
+    },
+    "--fast --lane brain": {
+      "n": 7,
+      "min": 1016.7,
+      "median": 1048.4,
+      "p95": 1095.1,
+      "max": 1104.2,
+      "mean": 1051.8
+    }
+  },
+  "property_runs_curve": [
+    {
+      "property_runs": 50,
+      "bug": false,
+      "n": 7,
+      "min": 1181.4,
+      "median": 1268,
+      "p95": 1390.1,
+      "max": 1397.5,
+      "mean": 1289.4,
+      "internal_duration_ms": 1314,
+      "exit_failures": 0
+    },
+    {
+      "property_runs": 200,
+      "bug": false,
+      "n": 7,
+      "min": 1147.8,
+      "median": 1223.2,
+      "p95": 1287.1,
+      "max": 1289,
+      "mean": 1223.4,
+      "internal_duration_ms": 1208,
+      "exit_failures": 0
+    },
+    {
+      "property_runs": 1000,
+      "bug": false,
+      "n": 7,
+      "min": 1200.9,
+      "median": 1240.6,
+      "p95": 1394.4,
+      "max": 1410.7,
+      "mean": 1269.4,
+      "internal_duration_ms": 1148,
+      "exit_failures": 0
+    },
+    {
+      "property_runs": 5000,
+      "bug": false,
+      "n": 7,
+      "min": 1395.1,
+      "median": 1526.4,
+      "p95": 1663.7,
+      "max": 1677.8,
+      "mean": 1539.7,
+      "internal_duration_ms": 1437,
+      "exit_failures": 0
+    },
+    {
+      "property_runs": 50,
+      "bug": true,
+      "n": 7,
+      "min": 1109.3,
+      "median": 1222.2,
+      "p95": 1260.8,
+      "max": 1266.6,
+      "mean": 1213.1,
+      "internal_duration_ms": 1140,
+      "exit_failures": 1
+    },
+    {
+      "property_runs": 200,
+      "bug": true,
+      "n": 7,
+      "min": 1213.4,
+      "median": 1266.9,
+      "p95": 1307.4,
+      "max": 1323.6,
+      "mean": 1257.7,
+      "internal_duration_ms": 1181,
+      "exit_failures": 1
+    },
+    {
+      "property_runs": 1000,
+      "bug": true,
+      "n": 7,
+      "min": 1160.2,
+      "median": 1236.8,
+      "p95": 1350.5,
+      "max": 1372.3,
+      "mean": 1249.2,
+      "internal_duration_ms": 1110,
+      "exit_failures": 1
+    },
+    {
+      "property_runs": 5000,
+      "bug": true,
+      "n": 7,
+      "min": 1261.4,
+      "median": 1294.3,
+      "p95": 1371.4,
+      "max": 1377.9,
+      "mean": 1311.7,
+      "internal_duration_ms": 1214,
+      "exit_failures": 1
+    }
+  ],
+  "time_to_first_failure": {
+    "runs": [
+      {
+        "seed": 1,
+        "wall_ms": 1365.8,
+        "report_ms": 1284,
+        "caught": true,
+        "shrinks": 11
+      },
+      {
+        "seed": 2,
+        "wall_ms": 1335.5,
+        "report_ms": 1254,
+        "caught": true,
+        "shrinks": 14
+      },
+      {
+        "seed": 3,
+        "wall_ms": 1231.5,
+        "report_ms": 1146,
+        "caught": true,
+        "shrinks": 11
+      },
+      {
+        "seed": 4,
+        "wall_ms": 1289.5,
+        "report_ms": 1213,
+        "caught": true,
+        "shrinks": 7
+      },
+      {
+        "seed": 5,
+        "wall_ms": 1300.2,
+        "report_ms": 1213,
+        "caught": true,
+        "shrinks": 10
+      },
+      {
+        "seed": 6,
+        "wall_ms": 1286.6,
+        "report_ms": 1209,
+        "caught": true,
+        "shrinks": 9
+      },
+      {
+        "seed": 7,
+        "wall_ms": 1175.8,
+        "report_ms": 1099,
+        "caught": true,
+        "shrinks": 10
+      },
+      {
+        "seed": 8,
+        "wall_ms": 1243.8,
+        "report_ms": 1162,
+        "caught": true,
+        "shrinks": 11
+      },
+      {
+        "seed": 9,
+        "wall_ms": 1250.9,
+        "report_ms": 1142,
+        "caught": true,
+        "shrinks": 9
+      },
+      {
+        "seed": 10,
+        "wall_ms": 1214.8,
+        "report_ms": 1135,
+        "caught": true,
+        "shrinks": 10
+      },
+      {
+        "seed": 11,
+        "wall_ms": 1280.9,
+        "report_ms": 1197,
+        "caught": true,
+        "shrinks": 13
+      },
+      {
+        "seed": 12,
+        "wall_ms": 1316.7,
+        "report_ms": 1237,
+        "caught": true,
+        "shrinks": 10
+      },
+      {
+        "seed": 13,
+        "wall_ms": 1290.2,
+        "report_ms": 1204,
+        "caught": true,
+        "shrinks": 10
+      },
+      {
+        "seed": 14,
+        "wall_ms": 1380.6,
+        "report_ms": 1297,
+        "caught": true,
+        "shrinks": 9
+      },
+      {
+        "seed": 15,
+        "wall_ms": 1373.5,
+        "report_ms": 1281,
+        "caught": true,
+        "shrinks": 9
+      },
+      {
+        "seed": 16,
+        "wall_ms": 1283.1,
+        "report_ms": 1190,
+        "caught": true,
+        "shrinks": 10
+      },
+      {
+        "seed": 17,
+        "wall_ms": 1320.1,
+        "report_ms": 1221,
+        "caught": true,
+        "shrinks": 10
+      },
+      {
+        "seed": 18,
+        "wall_ms": 1236.6,
+        "report_ms": 1129,
+        "caught": true,
+        "shrinks": 7
+      },
+      {
+        "seed": 19,
+        "wall_ms": 1350.7,
+        "report_ms": 1250,
+        "caught": true,
+        "shrinks": 10
+      },
+      {
+        "seed": 20,
+        "wall_ms": 1244.1,
+        "report_ms": 1152,
+        "caught": true,
+        "shrinks": 11
+      }
+    ],
+    "wall": {
+      "n": 20,
+      "min": 1175.8,
+      "median": 1288.1,
+      "p95": 1373.9,
+      "max": 1380.6,
+      "mean": 1288.5
+    },
+    "shrinks": {
+      "n": 20,
+      "min": 7,
+      "median": 10,
+      "p95": 13.1,
+      "max": 14,
+      "mean": 10.1
+    },
+    "caught": 20
+  },
+  "pact": {
+    "runs": [
+      {
+        "consumer_ms": 831.3,
+        "provider_ms": 886.1,
+        "total_ms": 1717.4
+      },
+      {
+        "consumer_ms": 790.9,
+        "provider_ms": 729.5,
+        "total_ms": 1520.4
+      },
+      {
+        "consumer_ms": 878.6,
+        "provider_ms": 637.4,
+        "total_ms": 1516
+      },
+      {
+        "consumer_ms": 960.8,
+        "provider_ms": 900.8,
+        "total_ms": 1861.6
+      },
+      {
+        "consumer_ms": 773,
+        "provider_ms": 925.2,
+        "total_ms": 1698.2
+      },
+      {
+        "consumer_ms": 889.3,
+        "provider_ms": 859.7,
+        "total_ms": 1749
+      },
+      {
+        "consumer_ms": 800.3,
+        "provider_ms": 828.8,
+        "total_ms": 1629.1
+      }
+    ],
+    "total": {
+      "n": 7,
+      "min": 1516,
+      "median": 1698.2,
+      "p95": 1827.8,
+      "max": 1861.6,
+      "mean": 1670.2
+    },
+    "consumer": {
+      "n": 7,
+      "min": 773,
+      "median": 831.3,
+      "p95": 939.4,
+      "max": 960.8,
+      "mean": 846.3
+    },
+    "provider": {
+      "n": 7,
+      "min": 637.4,
+      "median": 859.7,
+      "p95": 917.9,
+      "max": 925.2,
+      "mean": 823.9
+    }
+  },
+  "measured_at": "2026-11-22T21:18:17.901Z",
+  "node": "v22.23.5",
+  "platform": "linux-x64"
+}

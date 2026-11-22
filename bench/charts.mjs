@@ -91,8 +91,8 @@ if (R.tokens) {
 
   // ---------- 2. idle polling ----------
   const m = R.tokens.idle_model, W = 760, H = 430;
-  let body = `<text class="t" x="24" y="30">Waiting for cross-agent messages: tokens per hour</text><text class="st" x="24" y="48">/loop polling re-reads context C on every wake; the Lanes watcher is a script and wakes the agent only on an actionable event.</text>`;
-  const panelW = 340, ph = 260, top = 96, xs = [1, 2, 5, 10, 15, 20, 30, 60];
+  let body = `<text class="t" x="24" y="30">Waiting for cross-agent messages: tokens per hour</text><text class="st" x="24" y="48">/loop polling re-reads context C on every wake. The Lanes watcher is a script: it wakes the agent</text><text class="st" x="24" y="64">only on an actionable event, and costs 0 tokens while idle (not drawn: log scale).</text>`;
+  const panelW = 340, ph = 260, top = 112, xs = [1, 2, 5, 10, 15, 20, 30, 60];
   const lx = (v, x0) => x0 + (Math.log(v) / Math.log(60)) * (panelW - 70);
   const ly = (v) => top + ph - ((Math.log10(v) - 3) / (7 - 3)) * ph; // 1K .. 10M
   m.contexts.forEach((C, pi) => {
@@ -105,18 +105,18 @@ if (R.tokens) {
     body += `<polyline fill="none" stroke="var(--s1)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" points="${pts.map(([a, b]) => `${a},${b}`).join(" ")}"/>`;
     for (const [a, b, p] of pts) body += `<circle cx="${a}" cy="${b}" r="4" fill="var(--s1)" stroke="var(--surface)" stroke-width="2"><title>/loop every ${p.interval_min} min: ${fmt(p.tokens_per_hour)} tokens/h</title></circle>`;
     const [fa, fb, fp] = pts[0], [la, lb, lp] = pts.at(-1);
-    body += `<text class="v" x="${fa + 8}" y="${fb - 6}">${fmt(fp.tokens_per_hour)}/h</text><text class="v" x="${la}" y="${lb - 10}" text-anchor="end">${fmt(lp.tokens_per_hour)}/h</text>`;
-    body += `<text class="l" x="${lx(5, x0) + 6}" y="${ly(m.poll[C][2].tokens_per_hour) - 10}">/loop polling</text>`;
-    for (const [E, col, dy] of [[4, "var(--s2)", -6], [1, "var(--s3)", 14]]) {
+    body += `<text class="v" x="${fa + 8}" y="${fb - 6}">${fmt(fp.tokens_per_hour)}/h</text><text class="v" x="${la - 2}" y="${lb + 18}" text-anchor="end">${fmt(lp.tokens_per_hour)}/h</text>`;
+    body += `<text class="l" x="${lx(2, x0) + 10}" y="${ly(m.poll[C][1].tokens_per_hour) - 8}">/loop polling, every N min</text>`;
+    for (const [E, col, dy] of [[4, "var(--s2)", 15], [1, "var(--s3)", -6]]) {
       const v = m.watch[C].find((w) => w.events_per_hour === E).tokens_per_hour;
       body += `<line x1="${x0}" x2="${x0 + panelW - 70}" y1="${ly(v)}" y2="${ly(v)}" stroke="${col}" stroke-width="2" stroke-linecap="round"><title>Lanes watch, ${E} event/h: ${fmt(v)} tokens/h</title></line>`;
-      body += `<text class="l" x="${x0 + panelW - 66}" y="${ly(v) + 4}">${E}/h</text><text class="v" x="${x0 + 4}" y="${ly(v) + dy}">Lanes, ${E} event${E > 1 ? "s" : ""}/h: ${fmt(v)}</text>`;
+      body += `<text class="v" x="${x0 + 4}" y="${ly(v) + dy}">Lanes watch, ${E} event${E > 1 ? "s" : ""}/h: ${fmt(v)}</text>`;
     }
     body += `<line class="base" x1="${x0}" x2="${x0}" y1="${top}" y2="${top + ph}"/><line class="base" x1="${x0}" x2="${x0 + panelW - 70}" y1="${top + ph}" y2="${top + ph}"/>`;
   });
   body += `<text class="ax" x="24" y="${top + ph + 58}">poll: (60/N)·(C + p), p = ${m.p_poll_turn_tokens} tokens per poll turn · Lanes: E·(C + w), w = ${m.w_wake_tokens} tokens per wake · Lanes idle (E = 0): 0 tokens/h.</text>`;
   body += `<text class="ax" x="24" y="${top + ph + 73}">Prompt caching lowers the price of re-reading C, not the token count. Context sizes are parameters, not measurements.</text>`;
-  writeFileSync(join(RESULTS, "idle-polling.svg"), svg(W, H + 24, body, "Idle polling tokens per hour", "tokens/hour vs polling interval for /loop polling and the Lanes watcher"));
+  writeFileSync(join(RESULTS, "idle-polling.svg"), svg(W, H + 40, body, "Idle polling tokens per hour", "tokens/hour vs polling interval for /loop polling and the Lanes watcher"));
   written.push("idle-polling.svg");
 }
 
@@ -139,13 +139,13 @@ if (R.mutants) {
 
   // matrix: mutants × approaches; filled circle = caught, ring = missed; Lanes cells show the seed detection rate.
   const cols = [["lanes", "lanes check"], ["lanesFast", "--fast"], ["pact", "Pact"], ["examples", "zod+vitest"], ["tsc", "tsc"]];
-  const cw = 92, rh = 24, lw = 330, x0 = 24, y0 = 92;
+  const cw = 92, rh = 24, lw = 380, x0 = 24, y0 = 92;
   let body = `<text class="t" x="24" y="30">Which approach catches which bug</text><text class="st" x="24" y="48">● caught · ○ missed. Lanes cells show the share of ${M.seeds} seeds that caught it.</text>`;
   cols.forEach(([, name], j) => (body += `<text class="ph" x="${x0 + lw + j * cw + cw / 2}" y="${y0 - 12}" text-anchor="middle">${esc(name)}</text>`));
   M.rows.forEach((r, i) => {
     const y = y0 + i * rh;
     if (i % 2 === 0) body += `<rect x="${x0}" y="${y}" width="${lw + cols.length * cw}" height="${rh}" fill="var(--grid)" opacity="0.45"/>`;
-    body += `<text class="l" x="${x0 + 6}" y="${y + 16}"><tspan style="font-weight:600;fill:var(--ink)">${esc(r.id)}</tspan>  ${esc(r.desc.length > 44 ? r.desc.slice(0, 43) + "…" : r.desc)}<title>${esc(r.desc)} · trigger: ${esc(r.trigger)}</title></text>`;
+    body += `<text class="l" x="${x0 + 6}" y="${y + 16}"><tspan style="font-weight:600;fill:var(--ink)">${esc(r.id)}</tspan>  ${esc(r.desc.length > Math.max(12, 52 - r.id.length) ? r.desc.slice(0, Math.max(12, 51 - r.id.length)).trimEnd() + "…" : r.desc)}<title>${esc(r.desc)} · trigger: ${esc(r.trigger)}</title></text>`;
     cols.forEach(([k, name], j) => {
       const cx = x0 + lw + j * cw + cw / 2, cy = y + rh / 2;
       const rate = k.startsWith("lanes") ? r[k].rate : r[k].caught ? 1 : 0;
@@ -156,8 +156,9 @@ if (R.mutants) {
     });
   });
   const hh = y0 + M.rows.length * rh + 24;
-  body += `<text class="ax" x="24" y="${hh}">Pact: 3 interactions (the two TickRequest fixtures + one spooked agent), MatchersV3 integer/regex/eachLike. zod+vitest: consumer tests + valid-fixture replay.</text>`;
-  writeFileSync(join(RESULTS, "bug-matrix.svg"), svg(x0 + lw + cols.length * cw + 24, hh + 14, body, "Bug catch matrix", "mutants by approach"));
+  body += `<text class="ax" x="24" y="${hh}">Pact: 3 interactions (the two TickRequest fixtures + one spooked agent), MatchersV3 integer / regex / eachLike.</text>`;
+  body += `<text class="ax" x="24" y="${hh + 15}">zod+vitest: the example's consumer tests + a hand-written valid-fixture replay through the handler. Hover a row for the trigger.</text>`;
+  writeFileSync(join(RESULTS, "bug-matrix.svg"), svg(x0 + lw + cols.length * cw + 24, hh + 28, body, "Bug catch matrix", "mutants by approach"));
   written.push("bug-matrix.svg");
 }
 
@@ -169,7 +170,7 @@ if (R.speed) {
     { label: "guard: block cross-lane Edit", value: g.block_other_lane.median, hi: true, text: `${round(g.block_other_lane.median, 0)} ms (p95 ${round(g.block_other_lane.p95, 0)})` },
     { label: "guard: Bash command", value: g.bash_command.median, hi: true, text: `${round(g.bash_command.median, 0)} ms (p95 ${round(g.bash_command.p95, 0)})` },
     { label: "SessionStart hook", value: g.session_start.median, hi: true, text: `${round(g.session_start.median, 0)} ms (p95 ${round(g.session_start.p95, 0)})` },
-    { label: "node --version of the CLI (floor)", value: S.node_startup.median, text: `${round(S.node_startup.median, 0)} ms` },
+    { label: "lanes --version (Node startup floor)", value: S.node_startup.median, text: `${round(S.node_startup.median, 0)} ms` },
   ];
   const ch = S.checks;
   const checks = [
