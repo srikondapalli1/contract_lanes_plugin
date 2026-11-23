@@ -28,6 +28,9 @@ edit, an agent fixes it and the live graph turns green, then the same loop on re
 It ships as **one CLI** (`contract-lanes`, command `lanes`), **a Claude Code plugin** (`plugin/`) and **one
 GitHub Action workflow** (`lanes init` writes it). All three call the same code.
 
+Needs Node 22.12 or newer (vitest 5's minimum), git, and `gh` for the GitHub features. Tested on Linux, macOS and
+Windows with npm, pnpm, yarn 1, yarn 4 (Plug'n'Play and node_modules) and bun (`.github/workflows/compat.yml`).
+
 ## Hackathon setup: paste one prompt
 
 **Project lead:** paste this into Claude Code, Cursor, Codex or any coding agent that can run shell commands, from the

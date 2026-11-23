@@ -6,7 +6,7 @@
 // and allows an in-lane one → graph data → doctor. The project folder name has a space in it on purpose. Runs on Linux,
 // macOS and Windows; CI runs it in .github/workflows/compat.yml.
 import { spawnSync } from "node:child_process";
-import { copyFileSync, mkdtempSync, writeFileSync, existsSync } from "node:fs";
+import { copyFileSync, existsSync, mkdirSync, mkdtempSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 
@@ -76,7 +76,19 @@ const edit = (p) => JSON.stringify({ cwd: dir, tool_name: "Edit", tool_input: { 
 step("guard blocks a cross-lane edit", lanes(["hook", "guard"], edit(["server", "api.ts"])), (r) => r.code === 2 && /server/.test(r.out));
 step("guard allows an in-lane edit", lanes(["hook", "guard"], edit(["src", "example.ts"])), (r) => r.code === 0);
 
-// 6. graph data and doctor run without crashing (doctor may warn: no gh login in CI)
+// 6. the git pre-commit hook enforces the same rule outside Claude Code (on Windows it runs under Git's sh)
+run("git", ["add", "-A"]);
+run("git", ["commit", "-qm", "base", "--no-verify"]);
+mkdirSync(join(dir, "server"), { recursive: true });
+writeFileSync(join(dir, "server", "new.ts"), "export const z = 1;\n");
+run("git", ["add", "server/new.ts"]);
+step("pre-commit hook blocks a cross-lane commit", run("git", ["commit", "-m", "cross-lane"]), (r) => r.code !== 0 && /Blocked: server\/new\.ts/.test(r.out));
+run("git", ["reset", "-q"]);
+writeFileSync(join(dir, "src", "ok.ts"), "export const y = 1;\n");
+run("git", ["add", "src/ok.ts"]);
+step("pre-commit hook allows an in-lane commit", run("git", ["commit", "-m", "in-lane"]), (r) => r.code === 0);
+
+// 7. graph data and doctor run without crashing (doctor may warn: no gh login in CI)
 step("graph data", lanes(["graph", "--no-serve"]), (r) => r.code === 0 && existsSync(join(dir, ".lanes")));
 step("doctor runs", lanes(["doctor"]), (r) => (r.code === 0 || r.code === 1) && !/\n\s+at .+:\d+:\d+/.test(r.out) && /lane/.test(r.out));
 

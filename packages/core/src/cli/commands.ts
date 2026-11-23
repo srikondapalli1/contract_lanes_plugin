@@ -185,8 +185,11 @@ export async function doctor(cwd: string) {
   const ok = (m: string) => out.push(`✓ ${m}`);
   const warn = (m: string, fix: string) => out.push(`⚠ ${m}\n    fix: ${fix}`);
   const fail = (m: string, fix: string) => { bad++; out.push(`✗ ${m}\n    fix: ${fix}`); };
-  const major = Number(process.versions.node.split(".")[0]);
-  major >= 20 ? ok(`node ${process.versions.node}`) : fail(`node ${process.versions.node} is too old`, "install Node 20 or newer");
+  // vitest 5 (what init installs) supports Node ^22.12 || ^24 || >=26
+  const [major, minor] = process.versions.node.split(".").map(Number);
+  if (major < 22 || (major === 22 && minor < 12)) fail(`node ${process.versions.node} is too old`, "install Node 22.12 or newer (24 LTS recommended)");
+  else if (major === 23 || major === 25) warn(`node ${process.versions.node} is not supported by vitest 5`, "use Node 22, 24 or 26");
+  else ok(`node ${process.versions.node}`);
   const root = findRoot(cwd);
   if (!root) { fail(`no ${CONFIG_FILE}`, "run `lanes init` (or /lanes:init) in your repo"); return { exit: 1, text: out.join("\n") }; }
   git(root, "rev-parse", "--git-dir").code === 0 ? ok("git repository") : fail("not a git repository", "git init -b main");

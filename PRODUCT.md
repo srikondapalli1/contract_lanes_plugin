@@ -29,7 +29,7 @@ A hackathon: laptops, one agent session per lane, a shared GitHub repo, GitHub A
 ## Capabilities and Constraints
 
 - Commands: init, join, check, lock, msg, watch, fix, queue, graph, status, override, autopilot, invite, doctor, codeowners.
-- TypeScript projects only (v1). Needs Node ≥ 20, git, and `gh` for the GitHub features.
+- TypeScript projects only (v1). Needs Node 22.12+ (vitest 5's minimum), git, and `gh` for the GitHub features.
 - Detection, routing, re-checking and merging run without anyone online; writing a fix needs a running agent session for that lane.
 - Published on npm as `contract-lanes`; the Claude Code plugin installs from the GitHub repo.
 

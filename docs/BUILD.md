@@ -18,7 +18,7 @@ examples/three-lanes/   # sample repo used by e2e tests (world/brain/crowd, incl
 .github/workflows/      # the project's own CI
 ```
 
-Stack: TypeScript, Node ≥ 20, pnpm, vitest, fast-check, yaml, zod v4, esbuild (bundles the plugin binary).
+Stack: TypeScript, Node ≥ 22.12, pnpm, vitest, fast-check, yaml, zod v4, esbuild (bundles the plugin binary).
 
 ## Lanes for building Lanes (3 lanes; one session each, a second session later through worktrees)
 
