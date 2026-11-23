@@ -143,6 +143,11 @@ export const gitHook = (kind: "pre-commit" | "prepare-commit-msg", fallback: str
 run() {
   if [ -x ./node_modules/.bin/lanes ]; then exec ./node_modules/.bin/lanes "$@"; fi
   if command -v lanes >/dev/null 2>&1; then exec lanes "$@"; fi
+  # yarn Plug'n'Play has no node_modules/.bin; run it through yarn (corepack first, so the project's yarn version is used)
+  if [ -f ./.pnp.cjs ]; then
+    if command -v corepack >/dev/null 2>&1; then exec corepack yarn lanes "$@"; fi
+    if command -v yarn >/dev/null 2>&1; then exec yarn lanes "$@"; fi
+  fi
   if [ -f "${fallback}" ]; then exec node "${fallback}" "$@"; fi
   echo "lanes: CLI not found, skipping the ${kind} guard (npm i -D contract-lanes)" >&2
   exit 0
