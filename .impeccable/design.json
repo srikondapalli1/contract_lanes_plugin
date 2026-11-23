@@ -1,0 +1,612 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-23T02:57:17Z",
+  "title": "Design System: Lanes",
+  "extensions": {
+    "colorMeta": {
+      "paper": {
+        "role": "neutral",
+        "displayName": "Map Paper",
+        "canonical": "oklch(97.2% 0.004 122)",
+        "tonalRamp": [
+          "#0b0b0a",
+          "#242422",
+          "#3f403e",
+          "#5d5e5b",
+          "#80817e",
+          "#a4a5a2",
+          "#cacbc8",
+          "#eeefec"
+        ]
+      },
+      "paper-2": {
+        "role": "neutral",
+        "displayName": "Paper Shade",
+        "canonical": "oklch(94.6% 0.007 124)",
+        "tonalRamp": [
+          "#0a0c09",
+          "#232521",
+          "#3f403c",
+          "#5d5e5a",
+          "#7f817c",
+          "#a3a5a1",
+          "#c9cbc6",
+          "#edefea"
+        ]
+      },
+      "station-white": {
+        "role": "neutral",
+        "displayName": "Station White",
+        "canonical": "oklch(100.0% 0.000 90)",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#242424",
+          "#404040",
+          "#5d5d5d",
+          "#808080",
+          "#a4a4a4",
+          "#cacaca",
+          "#eeeeee"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "canonical": "oklch(20.7% 0.008 248)",
+        "tonalRamp": [
+          "#090b0e",
+          "#212428",
+          "#3d4044",
+          "#5a5e62",
+          "#7d8185",
+          "#a1a5a9",
+          "#c7cbcf",
+          "#ebeff3"
+        ]
+      },
+      "ink-2": {
+        "role": "neutral",
+        "displayName": "Ink Two",
+        "canonical": "oklch(38.8% 0.014 252)",
+        "tonalRamp": [
+          "#070c11",
+          "#1f252b",
+          "#3a4047",
+          "#585e66",
+          "#7a8189",
+          "#9ea5ae",
+          "#c4cbd4",
+          "#e8eff8"
+        ]
+      },
+      "rule": {
+        "role": "neutral",
+        "displayName": "Map Rule",
+        "canonical": "oklch(87.4% 0.009 135)",
+        "tonalRamp": [
+          "#090c08",
+          "#222521",
+          "#3e413c",
+          "#5b5f5a",
+          "#7e817c",
+          "#a2a6a0",
+          "#c8ccc6",
+          "#ecf0ea"
+        ]
+      },
+      "world": {
+        "role": "primary",
+        "displayName": "Line Orange (lane world)",
+        "canonical": "oklch(67.3% 0.180 46)",
+        "tonalRamp": [
+          "#220000",
+          "#510000",
+          "#830000",
+          "#a92900",
+          "#d25200",
+          "#ec8654",
+          "#f8bb9f",
+          "#feeae1"
+        ]
+      },
+      "brain": {
+        "role": "primary",
+        "displayName": "Line Cobalt (lane brain)",
+        "canonical": "oklch(48.4% 0.207 264)",
+        "tonalRamp": [
+          "#00042f",
+          "#01126b",
+          "#0327aa",
+          "#1e4ed0",
+          "#3f75f9",
+          "#70a0ff",
+          "#accaff",
+          "#e5efff"
+        ]
+      },
+      "crowd": {
+        "role": "primary",
+        "displayName": "Line Green (lane crowd)",
+        "canonical": "oklch(58.8% 0.137 157)",
+        "tonalRamp": [
+          "#001203",
+          "#00310d",
+          "#00531e",
+          "#00733c",
+          "#1a985d",
+          "#67b989",
+          "#abd7bb",
+          "#e5f3e9"
+        ]
+      },
+      "crowd-ink": {
+        "role": "primary",
+        "displayName": "Deep Line Green (crowd badge)",
+        "canonical": "oklch(46.6% 0.108 157)",
+        "tonalRamp": [
+          "#001004",
+          "#002e13",
+          "#004f27",
+          "#136f44",
+          "#409366",
+          "#77b58f",
+          "#b2d5be",
+          "#e7f2ea"
+        ]
+      },
+      "signal": {
+        "role": "secondary",
+        "displayName": "Signal Red",
+        "canonical": "oklch(55.4% 0.205 26)",
+        "tonalRamp": [
+          "#250000",
+          "#580000",
+          "#8e0000",
+          "#b50011",
+          "#e03839",
+          "#f9776f",
+          "#ffb4ac",
+          "#ffe8e5"
+        ]
+      },
+      "signal-ink": {
+        "role": "secondary",
+        "displayName": "Signal Ink",
+        "canonical": "oklch(46.0% 0.174 26)",
+        "tonalRamp": [
+          "#220000",
+          "#510000",
+          "#840000",
+          "#aa2022",
+          "#d44b45",
+          "#ee8077",
+          "#f9b8b0",
+          "#ffe9e6"
+        ]
+      },
+      "suspended-wash": {
+        "role": "secondary",
+        "displayName": "Suspended Wash",
+        "canonical": "oklch(98.0% 0.010 25)",
+        "tonalRamp": [
+          "#0f0a09",
+          "#292222",
+          "#453e3d",
+          "#635c5b",
+          "#867e7d",
+          "#aba2a1",
+          "#d1c8c7",
+          "#f5eceb"
+        ]
+      },
+      "term-text": {
+        "role": "tertiary",
+        "displayName": "Terminal Text",
+        "canonical": "oklch(93.7% 0.006 138)",
+        "tonalRamp": [
+          "#0a0c09",
+          "#232522",
+          "#3e403d",
+          "#5c5e5b",
+          "#7e817d",
+          "#a3a5a2",
+          "#c8cbc8",
+          "#ecefeb"
+        ]
+      },
+      "term-dim": {
+        "role": "tertiary",
+        "displayName": "Terminal Dim",
+        "canonical": "oklch(70.4% 0.013 154)",
+        "tonalRamp": [
+          "#070d09",
+          "#202621",
+          "#3b423d",
+          "#58605a",
+          "#7b827d",
+          "#9fa7a1",
+          "#c5cdc7",
+          "#e8f1eb"
+        ]
+      },
+      "term-pass": {
+        "role": "tertiary",
+        "displayName": "Terminal Pass",
+        "canonical": "oklch(82.3% 0.115 159)",
+        "tonalRamp": [
+          "#001104",
+          "#002f14",
+          "#005128",
+          "#007045",
+          "#349567",
+          "#71b690",
+          "#afd5bf",
+          "#e6f2eb"
+        ]
+      },
+      "term-fail": {
+        "role": "tertiary",
+        "displayName": "Terminal Fail",
+        "canonical": "oklch(76.9% 0.136 23)",
+        "tonalRamp": [
+          "#1e0102",
+          "#49040a",
+          "#781019",
+          "#9c3637",
+          "#c45b58",
+          "#e08984",
+          "#f0bcb8",
+          "#fbeae8"
+        ]
+      },
+      "term-prompt": {
+        "role": "tertiary",
+        "displayName": "Terminal Prompt",
+        "canonical": "oklch(77.2% 0.115 264)",
+        "tonalRamp": [
+          "#03091f",
+          "#0e214c",
+          "#1f3b7c",
+          "#3b5b9e",
+          "#5c7ec5",
+          "#88a4de",
+          "#b9cbed",
+          "#e9effa"
+        ]
+      },
+      "term-mark": {
+        "role": "tertiary",
+        "displayName": "Counterexample Mark",
+        "canonical": "rgba(255, 196, 61, 0.2)",
+        "tonalRamp": [
+          "#180600",
+          "#3d1a00",
+          "#653100",
+          "#875100",
+          "#ac7400",
+          "#c99d3d",
+          "#e1c796",
+          "#f6eede"
+        ],
+        "note": "Translucent #ffc43d (oklch(85.2% 0.157 84)) at 20%; ramp built from the opaque hue."
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "The one headline in the legend panel; upright ink emphasis."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Section headings, written as sentences, max 22ch."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Timetable stops, step headings; contract names on the board at 1.15rem."
+      },
+      "lede": {
+        "displayName": "Lede",
+        "purpose": "The paragraph under a section heading, Ink Two, max 64ch."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Running text, 60-72ch."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Nav links, map key, board column heads (700, 0.85rem), captions; sentence case."
+      },
+      "status": {
+        "displayName": "Status",
+        "purpose": "Status words: Good service, Suspended."
+      },
+      "figure": {
+        "displayName": "Figure",
+        "purpose": "Tallies and measured numbers in Overpass with tabular figures, never mono."
+      },
+      "button": {
+        "displayName": "Button",
+        "purpose": "Pill button labels."
+      },
+      "badge": {
+        "displayName": "Badge",
+        "purpose": "The single capital letter in a line badge."
+      },
+      "map-label": {
+        "displayName": "Map label",
+        "purpose": "Interchange names on the SVG map (SVG user units)."
+      },
+      "map-label-small": {
+        "displayName": "Map route label",
+        "purpose": "The route under an interchange name, Ink Two (SVG user units)."
+      },
+      "code": {
+        "displayName": "Code",
+        "purpose": "Setup prompt, commands, check output (0.82-0.84rem)."
+      },
+      "code-time": {
+        "displayName": "Code time",
+        "purpose": "Timetable clock times, right-aligned, Ink Two."
+      },
+      "code-note": {
+        "displayName": "Code note",
+        "purpose": "The notice's machine line: seed and counterexample summary."
+      }
+    },
+    "shadows": [
+      {
+        "name": "pinned-notice",
+        "value": "0 14px 30px -18px rgba(21, 24, 27, .5)",
+        "purpose": "The service notice pinned to a closed interchange; the only shadow in the world."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease",
+        "value": "cubic-bezier(.16, 1, .3, 1)",
+        "purpose": "House easing for every transition and animation."
+      },
+      {
+        "name": "line-draw-in",
+        "value": "stroke-dashoffset 1 -> 0, 1.6s ease, staggered 0s / .15s / .3s",
+        "purpose": "Map lines draw once along their paths; skipped under reduced motion and for automated captures."
+      },
+      {
+        "name": "notice-flip",
+        "value": "clip-path inset(0 0 100% 0 round 14px) -> inset(0 round 14px), .5s ease",
+        "purpose": "The notice wipes in from the top when it changes state; a plain swap under reduced motion."
+      },
+      {
+        "name": "bar-fade",
+        "value": "opacity .4s ease",
+        "purpose": "The closing bar fades out when an interchange reopens."
+      },
+      {
+        "name": "button-state",
+        "value": "background, color, transform .25s ease",
+        "purpose": "Button hover fill and 1px active press."
+      },
+      {
+        "name": "nav-state",
+        "value": "color, border-color .2s",
+        "purpose": "Station index link hover."
+      },
+      {
+        "name": "player-hover",
+        "value": "poster opacity .92 -> 1 and play disc scale 1.06, .3s ease",
+        "purpose": "Video poster button hover."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "stack",
+        "value": "960px",
+        "purpose": "Media pair and ticket section drop to one column."
+      },
+      {
+        "name": "map-crop",
+        "value": "860px",
+        "purpose": "Nav links hide; hero restacks with the map cropped to the interchanges; notice below legend; bands 72px."
+      },
+      {
+        "name": "narrow",
+        "value": "720px",
+        "purpose": "Board Route column hidden (visibility); timetable compresses."
+      }
+    ],
+    "strokes": [
+      {
+        "name": "line",
+        "value": "15px",
+        "purpose": "Map lines and the timetable line (--line)."
+      },
+      {
+        "name": "interchange",
+        "value": "6px",
+        "purpose": "Interchange outlines, the closing bar, timetable stop rings."
+      },
+      {
+        "name": "lit-station",
+        "value": "4.5px",
+        "purpose": "Ring of a lit station on the track (3.5px on phones)."
+      },
+      {
+        "name": "unlit-station",
+        "value": "3px",
+        "purpose": "Ring of an unlit station (2px on phones)."
+      },
+      {
+        "name": "outline",
+        "value": "2px",
+        "purpose": "Panel outlines, button borders, board header rule, ticket tear line (dashed)."
+      },
+      {
+        "name": "hairline",
+        "value": "1px",
+        "purpose": "Map Rule dividers between bands and inside panels."
+      },
+      {
+        "name": "focus",
+        "value": "3px solid cobalt, 3px offset",
+        "purpose": "Keyboard focus ring."
+      }
+    ],
+    "container": {
+      "maxWidth": "1240px",
+      "gutter": "24px",
+      "navHeight": "64px",
+      "heroHeight": "clamp(720px, 100svh - 64px, 880px)"
+    }
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Ink pill for the page's primary action (Copy prompt); cobalt on hover, Ink Two once copied.",
+      "html": "<button class=\"ds-btn\" type=\"button\"><svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><rect x=\"8.5\" y=\"8.5\" width=\"11\" height=\"11\" rx=\"2.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\"/><path d=\"M15.5 5.5v-1A1.5 1.5 0 0 0 14 3H5.5A2.5 2.5 0 0 0 3 5.5V14a1.5 1.5 0 0 0 1.5 1.5h1\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\"/></svg><span>Copy prompt</span></button> <button class=\"ds-btn ds-done\" type=\"button\"><svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M5 12.5l4.2 4.2L19 7\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg><span>Copied</span></button>",
+      "css": ".ds-btn { display: inline-flex; align-items: center; gap: .55em; padding: .7em 1.15em; border-radius: 999px; border: 2px solid var(--ink, #15181b); background: var(--ink, #15181b); color: var(--paper, #f5f6f3); font-family: \"Overpass\", \"Segoe UI\", system-ui, sans-serif; font-weight: 700; font-size: 1rem; line-height: 1; cursor: pointer; text-decoration: none; transition: background .25s cubic-bezier(.16, 1, .3, 1), color .25s cubic-bezier(.16, 1, .3, 1), border-color .25s cubic-bezier(.16, 1, .3, 1), transform .25s cubic-bezier(.16, 1, .3, 1); } .ds-btn svg { width: 1.05em; height: 1.05em; } .ds-btn:hover { background: var(--brain, #1f4fd1); border-color: var(--brain, #1f4fd1); } .ds-btn:active { transform: translateY(1px); } .ds-btn:focus-visible { outline: 3px solid var(--brain, #1f4fd1); outline-offset: 3px; } .ds-btn.ds-done { background: var(--ink-2, #3f454c); border-color: var(--ink-2, #3f454c); }"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Transparent pill with an ink border for secondary actions (Source on GitHub, Undo); fills ink on hover.",
+      "html": "<a class=\"ds-btn ds-ghost\" href=\"#\">Source on GitHub <svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M9 5h10v10M19 5 6 18\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg></a>",
+      "css": ".ds-btn { display: inline-flex; align-items: center; gap: .55em; padding: .7em 1.15em; border-radius: 999px; border: 2px solid var(--ink, #15181b); background: var(--ink, #15181b); color: var(--paper, #f5f6f3); font-family: \"Overpass\", \"Segoe UI\", system-ui, sans-serif; font-weight: 700; font-size: 1rem; line-height: 1; cursor: pointer; text-decoration: none; transition: background .25s cubic-bezier(.16, 1, .3, 1), color .25s cubic-bezier(.16, 1, .3, 1), border-color .25s cubic-bezier(.16, 1, .3, 1), transform .25s cubic-bezier(.16, 1, .3, 1); } .ds-btn svg { width: 1.05em; height: 1.05em; } .ds-btn:hover { background: var(--brain, #1f4fd1); border-color: var(--brain, #1f4fd1); } .ds-btn:active { transform: translateY(1px); } .ds-btn:focus-visible { outline: 3px solid var(--brain, #1f4fd1); outline-offset: 3px; } .ds-btn.ds-ghost { background: transparent; color: var(--ink, #15181b); } .ds-btn.ds-ghost:hover { background: var(--ink, #15181b); border-color: var(--ink, #15181b); color: var(--paper, #f5f6f3); }"
+    },
+    {
+      "name": "Station Index",
+      "kind": "nav",
+      "refersTo": "nav-link",
+      "description": "Sticky 64px nav: the two-line interchange mark, five sections named as stations, GitHub.",
+      "html": "<header class=\"ds-index\"><a class=\"ds-mark\" href=\"#\"><svg viewBox=\"0 0 34 34\" aria-hidden=\"true\"><path d=\"M3 9h11l7 8h10\" fill=\"none\" stroke=\"#ec6a1c\" stroke-width=\"4.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M3 25h11l7-8h10\" fill=\"none\" stroke=\"#1f4fd1\" stroke-width=\"4.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><rect x=\"16\" y=\"12\" width=\"9\" height=\"10\" rx=\"4.5\" fill=\"#fff\" stroke=\"#15181b\" stroke-width=\"2.6\"/></svg>Lanes</a><nav><a href=\"#\">Status</a><a href=\"#\">Inspection</a><a href=\"#\">Timetable</a><a href=\"#\">Map</a><a href=\"#\">Ticket</a></nav><a class=\"ds-gh\" href=\"#\">GitHub</a></header>",
+      "css": ".ds-index { display: flex; align-items: center; gap: 28px; height: 64px; padding: 0 24px; background: color-mix(in srgb, var(--paper, #f5f6f3) 92%, transparent); backdrop-filter: saturate(1.2) blur(10px); border-bottom: 1px solid var(--rule, #d3d7d1); color: var(--ink, #15181b); font-family: \"Overpass\", \"Segoe UI\", system-ui, sans-serif; } .ds-mark { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1.3rem; letter-spacing: -.01em; text-decoration: none; color: inherit; } .ds-mark svg { width: 34px; height: 34px; } .ds-index nav { display: flex; gap: 22px; margin-left: auto; font-weight: 600; font-size: .98rem; } .ds-index nav a { color: var(--ink-2, #3f454c); text-decoration: none; padding: 6px 0; border-bottom: 2px solid transparent; transition: color .2s, border-color .2s; } .ds-index nav a:hover { color: var(--ink, #15181b); border-color: var(--ink, #15181b); } .ds-index a:focus-visible { outline: 3px solid var(--brain, #1f4fd1); outline-offset: 3px; border-radius: 4px; } .ds-gh { font-weight: 700; font-size: .98rem; color: inherit; }"
+    },
+    {
+      "name": "Line Badges and Route",
+      "kind": "chip",
+      "refersTo": "line-badge-world",
+      "description": "Circular one-letter lane badges, always followed by the route in words.",
+      "html": "<span class=\"ds-route\"><span class=\"ds-badge ds-w\">W</span><svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M4 12h15m-5-5 5 5-5 5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg><span class=\"ds-badge ds-b\">B</span> world to brain</span> <span class=\"ds-route\"><span class=\"ds-badge ds-c\">C</span><svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M4 12h15m-5-5 5 5-5 5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg><span class=\"ds-badge ds-w\">W</span><span class=\"ds-badge ds-b\">B</span> crowd to world, brain</span>",
+      "css": ".ds-route { display: inline-flex; align-items: center; gap: 8px; font-family: \"Overpass\", \"Segoe UI\", system-ui, sans-serif; font-weight: 600; font-size: 1.05rem; color: var(--ink-2, #3f454c); white-space: nowrap; } .ds-route svg { width: 18px; height: 18px; } .ds-badge { display: inline-grid; place-items: center; width: 1.6em; height: 1.6em; border-radius: 50%; color: #fff; font-weight: 800; font-size: .8rem; line-height: 1; } .ds-w { background: var(--world, #ec6a1c); color: var(--ink, #15181b); } .ds-b { background: var(--brain, #1f4fd1); } .ds-c { background: var(--crowd-ink, #0b6b40); }"
+    },
+    {
+      "name": "Interchange: open and closed",
+      "kind": "custom",
+      "refersTo": "interchange",
+      "description": "Round-capped 15px lines at 45 degrees meeting at white capsule interchanges; the closed one takes a signal ring and diagonal bar.",
+      "html": "<svg class=\"ds-map\" viewBox=\"0 0 560 200\" role=\"img\" aria-label=\"Two interchanges, one closed\"><path class=\"ds-ln\" stroke=\"#ec6a1c\" d=\"M 20 -10 L 120 90 H 560\"/><path class=\"ds-ln\" stroke=\"#1f4fd1\" d=\"M 20 200 L 108 112 H 560\"/><rect class=\"ds-st\" x=\"203\" y=\"73\" width=\"34\" height=\"56\" rx=\"17\"/><text class=\"ds-lbl\" x=\"220\" y=\"52\" text-anchor=\"middle\">TickRequest</text><text class=\"ds-lbl ds-sm\" x=\"220\" y=\"160\" text-anchor=\"middle\">world → brain</text><g class=\"ds-closed\"><rect class=\"ds-st\" x=\"413\" y=\"73\" width=\"34\" height=\"56\" rx=\"17\"/><line class=\"ds-bar\" x1=\"408\" y1=\"137\" x2=\"452\" y2=\"65\"/></g><text class=\"ds-lbl ds-closed-lbl\" x=\"430\" y=\"52\" text-anchor=\"middle\">TickResponse</text><text class=\"ds-lbl ds-sm\" x=\"430\" y=\"160\" text-anchor=\"middle\">Suspended</text></svg>",
+      "css": ".ds-map { width: 100%; max-width: 560px; background: var(--paper, #f5f6f3); } .ds-ln { fill: none; stroke-width: 15px; stroke-linecap: round; stroke-linejoin: round; } .ds-st { fill: #fff; stroke: var(--ink, #15181b); stroke-width: 6; } .ds-lbl { font-family: \"Overpass\", \"Segoe UI\", system-ui, sans-serif; font-weight: 800; font-size: 23px; fill: var(--ink, #15181b); letter-spacing: -.01em; } .ds-lbl.ds-sm { font-weight: 600; font-size: 16px; fill: var(--ink-2, #3f454c); } .ds-closed .ds-st { stroke: var(--signal, #d0242b); } .ds-bar { stroke: var(--signal, #d0242b); stroke-width: 6; stroke-linecap: round; transition: opacity .4s cubic-bezier(.16, 1, .3, 1); } .ds-closed-lbl { fill: var(--signal-ink, #a3161c); }"
+    },
+    {
+      "name": "Legend Panel with Ticket",
+      "kind": "card",
+      "refersTo": "legend-panel",
+      "description": "The map's legend: display headline, offer, lane key, and the setup ticket with its mono prompt and Copy button.",
+      "html": "<div class=\"ds-legend\"><h1>Lanes catches what other contract tests <em>miss.</em></h1><p>Split one repo into lanes, one coding agent each.</p><div class=\"ds-key\"><span><i style=\"background:#ec6a1c\"></i>lane world</span><span><i style=\"background:#1f4fd1\"></i>lane brain</span><span><i style=\"background:#12945a\"></i>lane crowd</span></div><div class=\"ds-ticket\"><header><b>Setup prompt<small>for Claude Code, Cursor or Codex</small></b><button class=\"ds-btn\" type=\"button\"><svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><rect x=\"8.5\" y=\"8.5\" width=\"11\" height=\"11\" rx=\"2.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\"/><path d=\"M15.5 5.5v-1A1.5 1.5 0 0 0 14 3H5.5A2.5 2.5 0 0 0 3 5.5V14a1.5 1.5 0 0 0 1.5 1.5h1\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\"/></svg><span>Copy prompt</span></button></header><pre>Set up Lanes in this repo so several coding agents can build it in parallel.\n1. Run `npx lanes init <span class=\"ds-nw\">--yes</span>`.</pre></div></div>",
+      "css": ".ds-btn { display: inline-flex; align-items: center; gap: .55em; padding: .7em 1.15em; border-radius: 999px; border: 2px solid var(--ink, #15181b); background: var(--ink, #15181b); color: var(--paper, #f5f6f3); font-family: \"Overpass\", \"Segoe UI\", system-ui, sans-serif; font-weight: 700; font-size: 1rem; line-height: 1; cursor: pointer; text-decoration: none; transition: background .25s cubic-bezier(.16, 1, .3, 1), color .25s cubic-bezier(.16, 1, .3, 1), border-color .25s cubic-bezier(.16, 1, .3, 1), transform .25s cubic-bezier(.16, 1, .3, 1); } .ds-btn svg { width: 1.05em; height: 1.05em; } .ds-btn:hover { background: var(--brain, #1f4fd1); border-color: var(--brain, #1f4fd1); } .ds-btn:active { transform: translateY(1px); } .ds-btn:focus-visible { outline: 3px solid var(--brain, #1f4fd1); outline-offset: 3px; } .ds-legend { max-width: 560px; background: var(--paper, #f5f6f3); color: var(--ink, #15181b); border: 2px solid var(--ink, #15181b); border-radius: 6px; padding: 30px 32px 26px; font-family: \"Overpass\", \"Segoe UI\", system-ui, sans-serif; } .ds-legend h1 { margin: 0; font-weight: 850; font-size: clamp(2.3rem, 3.9vw, 3.5rem); line-height: 1; letter-spacing: -.03em; text-wrap: balance; } .ds-legend h1 em { font-style: normal; } .ds-legend p { margin: 16px 0 0; font-size: 1.06rem; color: var(--ink-2, #3f454c); } .ds-key { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 20px; padding-top: 14px; border-top: 1px solid var(--rule, #d3d7d1); font-size: .95rem; font-weight: 600; color: var(--ink-2, #3f454c); } .ds-key span { display: inline-flex; align-items: center; gap: 8px; } .ds-key i { width: 26px; height: 7px; border-radius: 4px; } .ds-ticket { margin-top: 22px; border: 2px solid var(--ink, #15181b); border-radius: 6px; overflow: hidden; background: #fff; } .ds-ticket header { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 14px 12px 18px; border-bottom: 2px dashed var(--rule, #d3d7d1); } .ds-ticket b { font-size: 1rem; line-height: 1.25; } .ds-ticket small { display: block; font-weight: 500; font-size: .86rem; color: var(--ink-2, #3f454c); } .ds-ticket pre { margin: 0; padding: 12px 18px; font-family: \"Overpass Mono\", ui-monospace, monospace; font-size: .82rem; line-height: 1.55; white-space: pre-wrap; } .ds-nw { white-space: nowrap; }"
+    },
+    {
+      "name": "Status Board",
+      "kind": "custom",
+      "refersTo": "status-board",
+      "description": "Service-status table: contract, route, and a status word with its glyph; the suspended row is washed and opens its real check output beneath.",
+      "html": "<table class=\"ds-board\"><thead><tr><th>Contract</th><th>Service</th></tr></thead><tbody><tr><td class=\"ds-k\">TickRequest</td><td><span class=\"ds-status ds-good\"><svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"10\" fill=\"currentColor\"/><path d=\"M7 12.4l3.2 3.2L17 8.8\" fill=\"none\" stroke=\"#fff\" stroke-width=\"2.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>Good service</span></td></tr><tr class=\"ds-susp\"><td class=\"ds-k\">TickResponse</td><td><span class=\"ds-status ds-bad\"><svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"10\" fill=\"currentColor\"/><path d=\"M7 12h10\" stroke=\"#fff\" stroke-width=\"3\" stroke-linecap=\"round\"/></svg>Suspended</span></td></tr><tr class=\"ds-susp ds-rec\"><td colspan=\"2\"><pre><span class=\"ds-p\">$</span> npx lanes check\n<span class=\"ds-f\">fail</span>  TickResponse  brain → world\n    <span class=\"ds-hl\"><span class=\"ds-d\">counterexample:</span> {\"mood\":\"spooked\"}</span>\n    <span class=\"ds-d\">seed:</span> 42</pre></td></tr></tbody></table>",
+      "css": ".ds-board { width: 100%; border-collapse: separate; border-spacing: 0; background: #fff; border: 2px solid var(--ink, #15181b); border-radius: 6px; overflow: hidden; color: var(--ink, #15181b); font-family: \"Overpass\", \"Segoe UI\", system-ui, sans-serif; } .ds-board th { text-align: left; font-size: .85rem; font-weight: 700; color: var(--ink-2, #3f454c); padding: 14px 20px; background: var(--paper-2, #eceee9); border-bottom: 2px solid var(--ink, #15181b); } .ds-board td { padding: 18px 20px; border-top: 1px solid var(--rule, #d3d7d1); font-size: 1.05rem; } .ds-board tbody tr:first-child td { border-top: 0; } .ds-k { font-weight: 800; font-size: 1.15rem; } .ds-status { display: inline-flex; align-items: center; gap: 8px; font-weight: 800; } .ds-status svg { width: 18px; height: 18px; } .ds-good { color: var(--ink, #15181b); } .ds-bad { color: var(--signal-ink, #a3161c); } .ds-susp td { background: #fff6f5; } .ds-rec td { padding: 0 20px 22px; border-top: 0; } .ds-rec pre { margin: 0; padding: 18px 20px; border-radius: 12px; background: var(--ink, #15181b); color: #e8ebe7; font-family: \"Overpass Mono\", ui-monospace, monospace; font-size: .84rem; line-height: 1.6; white-space: pre-wrap; } .ds-p { color: #8fb4ff; } .ds-f { color: #ff8f8a; font-weight: 700; } .ds-d { color: #9aa29c; } .ds-hl { background: rgba(255, 196, 61, .2); border-radius: 3px; } .ds-hl .ds-d { color: #c9cfca; }"
+    },
+    {
+      "name": "Service Notice",
+      "kind": "card",
+      "refersTo": "service-notice",
+      "description": "The pinned notice for a closed interchange; flips to Good service (ink border, ghost Undo) when the fix lands.",
+      "html": "<div class=\"ds-notice\" role=\"status\"><div class=\"ds-state\"><svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"10\" fill=\"currentColor\"/><path d=\"M7 12h10\" stroke=\"#fff\" stroke-width=\"3\" stroke-linecap=\"round\"/></svg>Suspended</div><div class=\"ds-what\">Brain's handler returned <code>holdMs:&nbsp;1800</code>; the contract allows 1500.</div><div class=\"ds-why\">1 spooked agent · seed&nbsp;42</div><button class=\"ds-btn ds-sm\" type=\"button\">Apply brain's fix</button></div> <div class=\"ds-notice ds-ok\" role=\"status\"><div class=\"ds-state\"><svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"10\" fill=\"currentColor\"/><path d=\"M7 12.4l3.2 3.2L17 8.8\" fill=\"none\" stroke=\"#fff\" stroke-width=\"2.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>Good service</div><div class=\"ds-what\">Fixed in lane brain: <code>holdMs:&nbsp;1200</code>. All 4 routes pass.</div><div class=\"ds-why\">same seed 42 · nothing else changed</div><button class=\"ds-btn ds-ghost ds-sm\" type=\"button\">Undo</button></div>",
+      "css": ".ds-btn { display: inline-flex; align-items: center; gap: .55em; padding: .7em 1.15em; border-radius: 999px; border: 2px solid var(--ink, #15181b); background: var(--ink, #15181b); color: var(--paper, #f5f6f3); font-family: \"Overpass\", \"Segoe UI\", system-ui, sans-serif; font-weight: 700; font-size: 1rem; line-height: 1; cursor: pointer; text-decoration: none; transition: background .25s cubic-bezier(.16, 1, .3, 1), color .25s cubic-bezier(.16, 1, .3, 1), border-color .25s cubic-bezier(.16, 1, .3, 1), transform .25s cubic-bezier(.16, 1, .3, 1); } .ds-btn svg { width: 1.05em; height: 1.05em; } .ds-btn:hover { background: var(--brain, #1f4fd1); border-color: var(--brain, #1f4fd1); } .ds-btn:active { transform: translateY(1px); } .ds-btn:focus-visible { outline: 3px solid var(--brain, #1f4fd1); outline-offset: 3px; } .ds-btn.ds-ghost { background: transparent; color: var(--ink, #15181b); } .ds-btn.ds-ghost:hover { background: var(--ink, #15181b); border-color: var(--ink, #15181b); color: var(--paper, #f5f6f3); } .ds-btn.ds-sm { padding: .5em .95em; font-size: .9rem; margin-top: 10px; } .ds-notice { display: inline-block; vertical-align: top; width: 326px; background: #fff; border: 2px solid var(--signal, #d0242b); border-radius: 14px; padding: 14px 16px; box-shadow: 0 14px 30px -18px rgba(21, 24, 27, .5); color: var(--ink, #15181b); font-family: \"Overpass\", \"Segoe UI\", system-ui, sans-serif; } .ds-notice.ds-ok { border-color: var(--ink, #15181b); } .ds-state { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 1.15rem; color: var(--signal-ink, #a3161c); } .ds-ok .ds-state { color: var(--ink, #15181b); } .ds-state svg { width: 20px; height: 20px; } .ds-what { margin: 4px 0 8px; font-size: .95rem; line-height: 1.4; } .ds-what code { font-family: \"Overpass Mono\", ui-monospace, monospace; font-size: .86rem; } .ds-why { font-family: \"Overpass Mono\", ui-monospace, monospace; font-weight: 500; font-size: .8rem; line-height: 1.45; color: var(--ink-2, #3f454c); }"
+    },
+    {
+      "name": "Station Track",
+      "kind": "custom",
+      "refersTo": "station-track",
+      "description": "One row per approach: 19 stations, one per seeded bug, lit where caught, with the tally in words.",
+      "html": "<div class=\"ds-lrow\"><div class=\"ds-who\">Pact<small>consumer + provider</small></div><div class=\"ds-track\" role=\"img\" aria-label=\"Pact: caught 6 of 19\"><span class=\"ds-dot\" style=\"left:0.00%\"></span><span class=\"ds-dot\" style=\"left:5.56%\"></span><span class=\"ds-dot\" style=\"left:11.11%\"></span><span class=\"ds-dot\" style=\"left:16.67%\"></span><span class=\"ds-dot\" style=\"left:22.22%\"></span><span class=\"ds-dot\" style=\"left:27.78%\"></span><span class=\"ds-dot\" style=\"left:33.33%\"></span><span class=\"ds-dot\" style=\"left:38.89%\"></span><span class=\"ds-dot\" style=\"left:44.44%\"></span><span class=\"ds-dot ds-lit\" style=\"left:50.00%\"></span><span class=\"ds-dot ds-lit\" style=\"left:55.56%\"></span><span class=\"ds-dot ds-lit\" style=\"left:61.11%\"></span><span class=\"ds-dot ds-lit\" style=\"left:66.67%\"></span><span class=\"ds-dot ds-lit\" style=\"left:72.22%\"></span><span class=\"ds-dot\" style=\"left:77.78%\"></span><span class=\"ds-dot ds-lit\" style=\"left:83.33%\"></span><span class=\"ds-dot\" style=\"left:88.89%\"></span><span class=\"ds-dot\" style=\"left:94.44%\"></span><span class=\"ds-dot\" style=\"left:100.00%\"></span></div><div class=\"ds-tally\">6 of 19<small>on the interactions you recorded</small></div></div>",
+      "css": ".ds-lrow { display: grid; grid-template-columns: 160px 1fr 170px; align-items: center; gap: 24px; color: var(--ink, #15181b); font-family: \"Overpass\", \"Segoe UI\", system-ui, sans-serif; } .ds-who { font-weight: 800; font-size: 1.2rem; line-height: 1.15; } .ds-who small, .ds-tally small { display: block; font-weight: 500; font-size: .9rem; color: var(--ink-2, #3f454c); } .ds-track { position: relative; height: 34px; margin: 0 10px; } .ds-track::before { content: ''; position: absolute; left: 0; right: 0; top: 50%; height: 6px; margin-top: -3px; border-radius: 3px; background: var(--rule, #d3d7d1); } .ds-dot { position: absolute; top: 50%; width: 14px; height: 14px; margin: -7px 0 0 -7px; border-radius: 50%; background: var(--paper, #f5f6f3); border: 3px solid var(--rule, #d3d7d1); box-sizing: border-box; } .ds-dot.ds-lit { width: 20px; height: 20px; margin: -10px 0 0 -10px; background: #fff; border: 4.5px solid var(--ink, #15181b); } .ds-tally { font-weight: 800; font-size: 1.35rem; font-variant-numeric: tabular-nums; }"
+    },
+    {
+      "name": "Timetable with Terminus",
+      "kind": "custom",
+      "refersTo": "timetable-stop",
+      "description": "Brain's fix run as a 15px cobalt line with ink-ringed stops, mono clock times, and a square terminus bar labelled in words.",
+      "html": "<ol class=\"ds-tt\"><li><time>21:53:33</time><span class=\"ds-stop\"></span><div><h3>Fix PR #3 opens, labelled <code>queue</code></h3><p>Green check, diff inside the lane, no contract edits.</p></div></li><li><time>21:53:55</time><span class=\"ds-stop\"></span><div><h3>The queue re-checks and merges</h3><p>22 seconds after the PR opened.</p><span class=\"ds-term\"><i></i>main · green</span></div></li></ol>",
+      "css": ".ds-tt { list-style: none; margin: 0; padding: 0; position: relative; max-width: 640px; color: var(--ink, #15181b); font-family: \"Overpass\", \"Segoe UI\", system-ui, sans-serif; } .ds-tt::before { content: ''; position: absolute; left: 105px; top: 14px; bottom: 14px; width: 15px; border-radius: 8px; background: var(--brain, #1f4fd1); } .ds-tt li { display: grid; grid-template-columns: 90px 44px 1fr; gap: 16px; align-items: start; padding: 10px 0 22px; } .ds-tt time { font-family: \"Overpass Mono\", ui-monospace, monospace; font-weight: 600; font-size: 1rem; line-height: 1.9; color: var(--ink-2, #3f454c); text-align: right; font-variant-numeric: tabular-nums; } .ds-stop { width: 30px; height: 30px; margin: 2px 0 0 6px; border-radius: 50%; background: #fff; border: 6px solid var(--ink, #15181b); position: relative; z-index: 1; box-sizing: border-box; } .ds-tt h3 { margin: 0; font-size: 1.25rem; font-weight: 800; line-height: 1.3; } .ds-tt p { margin: 4px 0 0; color: var(--ink-2, #3f454c); } .ds-tt code { font-family: \"Overpass Mono\", ui-monospace, monospace; font-size: .9em; } .ds-term { display: inline-flex; align-items: center; gap: 10px; margin-top: 10px; font-family: \"Overpass Mono\", ui-monospace, monospace; font-weight: 700; font-size: .95rem; line-height: 1; } .ds-term i { display: inline-block; width: 34px; height: 8px; border-radius: 2px; background: var(--ink, #15181b); }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Signalled Network Map",
+    "overview": "Lanes is drawn as the network map of one hackathon repo. Each lane is a line in its own committed colour. Each contract is an interchange where lines meet. Lanes itself is the signalling: when a contract breaks, its interchange closes with a red bar and a service notice that gives the real reason. Everything else on the sheet is white map paper and heavy ink, set in one typeface family. Rigour comes from the map's discipline: fixed angles, round caps, and words for every status.\n\nDensity is that of a printed transit sheet. A few heavy elements sit on a lot of quiet paper, outlined panels lie flat on it, and only the service notice is pinned on top. Motion is the map's own: the lines draw in once along their paths, the notice flips when the fix lands, and nothing else moves unless someone asks. The world refuses the category default of a dark terminal hero over a grid of feature cards. Terminal output appears only as a record inside a board row or a step, never as a surface in its own right.\n\nThe same tokens drive the public site (`site/index.html`, the authority) and the demo video's cards. The live `lanes graph` tool page (`packages/core/web/graph.html`) is a separate operational surface with its own system and is outside this world.",
+    "keyCharacteristics": [
+      "Map paper and ink, with three line colours at full saturation, one per lane.",
+      "Lines are 15px thick, round-capped, and run at 0°, 45° or 90° only.",
+      "Interchanges are white capsules with heavy ink outlines. A closed one takes a signal-red ring and a diagonal bar.",
+      "Status is a word plus a glyph (\"Good service\", \"Suspended\"), never colour alone.",
+      "Overpass carries everything a person reads. Overpass Mono is for code, commands and machine output.",
+      "Flat paper: 2px ink outlines and 1px rules separate things. The pinned notice is the one shadow."
+    ],
+    "rules": [
+      {
+        "name": "The Line Colour Rule",
+        "body": "Orange, cobalt and green mean world, brain and crowd. Cobalt's one other job is interaction (focus ring, primary hover, selection, caret). Line colours are never used for headings, emphasis, links at rest, backgrounds, or to highlight a winner.",
+        "section": "colors"
+      },
+      {
+        "name": "The Good Service Is Ink Rule",
+        "body": "Green is crowd's line, so \"good\" is never green. Good service, a reopened interchange and `main · green` are all drawn in ink.",
+        "section": "colors"
+      },
+      {
+        "name": "The Signal Rule",
+        "body": "Signal red appears only where a contract is suspended: the ring, the bar, the notice border and the suspended words. A red stroke anywhere else means something is closed.",
+        "section": "colors"
+      },
+      {
+        "name": "The Mono Is Machine Rule",
+        "body": "Overpass Mono is only for what a machine wrote or will read: code, commands, check output, and the facts lifted from it (seed, counterexample, branch name, run timestamps). Prose, headings, labels and tallies are always Overpass.",
+        "section": "typography"
+      },
+      {
+        "name": "The Sentence Case Rule",
+        "body": "Nothing is uppercased or letter-spaced out. Headings start their section directly, with no kicker or eyebrow above them. Labels are short words in sentence case, like column heads on a timetable.",
+        "section": "typography"
+      },
+      {
+        "name": "The Pinned Notice Rule",
+        "body": "Only the service notice casts a shadow. Every other panel stays flat on the paper, outlined in ink.",
+        "section": "elevation"
+      },
+      {
+        "name": "The 45° Rule",
+        "body": "Map lines run horizontal, vertical or at 45°, with round caps and round joins. A line that bends at any other angle is not on this map.",
+        "section": "shapes"
+      }
+    ],
+    "dos": [
+      "**Do** draw every lane as a 15px round-capped line at 0°, 45° or 90° in its one committed colour: world #ec6a1c, brain #1f4fd1, crowd #12945a.",
+      "**Do** mark a contract as a white 34×56px interchange capsule with a 6px ink outline spanning the lines it joins. Close it with a signal-red ring and a 6px diagonal signal bar, and reopen it by returning both to ink.",
+      "**Do** say every status in words with a glyph: \"Good service\" with the filled check disc in ink, \"Suspended\" with the filled bar disc in Signal Ink. A new state arrives as a new word and glyph, not a new colour.",
+      "**Do** set line badges as circles with one capital letter: ink on orange, white on cobalt, and white on Deep Line Green (#0b6b40), never on the line green.",
+      "**Do** keep panels flat on map paper with 2px ink outlines and 6px corners. Separate their parts with 1px Map Rule hairlines, and tear the ticket with a 2px dashed rule.",
+      "**Do** set the numbers people read (tallies, \"43 ms\", \"19 of 19\") in Overpass 800 with tabular figures.",
+      "**Do** keep cobalt as the single interaction colour: the 3px focus ring at a 3px offset, the primary button's hover fill, text selection and the caret.",
+      "**Do** let the lines draw in once and let the notice flip on a fix, and keep everything else still. Under reduced motion, show the settled map and swap states plainly."
+    ],
+    "donts": [
+      "**Don't** use orange, cobalt or green for anything that isn't a lane, beyond cobalt's interaction states. No coloured headings, emphasis, links at rest, backgrounds or winner highlights.",
+      "**Don't** show \"good\" in green. Green is crowd's line, so good service, a reopened interchange and `main · green` are ink.",
+      "**Don't** use signal red anywhere but a suspended interchange and the record of its failing contract.",
+      "**Don't** carry status by colour alone. Every state is a word, and a closed interchange also carries its bar.",
+      "**Don't** set prose, headings, labels or tallies in Overpass Mono. Mono is for code, commands, check output and the machine facts lifted from it.",
+      "**Don't** give panels shadows. The pinned service notice is the only lifted object.",
+      "**Don't** uppercase or letter-space labels, and don't put kickers or eyebrows above headings.",
+      "**Don't** give a line or route square ends or bend it off 45°. Only the terminus bar is square-ended."
+    ]
+  }
+}
