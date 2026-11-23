@@ -159,6 +159,32 @@ describe("autonomy loop (M2 acceptance)", () => {
     expect(existsSync(join(main, "apps/world/src/notes.ts")) && existsSync(join(main, "apps/crowd/src/notes.ts"))).toBe(true);
   });
 
+  it("the PR author stands in for lanes they own; other owners still have to approve", () => {
+    const work = exampleRepo("authors", { fixBug: true });
+    const gh = fakeGitHub(work);
+    lanes(work, ["init", "--labels"], gh.env);
+    expect(lanes(work, ["lock"], gh.env).code).toBe(0);
+    git(work, "add", "-A"); git(work, "commit", "-qm", "lock"); git(work, "push", "-q", "origin", "main");
+    // world and crowd are owned by @you, brain by @friend
+    const open = (branch: string, files: Record<string, string>) => {
+      git(work, "switch", "-q", "-c", branch, "main");
+      for (const [f, t] of Object.entries(files)) writeFileSync(join(work, f), t);
+      git(work, "add", "-A"); git(work, "commit", "-qm", branch); git(work, "push", "-q", "origin", branch);
+      git(work, "switch", "-q", "main");
+      const s = gh.read(); const n = s.next++;
+      s.issues[n] = { number: n, title: branch, body: "", state: "open", labels: ["queue", "lane:world"], user: "you", created_at: new Date(Date.now() + n).toISOString(), updated_at: new Date().toISOString(), pr: { head: branch } };
+      writeFileSync(gh.state, JSON.stringify(s));
+      return n;
+    };
+    const mine = open("you-world-crowd", { "apps/world/src/a.ts": "export const a = 1;\n", "apps/crowd/src/b.ts": "export const b = 1;\n" });
+    const theirs = open("you-into-brain", { "apps/world/src/c.ts": "export const c = 1;\n", "apps/brain/src/d.ts": "export const d = 1;\n" });
+    const q = lanes(ciClone(gh.remote), ["queue"], gh.env);
+    const st = gh.read();
+    expect(st.issues[mine].merged_at, q.stdout).toBeTruthy();
+    expect(st.issues[theirs].merged_at).toBeFalsy();
+    expect(JSON.stringify(st.comments[theirs])).toContain('touches lane \\"brain\\"');
+  });
+
   it("lanes invite adds a collaborator, sets the lane owner and prints the teammate prompt", () => {
     const work = exampleRepo("invite", { fixBug: true });
     const gh = fakeGitHub(work);

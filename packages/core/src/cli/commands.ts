@@ -1,4 +1,4 @@
-import { appendFileSync, chmodSync, existsSync, readFileSync, writeFileSync } from "node:fs";
+import { appendFileSync, chmodSync, existsSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { createRequire } from "node:module";
 import { basename, join, resolve } from "node:path";
 import { createInterface } from "node:readline/promises";
@@ -9,7 +9,7 @@ import { CONFIG_FILE, LOCK_FILE, findRoot, readJson, writeJson, writeText } from
 import { expandBraces } from "../util/glob.ts";
 import { currentBranch, git, run } from "../util/git.ts";
 import { satisfies } from "../util/semver.ts";
-import { addOverrides, cliCommand, readBinding, readOverrides, selfBin, VERSION_STR, writeBinding } from "../util/local.ts";
+import { addOverrides, bindingFile, cliCommand, readBinding, readOverrides, selfBin, VERSION_STR, writeBinding } from "../util/local.ts";
 import * as T from "./templates.ts";
 
 const need = (cwd: string) => {
@@ -132,6 +132,14 @@ export function writeCodeowners(root: string, cfg: LanesConfig) {
     if (o) lines.push(`/${cd}/${c}.ts ${o}`, `/${fd}/${c}/ ${o}`);
   }
   writeText(join(root, ".github", "CODEOWNERS"), lines.join("\n") + "\n");
+}
+
+export function leave(cwd: string) {
+  const root = need(cwd);
+  const b = readBinding(root);
+  if (!b) return "not bound to a lane";
+  rmSync(bindingFile(root), { force: true });
+  return `left lane "${b.lane}"; edits are no longer limited to one lane (the queue still checks ownership)`;
 }
 
 export function join_(cwd: string, lane: string | undefined) {

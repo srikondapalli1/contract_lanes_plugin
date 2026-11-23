@@ -160,6 +160,7 @@ Blocked: apps/world/src/apply.ts belongs to lane "world"; you are in "brain". As
 |---|---|
 | `lanes init [--labels] [--lanes a,b,c] [--laptops n --sessions n --hours n]` | Skeleton, example contract, hooks, workflow, CODEOWNERS, AGENTS.md rules; `--labels` sets up GitHub |
 | `lanes join <lane>` | Bind this worktree to a lane (`.lanes/local.json`) and install git hooks |
+| `lanes leave` | Unbind this worktree, e.g. for the lead editing contracts across lanes |
 | `lanes check [--lane l] [--fast] [--ci] [--json] [--seed n\|random] [--file-blockers] [--pr n]` | Config → ownership → schemas → fixtures → generated + mutations → handler properties → consumer tests → lock → edges. Exit 0/1/2 |
 | `lanes lock [--allow-open n]` | Write `contracts.lock`; ends setup phase |
 | `lanes msg <lane> --type request\|notice\|blocker [--contract C] "<text>"` | Open or update (dedup) a GitHub issue to a lane |

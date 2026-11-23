@@ -7,6 +7,7 @@ const HELP = `lanes ${VERSION_STR}: contract-first parallel development for codi
 
   lanes init [--laptops n --sessions n --hours n] [--lanes a,b,c] [--labels] [--yes]
   lanes join <lane>                     bind this worktree to a lane
+  lanes leave                           unbind it (e.g. the lead editing contracts)
   lanes check [--lane l] [--fast] [--ci] [--json] [--seed n|random] [--file-blockers] [--pr n]
   lanes lock [--allow-open n]           lock contracts (ends setup phase)
   lanes msg <lane> --type request|notice|blocker [--contract C] "<text>"
@@ -66,6 +67,7 @@ async function main(argv: string[]): Promise<number> {
         return 0;
       }
       case "join": print(C.join_(cwd, rest[0])); return 0;
+      case "leave": print(C.leave(cwd)); return 0;
       case "check": {
         const { runCheck, formatReport } = await import("../check/index.ts");
         const seed = a.seed === "random" ? undefined : num(a.seed);

@@ -71,7 +71,9 @@ function processPr(root: string, repo: string, pr: any) {
   if (cfg && report && map) {
     const latest = new Map<string, string>();
     for (const r of list(`/repos/${repo}/pulls/${n}/reviews`)) latest.set(r.user?.login, r.state);
-    const approved = (h: string) => latest.get(handle(h)) === "APPROVED";
+    // GitHub doesn't let an author approve their own PR, so the author stands in for any role they hold themselves
+    const author = pr.user?.login;
+    const approved = (h: string) => handle(h) === author || latest.get(handle(h)) === "APPROVED";
     for (const l of counts.keys()) if (l !== prLane && !approved(cfg.lanes[l].owner))
       reasons.push(`touches lane "${l}" (${files.filter((f) => laneOf(map, f) === l).join(", ")}) without an approving review from ${cfg.lanes[l].owner}`);
     if (files.includes("contracts.lock") && !head.startsWith("contract/")) reasons.push("contracts.lock changed outside a contract/* branch");
