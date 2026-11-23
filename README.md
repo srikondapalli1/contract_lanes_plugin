@@ -36,7 +36,7 @@ repo you want to build in:
 ```text
 Set up Lanes (https://github.com/srikondapalli1/contract_lanes_plugin) in this repo so several coding agents can build
 it in parallel without breaking each other.
-1. Run `npx --yes github:srikondapalli1/contract_lanes_plugin init --yes`. If this is a GitHub repo and `gh auth status`
+1. Run `npx --yes contract-lanes init --yes`. If this is a GitHub repo and `gh auth status`
    works, also run `npx lanes init --labels`.
 2. Install dependencies (npm install, or the repo's package manager), then run `npx lanes check`. It must exit 0.
 3. Ask me in one message what we're building, who is on the team (GitHub handles) and how many agents will run at
@@ -95,16 +95,15 @@ In Claude Code:
 ```
 Or from a shell, in an empty or existing repo:
 ```bash
-npx --yes github:srikondapalli1/contract_lanes_plugin init     # writes lanes.yaml, an example contract, hooks, workflow
+npx --yes contract-lanes init                                  # writes lanes.yaml, an example contract, hooks, workflow
 npm install                                                    # contract-lanes + vitest + zod (devDependencies)
 npx lanes check                                                # green on the first run
 git add -A && git commit -m "lanes init"
 npx lanes join app                                             # one lane per session/worktree
 npx lanes lock                                                 # when interfaces settle: main becomes queue-only
 ```
-> `contract-lanes` isn't on npm yet, so `init` points the devDependency at this GitHub repo (the package is the repo
-> root, and its built `plugin/bin` is committed). Override with `--pkg <spec>` or `LANES_PKG`. Verified over the
-> network: `npx github:srikondapalli1/contract_lanes_plugin init` → `npm install` → `lanes check` green.
+> `init` adds `contract-lanes@^<version>` from npm as a devDependency, or this GitHub repo if npm can't be reached
+> (the package is the repo root, and its built `plugin/bin` is committed). Override with `--pkg <spec>` or `LANES_PKG`.
 
 For a GitHub repo, `lanes init --labels` (rerunnable) creates the labels and the pinned "Lanes control" issue.
 Then protect `main`: require a PR plus the `lanes/check` status. Don't require code-owner review: the queue

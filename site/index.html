@@ -369,7 +369,7 @@ if (!matchMedia("(prefers-reduced-motion: reduce)").matches && !navigator.webdri
 
 const STEPS = [
   "Set up Lanes (https://github.com/srikondapalli1/contract_lanes_plugin) in this repo so several coding agents can build it in parallel without breaking each other.",
-  "1. Run `npx --yes github:srikondapalli1/contract_lanes_plugin init --yes`. If this is a GitHub repo and `gh auth status` works, also run `npx lanes init --labels`.",
+  "1. Run `npx --yes contract-lanes init --yes`. If this is a GitHub repo and `gh auth status` works, also run `npx lanes init --labels`.",
   "2. Install dependencies (npm install, or the repo's package manager), then run `npx lanes check`. It must exit 0.",
   "3. Ask me in one message what we're building, who is on the team (GitHub handles) and how many agents will run at once. Then propose 2-6 lanes (folders each person or agent owns) and the contracts between them, and wait for my OK.",
   "4. Write lanes.yaml, one zod contract per interface in contracts/ with fixtures (at least 1 valid and 1 invalid each) and a consumer test for each consumer. Remove the Example contract if we don't need it. Re-run `npx lanes check` until it's green, then commit and push.",
