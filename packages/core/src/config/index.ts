@@ -95,7 +95,11 @@ export function buildOwnership(root: string, cfg: LanesConfig): OwnershipMap {
   for (const [c, def] of Object.entries(cfg.contracts)) lanes[def.producer]?.globs.push(`${cd}/${c}.ts`, `${fd}/${c}/**`);
   const lock = readJson(join(root, LOCK_FILE));
   const lockedNames = Object.keys(lock?.contracts ?? {});
-  const locked = lock ? [LOCK_FILE, `${cd}/_common.ts`, ...lockedNames.flatMap((c) => [`${cd}/${c}.ts`, `${fd}/${c}/**`, `**/__contracts__/${c}.test.*`])] : [];
+  // consumer tests are locked per lane: only lanes whose tests the lock recorded. A lane adding the first tests for an
+  // edge left open at lock time isn't blocked (the queue relocks them).
+  const lockedTests = (c: string) => Object.keys(lock.contracts[c]?.consumerTestsHash ?? {})
+    .flatMap((l) => (cfg.lanes[l]?.paths ?? []).flatMap(expandBraces).map((g) => `${g.replace(/\/?\*\*$/, "")}/**/__contracts__/${c}.test.*`));
+  const locked = lock ? [LOCK_FILE, `${cd}/_common.ts`, ...lockedNames.flatMap((c) => [`${cd}/${c}.ts`, `${fd}/${c}/**`, ...lockedTests(c)])] : [];
   return { v: 1, generatedAt: Date.now(), configMtime: mtime(join(root, CONFIG_FILE)), lockMtime: mtime(join(root, LOCK_FILE)), lockPresent: !!lock, lanes, locked };
 }
 

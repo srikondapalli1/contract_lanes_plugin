@@ -202,6 +202,18 @@ describe("autonomy loop (M2 acceptance)", () => {
     writeFileSync(join(work, "apps/crowd/src/__contracts__/TickRequest.test.ts"), test);
     const local = lanes(work, ["check", "--json"], gh.env);
     expect(local.code, local.stdout).toBe(0); // filling an open edge is not a locked change
+    // the edit guard and the pre-commit backstop agree: crowd may write its first TickRequest test, brain's is locked
+    const guard = (lane: string, f: string) => {
+      lanes(work, ["join", lane], gh.env);
+      return lanes(work, ["hook", "guard"], gh.env, JSON.stringify({ cwd: work, tool_name: "Write", tool_input: { file_path: join(work, f) } }));
+    };
+    expect(guard("crowd", "apps/crowd/src/__contracts__/TickRequest.test.ts").code).toBe(0);
+    const locked = guard("brain", "apps/brain/src/__contracts__/TickRequest.test.ts");
+    expect(locked.code).toBe(2);
+    expect(locked.stderr).toContain("locked by contracts.lock");
+    lanes(work, ["join", "crowd"], gh.env);
+    git(work, "add", "-A");
+    expect(lanes(work, ["guard", "--staged"], gh.env).code).toBe(0);
     git(work, "add", "-A"); git(work, "commit", "-qm", "crowd consumes TickRequest"); git(work, "push", "-q", "origin", "crowd-tickrequest-test");
     git(work, "switch", "-q", "main");
     const s = gh.read(); const n = s.next++;
