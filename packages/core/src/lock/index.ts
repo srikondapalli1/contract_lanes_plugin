@@ -52,8 +52,10 @@ export function compareLock(root: string, cfg: LanesConfig, lock: LockFile | und
     else {
       if (old.schemaHash !== now.schemaHash) what.push("schema");
       if (old.fixturesHash !== now.fixturesHash) what.push("fixtures");
+      // a consumer lane adding the first tests for an edge left open at lock time fills it in; that isn't a change
+      // (the queue relocks so they're locked from then on). Changing or deleting locked tests still is.
       for (const l of new Set([...Object.keys(old.consumerTestsHash), ...Object.keys(now.consumerTestsHash)]))
-        if (old.consumerTestsHash[l] !== now.consumerTestsHash[l]) what.push(`consumer tests (${l})`);
+        if (old.consumerTestsHash[l] !== undefined && old.consumerTestsHash[l] !== now.consumerTestsHash[l]) what.push(`consumer tests (${l})`);
     }
     if (!what.length) continue;
     changed.push(name);
@@ -61,10 +63,11 @@ export function compareLock(root: string, cfg: LanesConfig, lock: LockFile | und
     else {
       const producer = cfg.contracts[name]?.producer ?? "approvers";
       const testLane = what.find((w) => w.startsWith("consumer tests"))?.match(/\((.+)\)/)?.[1];
+      const owner = what.every((w) => w.startsWith("consumer")) && testLane ? testLane : producer;
       failures.push({
-        check: "lock", contract: name, owner: what.every((w) => w.startsWith("consumer")) && testLane ? testLane : producer,
+        check: "lock", contract: name, owner,
         message: `${name} changed since ${LOCK_FILE} (${what.join(", ")}). Locked contracts change only on a contract branch: git switch -c contract/${name}-<slug>`,
-        repro: `${repro} check --lane ${producer}`,
+        repro: `${repro} check --lane ${owner}`,
       });
     }
   }

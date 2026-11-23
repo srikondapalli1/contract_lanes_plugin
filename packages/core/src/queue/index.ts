@@ -1,4 +1,6 @@
 // `lanes queue`: stateless merge queue. Labels are the queue; each run processes ALL queued PRs (SPEC §12).
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 import type { CheckReport } from "../contracts/CheckReport.ts";
 import type { IssueMeta } from "../contracts/IssueMeta.ts";
 import { buildOwnership, laneOf, loadConfig, type LanesConfig } from "../config/index.ts";
@@ -81,12 +83,18 @@ function processPr(root: string, repo: string, pr: any) {
   }
   if (reasons.length) return red(root, repo, cfg, pr, reasons, report, comment);
 
-  // green: relock / codeowners inside the PR so main stays consistent, then merge exactly this SHA
-  if (report!.lock.classification) {
+  // green: relock / codeowners inside the PR so main stays consistent, then merge exactly this SHA.
+  // Relock when what the lock records changed: a contract change, or the first consumer tests for an open edge.
+  const lockPath = join(root, "contracts.lock");
+  const recorded = () => { try { return JSON.stringify(JSON.parse(readFileSync(lockPath, "utf8")).contracts); } catch { return undefined; } };
+  const before = recorded();
+  if (before !== undefined && (report!.lock.classification || files.some((f) => f.includes("__contracts__/")))) {
     const l = selfExec(["lock", "--allow-open", "999"], root);
-    if (l.code !== 0) return red(root, repo, cfg, pr, [`relock failed: ${l.stdout.trim().split("\n").pop()}`], report, comment);
-    git(root, "add", "contracts.lock");
-    git(root, "commit", "-q", "-m", `lanes: relock (${report!.lock.classification})`);
+    if (l.code !== 0 && report!.lock.classification) return red(root, repo, cfg, pr, [`relock failed: ${l.stdout.trim().split("\n").pop()}`], report, comment);
+    if (l.code === 0 && recorded() !== before) {
+      git(root, "add", "contracts.lock");
+      git(root, "commit", "-q", "-m", `lanes: relock (${report!.lock.classification ?? "new consumer tests"})`);
+    } else git(root, "checkout", "-q", "--", "contracts.lock");
   }
   if (files.includes("lanes.yaml")) {
     selfExec(["codeowners"], root);

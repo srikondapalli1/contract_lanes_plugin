@@ -86,7 +86,7 @@ export async function runCheck(opts: CheckOpts): Promise<CheckRun> {
       valid: listDir(root, `${fd}/${name}/valid`).filter((f) => f.endsWith(".json")),
       invalid: listDir(root, `${fd}/${name}/invalid`).filter((f) => f.endsWith(".json")),
     })),
-    handlers: Object.entries(cfg.handlers ?? {}).filter(([, h]) => inScope.includes(h.output) || h.lane === lane).map(([name, h]) => {
+    handlers: Object.entries(cfg.handlers ?? {}).filter(([, h]) => h.lane === lane || (inScope.includes(h.output) && inScope.includes(h.input))).map(([name, h]) => {
       const [module, exportName] = h.module.split("#");
       return { name, lane: h.lane, module, exportName, input: h.input, output: h.output };
     }),

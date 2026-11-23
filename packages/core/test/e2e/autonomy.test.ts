@@ -1,6 +1,6 @@
 // BUILD.md e2e #5 against a fake GitHub (fake gh + local bare remote): bug pushed -> blocker filed ->
 // watcher exits -> fixer -> fix --submit -> queue merges -> edge green. No human action.
-import { readFileSync, writeFileSync, existsSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 import { ciClone, exampleRepo, fakeGitHub, git, lanes, setHold } from "../helpers.ts";
@@ -185,6 +185,36 @@ describe("autonomy loop (M2 acceptance)", () => {
     expect(q.stdout + q.stderr).toContain("not mergeable yet (attempt 2/5)");
     expect(st.issues[theirs].merged_at).toBeFalsy();
     expect(JSON.stringify(st.comments[theirs])).toContain('touches lane \\"brain\\"');
+  });
+
+  it("a lane adds the first consumer test for an edge left open at lock time; the queue merges and relocks it", () => {
+    const work = exampleRepo("open-edge", { fixBug: true });
+    const gh = fakeGitHub(work);
+    lanes(work, ["init", "--labels"], gh.env);
+    // crowd becomes a consumer of TickRequest with no test yet: lock with that edge open
+    writeFileSync(join(work, "lanes.yaml"), readFileSync(join(work, "lanes.yaml"), "utf8").replace(/(TickRequest:\s*\{[^}]*consumers: \[)brain\]/, "$1brain, crowd]"));
+    expect(lanes(work, ["lock"], gh.env).code).toBe(1);
+    expect(lanes(work, ["lock", "--allow-open", "1"], gh.env).code).toBe(0);
+    git(work, "add", "-A"); git(work, "commit", "-qm", "lock"); git(work, "push", "-q", "origin", "main");
+    git(work, "switch", "-q", "-c", "crowd-tickrequest-test", "main");
+    mkdirSync(join(work, "apps/crowd/src/__contracts__"), { recursive: true });
+    const test = `import { describe, expect, it } from "vitest";\nimport { fixturesOf } from "contract-lanes/test";\n\nconst { valid } = fixturesOf<{ agents: unknown[] }>("TickRequest");\n\ndescribe("crowd consumes TickRequest", () => {\n  it.each(valid)("counts agents in fixture %#", (r) => expect(r.agents.length).toBeGreaterThanOrEqual(0));\n});\n`;
+    writeFileSync(join(work, "apps/crowd/src/__contracts__/TickRequest.test.ts"), test);
+    const local = lanes(work, ["check", "--json"], gh.env);
+    expect(local.code, local.stdout).toBe(0); // filling an open edge is not a locked change
+    git(work, "add", "-A"); git(work, "commit", "-qm", "crowd consumes TickRequest"); git(work, "push", "-q", "origin", "crowd-tickrequest-test");
+    git(work, "switch", "-q", "main");
+    const s = gh.read(); const n = s.next++;
+    s.issues[n] = { number: n, title: "crowd consumes TickRequest", body: "", state: "open", labels: ["queue", "lane:crowd"], user: "agent", created_at: new Date().toISOString(), updated_at: new Date().toISOString(), pr: { head: "crowd-tickrequest-test" } };
+    writeFileSync(gh.state, JSON.stringify(s));
+    const q = lanes(ciClone(gh.remote), ["queue"], gh.env);
+    expect(gh.read().issues[n].merged_at, q.stdout).toBeTruthy();
+    const main = ciClone(gh.remote);
+    const lock = JSON.parse(readFileSync(join(main, "contracts.lock"), "utf8"));
+    expect(Object.keys(lock.contracts.TickRequest.consumerTestsHash)).toContain("crowd");
+    // from now on, changing that test is a locked change again
+    writeFileSync(join(main, "apps/crowd/src/__contracts__/TickRequest.test.ts"), test + "\n// weaker\n");
+    expect(lanes(main, ["check", "--json"], gh.env).stdout).toContain("consumer tests (crowd)");
   });
 
   it("lanes invite adds a collaborator, sets the lane owner and prints the teammate prompt", () => {

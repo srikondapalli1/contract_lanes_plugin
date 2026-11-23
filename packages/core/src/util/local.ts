@@ -43,7 +43,7 @@ export function selfBin(): string | undefined {
   } catch { return undefined; }
 }
 
-export const VERSION_STR = "0.1.5";
+export const VERSION_STR = "0.1.6";
 
 /** Run this same CLI as a subprocess (used by queue/fix gates). */
 export function selfExec(args: string[], cwd: string, env: NodeJS.ProcessEnv = {}): Run {
