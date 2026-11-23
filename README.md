@@ -88,6 +88,10 @@ session per lane to be running, because Lanes itself never calls a model. If non
 issue, and the next session in that lane sees it at startup. This loop ran end to end against real GitHub and
 GitHub Actions, with no human steps (see "Verified here").
 
+**Merge through the queue, not the merge button.** The button skips the queue's rebase, re-check and relock. If the
+PR changed contracts, `main` then fails the lock check until a lead opens a `contract/*` branch, runs
+`npx lanes lock --allow-open <n>` and queues it.
+
 ## Quickstart (zero to green in under a minute)
 
 In Claude Code:
@@ -178,7 +182,7 @@ Blocked: apps/world/src/apply.ts belongs to lane "world"; you are in "brain". As
 
 ## Verified here
 
-Everything below runs in `pnpm test` (116 tests) or was run by hand in this environment:
+Everything below runs in `pnpm test` (118 tests) or was run by hand in this environment:
 
 | What (BUILD.md / SPEC §21) | Result |
 |---|---|
@@ -191,6 +195,7 @@ Everything below runs in `pnpm test` (116 tests) or was run by hand in this envi
 | Two PRs that pass alone but conflict together | first merges, second gets `queue-failed` |
 | Two compatible PRs | both merge in order; the second is rebased, re-checked, force-pushed with lease and gets `lanes/check` first |
 | **Real GitHub** ([sandbox repo](https://github.com/srikondapalli1/srikondapalli1-lanes-sandbox)): labels + control issue → lock → bug lands → nightly-style check files blocker #2 → watcher → `fix 2` → reproduce, fix → `fix --submit` opens PR #3 → the **Actions queue job** re-checks and merges it (`github-actions[bot]`) → issue closed, PR comment says merged, `main` green | pass, no human action. It also surfaced 3 bugs, now fixed |
+| **Real GitHub, five lanes** (same sandbox, 0.1.3 → 0.1.7): lead adds lanes `score` and `ui` and two contracts; four lane agents in separate worktrees open PRs at once; a property test catches crowd's haunt drifting off the grid (blocker filed, fixed, `lanes.yaml` conflict, rebase, merged); the guard and git hook block ui editing score's code; ui's `lanes msg` request → score's watcher → optional field on a `contract/` branch (MINOR, relocked, request closed, ui notified); a breaking rename (MAJOR) is refused because ui's consumer tests fail | pass. Found 6 bugs, fixed in 0.1.4–0.1.8: authors couldn't stand in for their own approval; no `lanes leave`; the queue merged before GitHub had computed mergeability (405, hit on every merge); first consumer tests for edges left open at lock were refused by `check` and by the guard; the queue didn't retry a rebased PR until the next schedule tick |
 | vitest 3.2.7 / 4.1.12 / 5.1.1 | same results |
 | `claude plugin validate` (plugin + marketplace) | passed |
 | Lanes checks itself (C1–C10 contracts + a `graphFromReport` handler property test) | 12/12 edges green |
