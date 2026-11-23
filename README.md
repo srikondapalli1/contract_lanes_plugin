@@ -233,13 +233,15 @@ C1–C10 need a `contract/*` branch.
 
 ## Publishing to npm
 
-`.github/workflows/publish.yml` publishes `contract-lanes` with provenance. It re-runs the bundle check, typecheck
-and tests first, and does nothing if that version is already on npm. One-time setup:
-1. On npmjs.com: **Access Tokens → Generate New Token → Granular**, with **Read and write** on packages, scoped to all
-   packages (the name doesn't exist until the first publish). If your account enforces 2FA for writes, enable "bypass 2FA" for the token.
-2. In this repo: **Settings → Secrets and variables → Actions → New repository secret**, named `NPM_TOKEN`.
-3. **Actions → publish → Run workflow** on `main`, or publish a GitHub release. Bump `version` in `package.json` and
-   `plugin/.claude-plugin/plugin.json` for later releases.
+`.github/workflows/publish.yml` publishes `contract-lanes` with provenance through npm trusted publishing, so no npm
+token is stored anywhere. It re-runs the bundle check, typecheck and tests first, and does nothing if that version is
+already on npm. To release: bump `version` in `package.json` and `plugin/.claude-plugin/plugin.json`, then
+**Actions → publish → Run workflow** on `main` (or publish a GitHub release).
+
+One-time setup: npm only lets you add a trusted publisher to a package that already exists, so the
+first version is published by hand (`npm login`, then `npm publish --access public`, which asks for the 2FA code).
+Then on npmjs.com: **contract-lanes → Settings → Trusted Publisher → GitHub Actions**, with owner `srikondapalli1`,
+repository `contract_lanes_plugin` and workflow `publish.yml`.
 
 Once the package exists, `lanes init` writes `contract-lanes@^version` instead of the GitHub fallback.
 

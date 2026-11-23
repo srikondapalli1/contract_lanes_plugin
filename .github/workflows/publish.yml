@@ -1,6 +1,7 @@
-# Publishes contract-lanes to npm. Needs the repo secret NPM_TOKEN (an npm granular access token with publish rights).
-# Run it from Actions → publish → Run workflow, or by publishing a GitHub release. Re-running for a version that is
-# already on npm is a no-op.
+# Publishes contract-lanes to npm through npm trusted publishing (GitHub OIDC): no token or secret is stored.
+# One-time setup on npmjs.com: contract-lanes → Settings → Trusted Publisher → GitHub Actions, repository
+# srikondapalli1/contract_lanes_plugin, workflow publish.yml. Run it from Actions → publish → Run workflow, or by
+# publishing a GitHub release. Re-running for a version that is already on npm is a no-op.
 name: publish
 on:
   release:
@@ -8,7 +9,7 @@ on:
   workflow_dispatch:
 permissions:
   contents: read
-  id-token: write   # npm provenance
+  id-token: write   # trusted publishing and provenance
 jobs:
   publish:
     runs-on: ubuntu-latest
@@ -17,6 +18,8 @@ jobs:
       - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
         with: { node-version: 22, cache: pnpm, registry-url: "https://registry.npmjs.org" }
+      - name: npm 11.5.1 or newer (needed for trusted publishing)
+        run: npm install -g npm@^11.5.1 && npm --version
       - run: git config --global user.name ci && git config --global user.email ci@example.com
       - run: pnpm install --frozen-lockfile
       - name: bundle is up to date
@@ -27,5 +30,3 @@ jobs:
           V=$(node -p "require('./package.json').version")
           if npm view "contract-lanes@$V" version >/dev/null 2>&1; then echo "contract-lanes@$V already published"; exit 0; fi
           npm publish --provenance --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
