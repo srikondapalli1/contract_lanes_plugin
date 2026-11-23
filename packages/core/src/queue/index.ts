@@ -97,11 +97,27 @@ function processPr(root: string, repo: string, pr: any) {
   if (sha !== pr.head.sha) gitOk(root, "push", "-q", `--force-with-lease=${head}:${pr.head.sha}`, "origin", `HEAD:refs/heads/${head}`);
   setStatus(repo, sha, true, "queue: green on latest main");
   try {
-    api("PUT", `/repos/${repo}/pulls/${n}/merge`, { merge_method: "squash", sha, commit_title: `${pr.title} (#${n})` });
+    mergeWhenReady(repo, n, sha, `${pr.title} (#${n})`);
   } catch (e) { return red(root, repo, cfg, pr, [`merge refused by GitHub: ${(e as Error).message}`], report, comment); }
   log(`  merged #${n}`);
   comment("merged", report!);
   afterMerge(root, repo, pr, report!, files);
+}
+
+const pause = (ms: number) => Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, ms);
+
+/** GitHub works out mergeability in the background after a push, and a merge sent before then gets a 405. */
+function mergeWhenReady(repo: string, n: number, sha: string, title: string) {
+  const delay = Number(process.env.LANES_MERGE_RETRY_MS ?? 3000);
+  for (let attempt = 1; ; attempt++) {
+    try { return api("PUT", `/repos/${repo}/pulls/${n}/merge`, { merge_method: "squash", sha, commit_title: title }); }
+    catch (e) {
+      // only 405 can mean "not computed yet"; 409 (head moved) and everything else are real refusals
+      if (attempt >= 5 || !/\b405\b/.test((e as Error).message)) throw e;
+      log(`  #${n} not mergeable yet (attempt ${attempt}/5), retrying in ${(delay * attempt) / 1000}s`);
+      pause(delay * attempt);
+    }
+  }
 }
 
 function red(root: string, repo: string, cfg: LanesConfig | undefined, pr: any, reasons: string[], report: CheckReport | undefined, comment: (s: any, r?: CheckReport, why?: string) => void) {

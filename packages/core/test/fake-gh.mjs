@@ -124,6 +124,8 @@ if (rest[0] === "pulls") {
   }
   if (rest[2] === "merge") {
     if (i.state !== "open") reply(405, { message: "Pull Request is not mergeable" });
+    // like GitHub right after a push: mergeability isn't computed yet
+    if (s.mergeNotReady > 0) { s.mergeNotReady--; done(405, { message: "Pull Request is not mergeable" }); }
     const head = headSha(i.pr.head);
     if (input.sha && input.sha !== head) reply(409, { message: "Head branch was modified" });
     const ok = s.statuses.some((st) => st.sha === head && st.context === "lanes/check" && st.state === "success");

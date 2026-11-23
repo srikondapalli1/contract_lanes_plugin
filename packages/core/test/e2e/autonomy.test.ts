@@ -178,9 +178,11 @@ describe("autonomy loop (M2 acceptance)", () => {
     };
     const mine = open("you-world-crowd", { "apps/world/src/a.ts": "export const a = 1;\n", "apps/crowd/src/b.ts": "export const b = 1;\n" });
     const theirs = open("you-into-brain", { "apps/world/src/c.ts": "export const c = 1;\n", "apps/brain/src/d.ts": "export const d = 1;\n" });
-    const q = lanes(ciClone(gh.remote), ["queue"], gh.env);
+    const s0 = gh.read(); s0.mergeNotReady = 2; writeFileSync(gh.state, JSON.stringify(s0)); // GitHub still computing mergeability
+    const q = lanes(ciClone(gh.remote), ["queue"], { ...gh.env, LANES_MERGE_RETRY_MS: "10" });
     const st = gh.read();
     expect(st.issues[mine].merged_at, q.stdout).toBeTruthy();
+    expect(q.stdout + q.stderr).toContain("not mergeable yet (attempt 2/5)");
     expect(st.issues[theirs].merged_at).toBeFalsy();
     expect(JSON.stringify(st.comments[theirs])).toContain('touches lane \\"brain\\"');
   });

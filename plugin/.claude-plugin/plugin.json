@@ -1,6 +1,6 @@
 {
   "name": "lanes",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Contract-first parallel development: lanes own folders, talk through zod contracts, and hooks enforce boundaries while agents work.",
   "author": { "name": "srikondapalli1" },
   "homepage": "https://github.com/srikondapalli1/contract_lanes_plugin",

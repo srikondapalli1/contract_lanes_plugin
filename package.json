@@ -1,6 +1,6 @@
 {
   "name": "contract-lanes",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "type": "module",
   "devDependencies": {
     "@types/node": "^22.20.5",
