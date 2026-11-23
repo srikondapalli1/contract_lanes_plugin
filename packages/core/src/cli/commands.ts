@@ -68,9 +68,11 @@ export async function init(cwd: string, o: { laptops?: number; sessions?: number
   const pkgFile = join(root, "package.json");
   const pkg = readJson(pkgFile) ?? { name: basename(root).toLowerCase().replace(/[^a-z0-9-]/g, "-"), private: true, type: "module" };
   pkg.scripts = { check: "lanes check", ...pkg.scripts };
-  // the npm release when it exists, else the GitHub repo (the package root ships the built bundle)
-  const onNpm = /^\d+\.\d+\.\d+/.test(run("npm", ["view", "contract-lanes", "version"], { cwd: root, timeout: 8000 }).stdout.trim());
-  const spec = o.pkg ?? process.env.LANES_PKG ?? (onNpm ? `^${VERSION_STR}` : "github:srikondapalli1/contract_lanes_plugin");
+  // this version from npm; the GitHub repo (whose root ships the built bundle) only when npm says this version
+  // isn't published. If the lookup itself fails (offline, slow, a proxy), npm stays the default.
+  const probe = run("npm", ["view", `contract-lanes@${VERSION_STR}`, "version"], { cwd: root, timeout: 15000 });
+  const unpublished = (probe.code === 0 && !probe.stdout.trim()) || /E404/.test(probe.stdout + probe.stderr);
+  const spec = o.pkg ?? process.env.LANES_PKG ?? (unpublished ? "github:srikondapalli1/contract_lanes_plugin" : `^${VERSION_STR}`);
   // vitest 5 takes vite as a required peer; yarn 1 doesn't install peers, so add it when init picks the vitest version.
   // Anything the project already lists (in either section) is left as it is.
   const has = (n: string) => Boolean(pkg.dependencies?.[n] ?? pkg.devDependencies?.[n]);

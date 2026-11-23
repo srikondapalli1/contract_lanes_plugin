@@ -6,7 +6,7 @@
 // and allows an in-lane one → graph data → doctor. The project folder name has a space in it on purpose. Runs on Linux,
 // macOS and Windows; CI runs it in .github/workflows/compat.yml.
 import { spawnSync } from "node:child_process";
-import { copyFileSync, existsSync, mkdirSync, mkdtempSync, writeFileSync } from "node:fs";
+import { copyFileSync, existsSync, mkdirSync, mkdtempSync, readFileSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 
@@ -55,6 +55,8 @@ if (pm === "yarn4") writeFileSync(join(dir, ".yarnrc.yml"), `nodeLinker: ${linke
 const initArgs = isFile ? ["--yes", "--package", spec, "lanes", "init", "--yes", "--owner", "smoke", "--pkg", `file:${spec}`]
   : ["--yes", spec, "init", "--yes", "--owner", "smoke"];
 if (!step("init", run("npx", initArgs), (r) => r.code === 0 && existsSync(join(dir, "lanes.yaml")))) process.exit(1);
+const written = JSON.parse(readFileSync(join(dir, "package.json"), "utf8")).devDependencies?.["contract-lanes"] ?? "";
+step(`init writes the ${isFile ? "tarball" : "npm"} spec (${written})`, { code: 0, out: written, ms: 0 }, () => (isFile ? written.startsWith("file:") : written.startsWith("^")));
 
 // 2. install with the package manager under test
 const install = { npm: ["npm", ["install", "--no-audit", "--no-fund"]], pnpm: ["pnpm", ["install"]], yarn: ["yarn", ["install", "--non-interactive"]], yarn4: ["corepack", ["yarn", "install"]], bun: ["bun", ["install"]] }[pm];

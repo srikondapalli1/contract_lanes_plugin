@@ -4,8 +4,13 @@ import { dirname, join, resolve } from "node:path";
 
 export interface Run { code: number; stdout: string; stderr: string }
 
+// On Windows these are .cmd shims, which Node only starts through a shell (so their arguments get quoted)
+const SHIMS = new Set(["npm", "npx", "pnpm", "yarn", "corepack"]);
+const winQuote = (a: string) => (/^[\w@./:=^~-]+$/.test(a) ? a : `"${a.replace(/"/g, '""')}"`);
+
 export function run(cmd: string, args: string[], opts: { cwd?: string; input?: string; env?: NodeJS.ProcessEnv; timeout?: number } = {}): Run {
-  const r = spawnSync(cmd, args, { cwd: opts.cwd, input: opts.input, env: opts.env ?? process.env, encoding: "utf8", maxBuffer: 64 << 20, timeout: opts.timeout });
+  const shell = process.platform === "win32" && SHIMS.has(cmd);
+  const r = spawnSync(cmd, shell ? args.map(winQuote) : args, { cwd: opts.cwd, input: opts.input, env: opts.env ?? process.env, encoding: "utf8", maxBuffer: 64 << 20, timeout: opts.timeout, shell });
   return { code: r.status ?? (r.error ? 127 : 1), stdout: r.stdout ?? "", stderr: (r.stderr ?? "") + (r.error ? String(r.error) : "") };
 }
 
