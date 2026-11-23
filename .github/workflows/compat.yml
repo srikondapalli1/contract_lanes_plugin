@@ -1,0 +1,59 @@
+# Install smoke test (scripts/smoke.mjs) on every OS, Node version and package manager Lanes supports: init, install,
+# check green, a bad fixture goes red, the guard blocks a cross-lane edit, graph, doctor. By default it packs this
+# commit; pass a spec (e.g. contract-lanes@0.1.1) to test a published version. Weekly, to catch breakage from new
+# vitest, vite or zod releases that `init`'s ranges pick up.
+name: compat
+on:
+  workflow_dispatch:
+    inputs:
+      spec:
+        description: "Package to test (empty = pack this commit), e.g. contract-lanes@latest"
+        required: false
+        default: ""
+  schedule:
+    - cron: "17 6 * * 1"
+permissions:
+  contents: read
+jobs:
+  smoke:
+    name: ${{ matrix.os }} · node ${{ matrix.node }} · ${{ matrix.pm }}${{ matrix.linker && format(' ({0})', matrix.linker) || '' }}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        node: [20, 22, 24]
+        pm: [npm]
+        include:
+          - { os: ubuntu-latest, node: 22, pm: pnpm }
+          - { os: macos-latest, node: 22, pm: pnpm }
+          - { os: windows-latest, node: 22, pm: pnpm }
+          - { os: ubuntu-latest, node: 22, pm: yarn }
+          - { os: macos-latest, node: 22, pm: yarn }
+          - { os: windows-latest, node: 22, pm: yarn }
+          - { os: ubuntu-latest, node: 22, pm: yarn4, linker: pnp }
+          - { os: windows-latest, node: 22, pm: yarn4, linker: node-modules }
+          - { os: ubuntu-latest, node: 22, pm: bun }
+          - { os: macos-latest, node: 22, pm: bun }
+          - { os: windows-latest, node: 22, pm: bun }
+          - { os: ubuntu-latest, node: 22, pm: npm, type: commonjs }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: "${{ matrix.node }}" }
+      - if: matrix.pm == 'pnpm'
+        uses: pnpm/action-setup@v4
+      - if: matrix.pm == 'bun'
+        uses: oven-sh/setup-bun@v2
+      - if: matrix.pm == 'yarn'
+        run: npm install -g yarn@1
+      - name: package under test
+        id: pkg
+        shell: bash
+        run: |
+          if [ -n "${{ inputs.spec }}" ]; then echo "spec=${{ inputs.spec }}" >> "$GITHUB_OUTPUT"; exit 0; fi
+          tgz=$(npm pack --silent --pack-destination "$RUNNER_TEMP" | tail -1)
+          echo "spec=$RUNNER_TEMP/$tgz" >> "$GITHUB_OUTPUT"
+      - name: smoke
+        run: node scripts/smoke.mjs --pm ${{ matrix.pm }} --linker ${{ matrix.linker || 'pnp' }} --type ${{ matrix.type || 'module' }} --spec "${{ steps.pkg.outputs.spec }}"

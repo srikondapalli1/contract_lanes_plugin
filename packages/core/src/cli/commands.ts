@@ -71,7 +71,11 @@ export async function init(cwd: string, o: { laptops?: number; sessions?: number
   // the npm release when it exists, else the GitHub repo (the package root ships the built bundle)
   const onNpm = /^\d+\.\d+\.\d+/.test(run("npm", ["view", "contract-lanes", "version"], { cwd: root, timeout: 8000 }).stdout.trim());
   const spec = o.pkg ?? process.env.LANES_PKG ?? (onNpm ? `^${VERSION_STR}` : "github:srikondapalli1/contract_lanes_plugin");
-  pkg.devDependencies = { "contract-lanes": spec, vitest: "^5.1.0", zod: "^4.1.0", ...pkg.devDependencies };
+  // vitest 5 takes vite as a required peer; yarn 1 doesn't install peers, so add it when init picks the vitest version.
+  // Anything the project already lists (in either section) is left as it is.
+  const has = (n: string) => Boolean(pkg.dependencies?.[n] ?? pkg.devDependencies?.[n]);
+  const wanted: Record<string, string> = { "contract-lanes": spec, zod: "^4.1.0", ...(has("vitest") ? {} : { vitest: "^5.1.0", vite: "^6.4.0 || ^7.0.0 || ^8.0.0" }) };
+  pkg.devDependencies = { ...Object.fromEntries(Object.entries(wanted).filter(([n]) => !has(n))), ...pkg.devDependencies };
   writeJson(pkgFile, pkg);
   created.push("package.json");
   const gi = join(root, ".gitignore");
@@ -84,7 +88,10 @@ export async function init(cwd: string, o: { laptops?: number; sessions?: number
   const loaded = loadConfig(root);
   writeCodeowners(root, loaded.cfg!);
   installGitHooks(root);
-  return { root, created, owner, warnings: loaded.warnings };
+  const zodRange = pkg.dependencies?.zod ?? pkg.devDependencies?.zod;
+  const zodMajor = Number(/(\d+)/.exec(String(zodRange))?.[1]);
+  const warnings = [...loaded.warnings, ...(zodMajor < 4 ? [`this project uses zod ${zodRange}; Lanes contracts need zod 4. Upgrade it first: npm i zod@^4.1.0 (most zod 3 code keeps working)`] : [])];
+  return { root, created, owner, warnings };
 }
 
 /** lanes.yaml in the SPEC's layout: one flow-style line per lane/contract (JSON is valid YAML flow). */
@@ -193,9 +200,15 @@ export async function doctor(cwd: string) {
     pv && !satisfies(pv, cfg.lanes_version) ? fail(`plugin ${pv} does not satisfy ${cfg.lanes_version}`, "/plugin update lanes") : ok(`plugin ${pv ?? "?"}`);
   }
   const req = createRequire(join(root, "package.json"));
+  const version = (dep: string): string | undefined => { try { return req(req.resolve(`${dep}/package.json`)).version; } catch { return undefined; } };
   for (const dep of ["vitest", "zod", "contract-lanes"]) {
-    try { ok(`${dep} ${req(req.resolve(`${dep}/package.json`)).version}`); } catch { fail(`${dep} is not installed`, "npm i -D vitest zod contract-lanes (or pnpm add -D …)"); }
+    const v = version(dep);
+    if (!v) fail(`${dep} is not installed`, "npm i -D vitest zod contract-lanes (or pnpm add -D …)");
+    else if (dep === "zod" && Number(v.split(".")[0]) < 4) fail(`zod ${v} is installed; Lanes contracts need zod 4`, "npm i zod@^4.1.0 (most zod 3 code keeps working)");
+    else ok(`${dep} ${v}`);
   }
+  // vitest 5 takes vite as a required peer, which yarn 1 doesn't install
+  if (Number(version("vitest")?.split(".")[0]) >= 5 && !version("vite")) fail("vite is not installed (vitest 5 needs it)", "npm i -D vite (or yarn add -D vite)");
   const vc = ["vitest.config.ts", "vitest.config.mts", "vitest.config.js", "vitest.config.mjs"].find((f) => existsSync(join(root, f)));
   if (vc && !readFileSync(join(root, vc), "utf8").includes("contract-lanes")) warn(`${vc} does not inline contract-lanes`, `add test.server.deps.inline: ["contract-lanes"] so schemaOf()/arbitraryOf() work under plain vitest`);
   const hooks = git(root, "rev-parse", "--git-path", "hooks/pre-commit");
