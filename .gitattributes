@@ -1,0 +1,10 @@
+# Check out with LF everywhere, Windows included: the published `lanes` bin starts with `#!/usr/bin/env node`,
+# and a CRLF there breaks it on macOS and Linux.
+* text=auto eol=lf
+*.png binary
+*.jpg binary
+*.mp4 binary
+*.woff2 binary
+*.woff binary
+*.ttf binary
+*.ico binary
